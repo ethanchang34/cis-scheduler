@@ -1,23 +1,24 @@
 Big Data:
-Array of Plans[]
-Array of Courses[]
-Array of Requirements[]
+plans: Plan[],
+originalCourses: Course[],
+workingCourses: Course[],
+requirement: Requirement
 
 Requirements:
 RequiredCourses: Course[],
-NumberOfTechs: int,
-NumberOfBreadths: int
+nTechs: number,
+nBreadths: number
 
 Plan:
-Title: String
-Description: String
-Years: Year[]
+title: String
+description: String
+years: Year[]
 
 Year:
-Semesters: Semester[4]
+semesters: Semester[4]
 
 Semester:
-Courses: \*Course[]
+courses: \*Course[]
 
 Course:
 department: String
