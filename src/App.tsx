@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import "./App.css";
-import { LandingPage } from "./LandingPage";
-import { CourseSearch } from "./CourseSearch";
-import { PlansList } from "./PlansList";
-import { NavBar } from "./NavBar";
+import { LandingPage } from "./components/LandingPage";
+import { CourseSearch } from "./components/CourseSearch";
+import { PlansList } from "./components/PlansList";
+import { NavBar } from "./components/NavBar";
+import { Plan } from "./interfaces/Plan";
 
 // const originalCourses: Course[] = [];
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] =
     //     useState<Course[]>(originalCourses);
-    // const [plans, setPlans] = useState<Plan[]>([]);
+    const [plans, setPlans] = useState<Plan[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
 
@@ -36,7 +37,6 @@ function App(): JSX.Element {
                 )}
                 <div style={{ display: !landing ? "block" : "none" }}>
                     {/*I only set this component to display none because I want it to remain the same after switching to and from course search. */}
-                    <PlansList></PlansList>
                 </div>
             </div>
             <div style={{ display: search ? "block" : "none" }}>
