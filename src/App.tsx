@@ -30,9 +30,9 @@ function App(): JSX.Element {
                 {search ? "Back" : "Search Courses"}
             </Button>
             <div style={{ display: !search ? "block" : "none" }}>
-                <div style={{ display: landing ? "block" : "none" }}>
+                {landing && (
                     <LandingPage flipLanding={flipLanding}></LandingPage>
-                </div>
+                )}
                 <div style={{ display: !landing ? "block" : "none" }}>
                     <PlansView flipLanding={flipLanding}></PlansView>
                 </div>

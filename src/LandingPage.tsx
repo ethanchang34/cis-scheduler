@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import "./App.css";
+import "./LandingPage.css";
 
 export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
     return (
