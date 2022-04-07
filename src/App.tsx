@@ -5,7 +5,7 @@ import { CourseSearch } from "./CourseSearch";
 import { Course } from "./interfaces/Course";
 import { Plan } from "./interfaces/Plan";
 import { Button } from "react-bootstrap";
-import { PlansView } from "./PlansView";
+import { PlansList } from "./PlansList";
 import { NavBar } from "./NavBar";
 
 const originalCourses: Course[] = [];
@@ -38,8 +38,8 @@ function App(): JSX.Element {
                     <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
                 )}
                 <div style={{ display: !landing ? "block" : "none" }}>
-                    {/*I only set this component to display none because I it to remain the same after switching to and from course search. */}
-                    <PlansView></PlansView>
+                    {/*I only set this component to display none because I want it to remain the same after switching to and from course search. */}
+                    <PlansList></PlansList>
                 </div>
             </div>
             <div style={{ display: search ? "block" : "none" }}>

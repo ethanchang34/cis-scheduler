@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./App.css";
 
-export const PlansView = () => {
+export const PlansList = () => {
     return (
         <div>
             <p>You are on the PlansView Page</p>
