@@ -6,6 +6,7 @@ import { Course } from "./interfaces/Course";
 import { Plan } from "./interfaces/Plan";
 import { Button } from "react-bootstrap";
 import { PlansView } from "./PlansView";
+import { NavBar } from "./NavBar";
 
 const originalCourses: Course[] = [];
 
@@ -20,21 +21,25 @@ function App(): JSX.Element {
         setLanding(!landing);
     };
 
+    const flipSearch = () => {
+        setSearch(!search);
+    };
+
     return (
         <div className="App">
-            <Button
-                onClick={() => {
-                    setSearch(!search);
-                }}
-            >
-                {search ? "Back" : "Search Courses"}
-            </Button>
+            <NavBar
+                landing={landing}
+                flipLanding={flipLanding}
+                search={search}
+                flipSearch={flipSearch}
+            ></NavBar>
             <div style={{ display: !search ? "block" : "none" }}>
                 {landing && (
-                    <LandingPage flipLanding={flipLanding}></LandingPage>
+                    <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
                 )}
                 <div style={{ display: !landing ? "block" : "none" }}>
-                    <PlansView flipLanding={flipLanding}></PlansView>
+                    {/*I only set this component to display none because I it to remain the same after switching to and from course search. */}
+                    <PlansView></PlansView>
                 </div>
             </div>
             <div style={{ display: search ? "block" : "none" }}>
