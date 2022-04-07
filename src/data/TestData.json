@@ -1,0 +1,176 @@
+{
+    "plans": [
+        {
+            "id": 0,
+            "title": "Default Plan",
+            "description": "Default Plan for CISC Majors",
+            "years": [
+                {
+                    "semesters": [[0, 1], [], [2, 3], []]
+                },
+                {
+                    "semesters": [[4, 5], [], [6, 7], []]
+                },
+                {
+                    "semesters": [[8, 9], [], [10, 11], []]
+                },
+                {
+                    "semesters": [[12, 13], [], [14, 15], []]
+                }
+            ]
+        }
+    ],
+    "originalCourses": [
+        {
+            "guid": 0,
+            "department": "CISC",
+            "id": 100,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 1,
+            "department": "CISC",
+            "id": 101,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 2,
+            "department": "CISC",
+            "id": 102,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 3,
+            "department": "CISC",
+            "id": 103,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 4,
+            "department": "CISC",
+            "id": 200,
+            "tech": true,
+            "breadth": false,
+            "preReq": [0],
+            "credits": 3
+        },
+        {
+            "guid": 5,
+            "department": "CISC",
+            "id": 201,
+            "tech": false,
+            "breadth": true,
+            "preReq": [1],
+            "credits": 3
+        },
+        {
+            "guid": 6,
+            "department": "CISC",
+            "id": 202,
+            "tech": false,
+            "breadth": false,
+            "preReq": [2],
+            "credits": 3
+        },
+        {
+            "guid": 7,
+            "department": "CISC",
+            "id": 203,
+            "tech": false,
+            "breadth": false,
+            "preReq": [3],
+            "credits": 3
+        },
+        {
+            "guid": 8,
+            "department": "CISC",
+            "id": 300,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 9,
+            "department": "CISC",
+            "id": 301,
+            "tech": true,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 10,
+            "department": "CISC",
+            "id": 302,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 11,
+            "department": "CISC",
+            "id": 303,
+            "tech": false,
+            "breadth": true,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 12,
+            "department": "CISC",
+            "id": 400,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 13,
+            "department": "CISC",
+            "id": 401,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 14,
+            "department": "CISC",
+            "id": 402,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        },
+        {
+            "guid": 15,
+            "department": "CISC",
+            "id": 403,
+            "tech": false,
+            "breadth": false,
+            "preReq": [],
+            "credits": 3
+        }
+    ],
+    "requirement": {
+        "requiredCourses": [
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        ],
+        "nTechs": 2,
+        "nBreadths": 2
+    }
+}
