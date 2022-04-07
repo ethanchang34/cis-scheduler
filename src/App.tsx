@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import "./App.css";
 import { LandingPage } from "./LandingPage";
 import { CourseSearch } from "./CourseSearch";
-import { Course } from "./interfaces/Course";
-import { Plan } from "./interfaces/Plan";
-import { Button } from "react-bootstrap";
 import { PlansList } from "./PlansList";
 import { NavBar } from "./NavBar";
 
-const originalCourses: Course[] = [];
+// const originalCourses: Course[] = [];
 
 function App(): JSX.Element {
-    const [modifiedCourses, setModifiedCourses] =
-        useState<Course[]>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>([]);
+    // const [modifiedCourses, setModifiedCourses] =
+    //     useState<Course[]>(originalCourses);
+    // const [plans, setPlans] = useState<Plan[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
 
