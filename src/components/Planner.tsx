@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import "./App.css";
+import "../App.css";
 import { Plan } from "../interfaces/Plan";
 import { PlansList } from "./PlansList";
 

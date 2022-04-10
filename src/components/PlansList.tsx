@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Stack } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
-import "./App.css";
+import "../App.css";
 import { Plan } from "../interfaces/Plan";
 
 export const PlansList = ({
