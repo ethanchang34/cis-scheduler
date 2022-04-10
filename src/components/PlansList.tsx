@@ -6,10 +6,12 @@ import { Plan } from "../interfaces/Plan";
 
 export const PlansList = ({
     plans,
+    addPlan,
     deletePlan,
     editPlan
 }: {
     plans: Plan[];
+    addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {
