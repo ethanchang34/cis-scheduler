@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
-import { PlansList } from "./PlansList";
+import { PlanList } from "./PlanList";
 
 export const Planner = ({
     plans,
@@ -19,12 +19,12 @@ export const Planner = ({
         <div>
             <p>You are on the Planner Page</p>
             <Button onClick={addPlan}>+ Add Plan</Button>
-            <PlansList
+            <PlanList
                 plans={plans}
                 addPlan={addPlan}
                 editPlan={editPlan}
                 deletePlan={deletePlan}
-            ></PlansList>
+            ></PlanList>
             {/**<div>{plans.map((plan: Plan): string => plan.title)}</div>*/}
         </div>
     );

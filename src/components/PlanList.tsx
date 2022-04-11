@@ -4,7 +4,7 @@ import { Stack } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
 
-export const PlansList = ({
+export const PlanList = ({
     plans,
     addPlan,
     deletePlan,
