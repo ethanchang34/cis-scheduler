@@ -2,25 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
 
+const Hero = styled.section`
+    background-color: var(--primary-color);
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    color: var(--secondary-color);
+`;
+
+const Title = styled.h1`
+    font-size: 3em;
+    text-align: center;
+`;
+
+const SubTitle = styled.h3`
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 2.5rem;
+`;
+
 export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
-    const Hero = styled.section`
-        background-color: var(--primary-color);
-        padding-top: 15vh;
-        padding-bottom: 15vh;
-        color: var(--secondary-color);
-    `;
-
-    const Title = styled.h1`
-        font-size: 3em;
-        text-align: center;
-    `;
-
-    const SubTitle = styled.h3`
-        font-size: 1.5rem;
-        text-align: center;
-        line-height: 2.5rem;
-    `;
-
     return (
         <div>
             <Hero>
