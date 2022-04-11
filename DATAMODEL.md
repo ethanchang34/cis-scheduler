@@ -5,11 +5,12 @@ workingCourses: Course[],
 requirement: Requirement
 
 Requirements:
-RequiredCourses: Course[],
+RequiredCourses: int[],
 nTechs: number,
 nBreadths: number
 
 Plan:
+id: number
 title: String
 description: String
 years: Year[]
@@ -18,12 +19,13 @@ Year:
 semesters: Semester[4]
 
 Semester:
-courses: \*Course[]
+courses: int[]
 
 Course:
+guid: number
 department: String
 id: number
 tech: boolean
 breadth: boolean
-preReq: \*Course[]
+preReq: int[]
 credits: number
