@@ -16,12 +16,6 @@ export const PlanList = ({
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {
-    const [editing, setEditing] = useState<boolean>(false);
-
-    function changeEditing() {
-        setEditing(!editing);
-    }
-
     return (
         <div>
             <Stack gap={3}>
