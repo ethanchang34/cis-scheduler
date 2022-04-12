@@ -3,6 +3,7 @@ import { Stack } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
+import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
@@ -23,13 +24,15 @@ export const PlanList = ({
 
     return (
         <div>
-            <p>You are on the PlansList Page</p>
             <Stack gap={3}>
                 {plans.map((plan: Plan) => (
                     <div key={plan.id} className="bg-light border m-2 p-2">
-                        <p>Id: {plan.id}</p>
-                        <p>Title: {plan.title}</p>
-                        <p>Description: {plan.description}</p>
+                        <PlanView
+                            plan={plan}
+                            addPlan={addPlan}
+                            deletePlan={deletePlan}
+                            editPlan={editPlan}
+                        ></PlanView>
                     </div>
                 ))}
             </Stack>
