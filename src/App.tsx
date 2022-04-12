@@ -5,7 +5,7 @@ import { CourseSearch } from "./components/CourseSearch";
 import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Planner } from "./components/Planner";
-import TestData from "./data/TestData.json";
+//import TestData from "./data/TestData.json";
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] =
