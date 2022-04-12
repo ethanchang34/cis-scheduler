@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/CourseSearch";
-//import { PlansList } from "./components/PlansList";
 import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Planner } from "./components/Planner";
-
-// const originalCourses: Course[] = [];
+import TestData from "./data/TestData.json";
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] =
@@ -21,7 +19,7 @@ function App(): JSX.Element {
             id: plans.length,
             title: "New Plan",
             description: "Add description",
-            Years: []
+            years: []
         };
         setPlans([...plans, newPlan]);
     };
