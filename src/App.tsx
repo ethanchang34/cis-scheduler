@@ -15,6 +15,7 @@ function App(): JSX.Element {
     const [plans, setPlans] = useState<Plan[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
+    const [pageName, setPageName] = useState<number>(0); // set this value to whatever the navbar needs to display.
 
     const addPlan = () => {
         const newPlan: Plan = {
@@ -38,10 +39,12 @@ function App(): JSX.Element {
 
     const flipLanding = () => {
         setLanding(!landing);
+        // setSearch(false);
     };
 
     const flipSearch = () => {
         setSearch(!search);
+        // setLanding(false);
     };
 
     return (
