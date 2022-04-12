@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React /*, { useState }*/ from "react";
 import { Stack } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
 import "../App.css";
@@ -16,11 +16,11 @@ export const PlanList = ({
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {
-    const [editing, setEditing] = useState<boolean>(false);
+    //const [editing, setEditing] = useState<boolean>(false);
 
-    function changeEditing() {
+    /*function changeEditing() {
         setEditing(!editing);
-    }
+    }*/
 
     return (
         <div>
