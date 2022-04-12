@@ -5,7 +5,7 @@ import { PlanEdit } from "./PlanEdit";
 
 export const PlanView = ({
     plan,
-    addPlan,
+    //addPlan,
     deletePlan,
     editPlan
 }: {
