@@ -8,12 +8,10 @@ import { SemesterView } from "./SemesterView";
 
 export const PlanView = ({
     plan,
-    //addPlan,
     deletePlan,
     editPlan
 }: {
     plan: Plan;
-    addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {

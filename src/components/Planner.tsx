@@ -21,7 +21,6 @@ export const Planner = ({
             <Button onClick={addPlan}>+ Add Plan</Button>
             <PlanList
                 plans={plans}
-                addPlan={addPlan}
                 editPlan={editPlan}
                 deletePlan={deletePlan}
             ></PlanList>

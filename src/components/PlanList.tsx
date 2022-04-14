@@ -7,12 +7,10 @@ import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
-    addPlan,
     deletePlan,
     editPlan
 }: {
     plans: Plan[];
-    addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {
