@@ -8,7 +8,7 @@ import { SemesterView } from "./SemesterView";
 
 export const PlanView = ({
     plan,
-    addPlan,
+    //addPlan,
     deletePlan,
     editPlan
 }: {
