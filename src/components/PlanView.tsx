@@ -36,13 +36,10 @@ export const PlanView = ({
             <p>Title: {plan.title}</p>
             <p>Description: {plan.description}</p>
             {plan.years.map((year: Year) => (
-                <div
-                    key={plan.years.indexOf(year)}
-                    className="bg-light border m-2 p-2"
-                >
+                <div key={year.id} className="bg-light border m-2 p-2">
                     {year.semesters.map((semester: Semester) => (
                         <div
-                            key={year.semesters.indexOf(semester)}
+                            key={semester.id}
                             className="bg-light border m-2 p-2"
                         >
                             <SemesterView semester={semester}></SemesterView>
@@ -50,6 +47,7 @@ export const PlanView = ({
                     ))}
                 </div>
             ))}
+            <Button onClick={addSemester}>+ Add Semester</Button>
             <Button className="float-right" size="sm" onClick={changeEditing}>
                 Edit
             </Button>
