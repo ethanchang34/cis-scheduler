@@ -18,13 +18,13 @@ export const Planner = ({
     return (
         <div>
             <p>You are on the Planner Page</p>
-            <Button onClick={addPlan}>+ Add Plan</Button>
             <PlanList
                 plans={plans}
                 addPlan={addPlan}
                 editPlan={editPlan}
                 deletePlan={deletePlan}
             ></PlanList>
+            <Button onClick={addPlan}>+ Add Plan</Button>
             {/**<div>{plans.map((plan: Plan): string => plan.title)}</div>*/}
         </div>
     );
