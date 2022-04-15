@@ -7,7 +7,7 @@ import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
-import TestData from "./data/TestData.json";
+import { TestData } from "./data/TestData";
 
 interface ActiveCourse {
     code: string;
@@ -88,6 +88,17 @@ Object.entries(intialCourses).forEach(
         );
     }
 );
+
+// Below I measure performance of selecting from the courses, takes around 10 milliseconds
+
+// const startTime = performance.now();
+// console.log(
+//     Object.values(originalCourses).filter(
+//         (course: Course) => course.subjectArea == "CISC"
+//     )
+// );
+// const endTime = performance.now();
+// console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
