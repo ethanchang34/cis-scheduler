@@ -7,7 +7,7 @@ import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
-import { TestData } from "./data/TestData";
+import { DefaultPlans, DefaultRequirement, Catalog } from "./data/TestData";
 
 interface ActiveCourse {
     code: string;
@@ -20,10 +20,7 @@ interface ActiveCourse {
     typ: string;
 }
 
-const intialCourses: Record<
-    string,
-    Record<string, ActiveCourse>
-> = TestData.originalCourses;
+const intialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 
 const originalCourses: Record<string, Course> = {};
 
@@ -102,7 +99,7 @@ Object.entries(intialCourses).forEach(
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>([]);
+    const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<number>(0); // set this value to whatever the navbar needs to display.
@@ -112,7 +109,7 @@ function App(): JSX.Element {
             id: plans.length,
             title: "New Plan",
             description: "Add description",
-            Years: []
+            years: []
         };
         setPlans([...plans, newPlan]);
     };

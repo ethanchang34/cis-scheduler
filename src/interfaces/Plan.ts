@@ -4,5 +4,5 @@ export interface Plan {
     id: number;
     title: string;
     description: string;
-    Years: Year[];
+    years: Year[];
 }
