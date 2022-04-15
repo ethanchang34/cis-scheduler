@@ -21,7 +21,6 @@ export const PlanList = ({
                     <div key={plan.id} className="bg-light border m-2 p-2">
                         <PlanView
                             plan={plan}
-                            addPlan={addPlan}
                             deletePlan={deletePlan}
                             editPlan={editPlan}
                         ></PlanView>
