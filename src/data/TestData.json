@@ -1192,8 +1192,11 @@
         }
     },
     "requirement": {
-        "requiredCourses": ["CISC 101", "CISC103", "CISC 181", "CISC 210"],
-        "nTechs": 2,
-        "nBreadths": 2
+        "courses": ["CISC 101", "CISC103", "CISC 181", "CISC 210"],
+        "tech": 6,
+        "creative": 3,
+        "history": 3,
+        "social": 3,
+        "math": 3
     }
 }
