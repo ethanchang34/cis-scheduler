@@ -38,9 +38,9 @@ export const PlanView = ({
                             ? 0
                             : plan.years[plan.years.length - 1].id + 1,
                     semesters: [
-                        { id: 0, active: false, courses: [] },
+                        { id: 0, active: true, courses: [] },
                         { id: 1, active: false, courses: [] },
-                        { id: 2, active: false, courses: [] },
+                        { id: 2, active: true, courses: [] },
                         { id: 3, active: false, courses: [] }
                     ]
                 }
