@@ -44,6 +44,16 @@ export const YearView = ({
         });
     }
 
+    function editSemester(id: number, newSemester: Semester) {
+        editYear(year.id, {
+            ...year,
+            semesters: year.semesters.map(
+                (semester: Semester): Semester =>
+                    semester.id === id ? newSemester : semester
+            )
+        });
+    }
+
     return (
         <div>
             <p>Year ID: {year.id}</p>
@@ -51,6 +61,7 @@ export const YearView = ({
                 semesters={year.semesters}
                 addSemester={addSemester}
                 deleteSemester={deleteSemester}
+                editSemester={editSemester}
             ></SemesterList>
             <Form.Group controlId="addSemester">
                 <Form.Label>Add Semester</Form.Label>

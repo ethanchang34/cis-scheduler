@@ -6,11 +6,13 @@ import { SemesterView } from "./SemesterView";
 export const SemesterList = ({
     semesters,
     addSemester,
-    deleteSemester
+    deleteSemester,
+    editSemester
 }: {
     semesters: Semester[];
     addSemester: (event: React.ChangeEvent<HTMLSelectElement>) => void; //we aren't actually 'adding', we're switching the Semester's 'active'(boolean) param to false or true
     deleteSemester: (id: number) => void;
+    editSemester: (id: number, newSemester: Semester) => void;
 }) => {
     return (
         <div>
@@ -25,6 +27,7 @@ export const SemesterList = ({
                                 semester={semester}
                                 addSemester={addSemester}
                                 deleteSemester={deleteSemester}
+                                editSemester={editSemester}
                             ></SemesterView>
                         </div>
                     ) : (

@@ -28,32 +28,3 @@ export const YearList = ({
         </div>
     );
 };
-{
-    /**
- * <Stack gap={3}>
-            {years.map((year: Year) => (
-                <div key={year.id} className="bg-light border m-2 p-2">
-                    <p>Year ID: {year.id}</p>
-                    <SemesterList
-                        semesters: year.semester
-                    ></SemesterList>
-                    {semesters.map((semester: Semester) => (
-                    <div
-                        key={semester.id}
-                        className="bg-light border m-2 p-2"
-                    >
-                        <p>hi</p>
-                        <SemesterView
-                            semester={semester}
-                            addSemester={addSemester}
-                            editSemester={editSemester}
-                            deleteSemester={deleteSemester}
-                        ></SemesterView>
-                    </div>
-                ))}
-                </div>
-            ))}
-        </Stack>
-        <Button onClick={addYear}>+ Add Year</Button>
- */
-}

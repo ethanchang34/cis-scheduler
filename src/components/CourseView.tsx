@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 
-export const CourseView = ({ course }: { course: Course }) => {
+export const CourseView = ({
+    course,
+    deleteCourse,
+    editCourse
+}: {
+    course: Course;
+    deleteCourse: (code: string) => void;
+    editCourse: (code: string) => void;
+}) => {
     const [editing, setEditing] = useState<boolean>(false);
 
     function changeEditing() {
