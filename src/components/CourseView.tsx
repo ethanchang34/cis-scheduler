@@ -21,10 +21,7 @@ export const CourseView = ({
         <></>
     ) : (
         <div>
-            <p>Department:{course.department}</p>
-            <p>Id:{course.id}</p>
-            <p>Tech?:{course.tech}</p>
-            <p>Breadth?:{course.breadth}</p>
+            <p>Code:{course.code}</p>
             <p>Credits:{course.credits}</p>
         </div>
     );
