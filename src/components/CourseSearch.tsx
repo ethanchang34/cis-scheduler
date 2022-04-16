@@ -58,7 +58,6 @@ export const CourseSearch = ({
     };
 
     const handleSearch = () => {
-        setError("No courses found.");
         let tempDisplayed: Course[] = Object.values(modifiedCourses);
 
         if (subjectArea) {
