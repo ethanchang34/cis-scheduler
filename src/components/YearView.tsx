@@ -54,6 +54,18 @@ export const YearView = ({
         });
     }
 
+    function clearSemesters() {
+        editYear(year.id, {
+            ...year,
+            semesters: year.semesters.map(
+                (semester: Semester): Semester => ({
+                    ...semester,
+                    active: false
+                })
+            )
+        });
+    }
+
     return (
         <div>
             <p>Year ID: {year.id}</p>
@@ -72,6 +84,7 @@ export const YearView = ({
                     <option value="summer">Summer</option>
                 </Form.Select>
             </Form.Group>
+            <Button onClick={clearSemesters}>Clear Semesters</Button>
             <Button onClick={() => deleteYear(year.id)}>- Delete Year</Button>
         </div>
     );
