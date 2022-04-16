@@ -5,37 +5,55 @@ export const DefaultPlans = [
         description: "Default Plan for CISC Majors",
         years: [
             {
+                id: 0,
                 semesters: [
                     {
+                        id: 0,
+                        active: true,
                         courses: ["EGG 101", "CISC 108", "MATH 241", "ENGL 110"]
                     },
-                    { courses: [] },
-                    { courses: ["CISC 181", "CISC 210", "MATH 242"] },
-                    { courses: [] }
+                    { id: 1, active: false, courses: [] },
+                    {
+                        id: 2,
+                        active: true,
+                        courses: ["CISC 181", "CISC 210", "MATH 242"]
+                    },
+                    { id: 3, active: false, courses: [] }
                 ]
             },
             {
+                id: 1,
                 semesters: [
-                    { courses: ["CISC 220", "CISC 260", "MATH 210"] },
-                    { courses: [] },
-                    { courses: ["CISC 355", "CISC 275", "MATH 205"] },
-                    { courses: [] }
+                    {
+                        id: 0,
+                        active: true,
+                        courses: ["CISC 220", "CISC 260", "MATH 210"]
+                    },
+                    { id: 1, active: false, courses: [] },
+                    {
+                        id: 2,
+                        active: true,
+                        courses: ["CISC 355", "CISC 275", "MATH 205"]
+                    },
+                    { id: 3, active: false, courses: [] }
                 ]
             },
             {
+                id: 2,
                 semesters: [
-                    { courses: [] },
-                    { courses: [] },
-                    { courses: [] },
-                    { courses: [] }
+                    { id: 0, active: false, courses: [] },
+                    { id: 1, active: false, courses: [] },
+                    { id: 2, active: false, courses: [] },
+                    { id: 3, active: false, courses: [] }
                 ]
             },
             {
+                id: 3,
                 semesters: [
-                    { courses: [] },
-                    { courses: [] },
-                    { courses: [] },
-                    { courses: [] }
+                    { id: 0, active: false, courses: [] },
+                    { id: 1, active: false, courses: [] },
+                    { id: 2, active: false, courses: [] },
+                    { id: 3, active: false, courses: [] }
                 ]
             }
         ]
