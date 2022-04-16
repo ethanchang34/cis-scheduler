@@ -6,7 +6,7 @@ import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
-import { DefaultPlans, Catalog } from "./data/TestData";
+import { /*DefaultPlans,*/ Catalog } from "./data/TestData";
 
 interface ActiveCourse {
     code: string;
@@ -98,7 +98,7 @@ Object.entries(intialCourses).forEach(
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>({ DefaultPlans });
+    const [plans, setPlans] = useState<Plan[]>([] /*{ DefaultPlans }*/);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<number>(0); // set this value to whatever the navbar needs to display.
