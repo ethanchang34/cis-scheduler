@@ -51,6 +51,13 @@ export const SemesterView = ({
         });
     }
 
+    function clearCourses() {
+        editSemester(semester.id, {
+            ...semester,
+            courses: []
+        });
+    }
+
     return (
         <div>
             <p>{numToSemester[semester.id]}</p>
@@ -67,6 +74,7 @@ export const SemesterView = ({
                 ></div>
             ))}
             <Button onClick={() => addCourse}>+ Add Course</Button>
+            <Button onClick={clearCourses}>Clear Courses</Button>
             <Button onClick={() => deleteSemester(semester.id)}>
                 - Delete Semester
             </Button>
