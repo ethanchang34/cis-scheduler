@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
@@ -71,7 +71,6 @@ export const YearView = ({
             <p>Year ID: {year.id}</p>
             <SemesterList
                 semesters={year.semesters}
-                addSemester={addSemester}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
             ></SemesterList>

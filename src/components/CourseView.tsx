@@ -7,10 +7,11 @@ export const CourseView = ({
     deleteCourse,
     editCourse
 }: {
-    course: Course;
+    course: string;
     deleteCourse: (code: string) => void;
-    editCourse: (code: string, newCourse: Course) => void;
+    editCourse: (code: string, newCourse: string) => void;
 }) => {
+    //Want to insert here a map from the course (string) to the Course (object) using the data file.
     const [editing, setEditing] = useState<boolean>(false);
 
     function changeEditing() {

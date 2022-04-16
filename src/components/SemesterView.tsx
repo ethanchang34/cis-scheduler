@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import React from "react";
+import { Button } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
 import { CourseList } from "./CourseList";
-import { SemesterList } from "./SemesterList";
 
 export const SemesterView = ({
     semester,
-    addSemester,
     deleteSemester,
     editSemester
 }: {
     semester: Semester;
-    addSemester: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
 }) => {
@@ -23,12 +20,12 @@ export const SemesterView = ({
         3: "summer"
     };
 
-    function addCourse(newCourse: Course) {
+    function addCourse(code: string) {
         //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
         //other way is to pass the course.code into this function and then inside the function find the Course from datafile
         editSemester(semester.id, {
             ...semester,
-            courses: [...semester.courses, newCourse]
+            courses: [...semester.courses, code]
         });
     }
 
@@ -36,17 +33,16 @@ export const SemesterView = ({
         editSemester(semester.id, {
             ...semester,
             courses: semester.courses.filter(
-                (course: Course): boolean => course.code !== code
+                (course: string): boolean => course !== code
             )
         });
     }
 
-    function editCourse(code: string, newCourse: Course) {
+    function editCourse(code: string, newCourse: string) {
         editSemester(semester.id, {
             ...semester,
-            courses: semester.courses.map(
-                (course: Course): Course =>
-                    course.code === code ? newCourse : course
+            courses: semester.courses.map((course: string): string =>
+                course === code ? newCourse : course
             )
         });
     }

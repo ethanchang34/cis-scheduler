@@ -98,7 +98,7 @@ Object.entries(intialCourses).forEach(
 
 function App(): JSX.Element {
     // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>({ DefaultPlans });
+    const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<number>(0); // set this value to whatever the navbar needs to display.
