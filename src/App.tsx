@@ -98,8 +98,9 @@ Object.entries(intialCourses).forEach(
 // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
-    const [modifiedCourses, setModifiedCourses] =
-        useState<Record<string, Course>>(originalCourses);
+    // const [modifiedCourses, setModifiedCourses] =
+    //     useState<Record<string, Course>>(originalCourses);
+    const modifiedCourses = originalCourses;
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
@@ -160,7 +161,7 @@ function App(): JSX.Element {
             <div style={{ display: search ? "block" : "none" }}>
                 <CourseSearch
                     modifiedCourses={modifiedCourses}
-                    setModifiedCourses={setModifiedCourses}
+                    // setModifiedCourses={setModifiedCourses}
                 ></CourseSearch>
             </div>
         </div>

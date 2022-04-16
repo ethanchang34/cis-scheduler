@@ -13,7 +13,7 @@ const CourseSection = styled.section`
 const TempCard = styled.section`
     background-color: var(--secondary-color);
     padding: 1rem;
-    border-radius: 300px;
+    border-radius: 30px;
     color: black;
     display: flex;
     flex-direction: column;
@@ -22,11 +22,11 @@ const TempCard = styled.section`
 `;
 
 export const CourseSearch = ({
-    modifiedCourses,
-    setModifiedCourses
-}: {
+    modifiedCourses
+}: // setModifiedCourses
+{
     modifiedCourses: Record<string, Course>;
-    setModifiedCourses: (newCourse: Record<string, Course>) => void;
+    // setModifiedCourses: (newCourse: Record<string, Course>) => void;
 }) => {
     const [subjectArea, setSubjectArea] = useState<string>("");
     const [courseNum, setCourseNum] = useState<string>("");
@@ -59,6 +59,83 @@ export const CourseSearch = ({
 
     const handleSearch = () => {
         setError("No courses found.");
+        let tempDisplayed: Course[] = Object.values(modifiedCourses);
+
+        if (subjectArea) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.subjectArea === subjectArea
+            );
+            if (tempDisplayed.length === 0) {
+                setError("Department not found.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
+        if (courseNum) {
+            tempDisplayed = tempDisplayed.filter((course: Course) => {
+                const inputSize = courseNum.length;
+                if (inputSize === 3) {
+                    return course.number === courseNum;
+                } else if (inputSize < 4) {
+                    return (
+                        course.number.substring(0, inputSize) ===
+                        courseNum.substring(0, inputSize)
+                    );
+                } else {
+                    return false;
+                }
+            });
+            if (tempDisplayed.length === 0) {
+                setError("No matching class numbers with department.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
+        if (semesters.length !== 0 && semesters.length !== 4) {
+            tempDisplayed = tempDisplayed.filter((course: Course) => {
+                if (
+                    course.semsOffered.includes(0) && // [0,1,2,3]
+                    semesters.includes("Fall")
+                )
+                    return true;
+                else if (
+                    course.semsOffered.includes(1) &&
+                    semesters.includes("Winter")
+                )
+                    return true;
+                else if (
+                    course.semsOffered.includes(2) &&
+                    semesters.includes("Spring")
+                )
+                    return true;
+                else if (
+                    course.semsOffered.includes(3) &&
+                    semesters.includes("Summer")
+                )
+                    return true;
+                else return false;
+            });
+            if (tempDisplayed.length === 0) {
+                setError("No classes exist during selected semesters.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
+        if (breadth.length !== 0) {
+            tempDisplayed = tempDisplayed.filter((course: Course) =>
+                breadth.includes(course.breadth)
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No courses match selected breadth requirements.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
+        setDisplayedCourses(tempDisplayed);
     };
 
     return (
@@ -161,11 +238,11 @@ export const CourseSearch = ({
                     <Form.Check
                         type="checkbox"
                         id="breadth-check-math"
-                        label="Mathematics, Natural Sciences, and Technology"
+                        label="Mathematics, Natural Sciences and Technology"
                         name="emotions"
-                        value="Mathematics, Natural Sciences, and Technology"
+                        value="Mathematics, Natural Sciences and Technology"
                         checked={breadth.includes(
-                            "Mathematics, Natural Sciences, and Technology"
+                            "Mathematics, Natural Sciences and Technology"
                         )}
                         onChange={updateBreadth}
                     />
@@ -179,6 +256,11 @@ export const CourseSearch = ({
             </Button>
             <TempCard>
                 {displayedCourses.length === 0 && <h4>{error}</h4>}
+                {displayedCourses.map((course: Course) => (
+                    <p key={course.code}>
+                        {course.code} {course.name}
+                    </p>
+                ))}
             </TempCard>
         </CourseSection>
     );
