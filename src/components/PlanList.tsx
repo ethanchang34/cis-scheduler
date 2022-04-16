@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Stack } from "react-bootstrap";
-// import { Button } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
 import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
+    addPlan,
     deletePlan,
     editPlan
 }: {
     plans: Plan[];
+    addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
 }) => {
@@ -28,41 +29,63 @@ export const PlanList = ({
         } else {
             setSelectedID(null);
         }
-        console.log(selectedID);
     };
 
     return (
         <div>
             {selectedID === null && (
-                <Stack gap={3}>
-                    {plans.map((plan: Plan) => (
-                        <div
-                            key={plan.id}
-                            className="bg-light border m-2 p-2"
-                            onClick={() => changeSelectedID(plan.id)}
-                        >
-                            <PlanView
-                                plan={plan}
-                                deletePlan={deletePlan}
-                                editPlan={editPlan}
-                            ></PlanView>
-                        </div>
-                    ))}
-                </Stack>
-            )}
-            <Stack gap={3}>
-                {plans.map((plan: Plan) => (
-                    <div key={plan.id}>
-                        {plan.id === selectedID && (
+                <div>
+                    <Stack gap={3}>
+                        {plans.map((plan: Plan) => (
                             <div
+                                key={plan.id}
                                 className="bg-light border m-2 p-2"
-                                onClick={() => changeSelectedID(plan.id)}
                             >
                                 <PlanView
                                     plan={plan}
                                     deletePlan={deletePlan}
                                     editPlan={editPlan}
+                                    selected={false}
                                 ></PlanView>
+                                <span
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        fontSize: "12px",
+                                        fontStyle: "italic"
+                                    }}
+                                    onClick={() => changeSelectedID(plan.id)}
+                                >
+                                    Click to expand
+                                </span>
+                            </div>
+                        ))}
+                    </Stack>
+                    <Button onClick={addPlan}>+ Add Plan</Button>
+                </div>
+            )}
+            <Stack gap={3}>
+                {plans.map((plan: Plan) => (
+                    <div key={plan.id}>
+                        {plan.id === selectedID && (
+                            <div className="bg-light border m-2 p-2">
+                                <PlanView
+                                    plan={plan}
+                                    deletePlan={deletePlan}
+                                    editPlan={editPlan}
+                                    selected={true}
+                                ></PlanView>
+                                <span
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        fontSize: "12px",
+                                        fontStyle: "italic"
+                                    }}
+                                    onClick={() => changeSelectedID(plan.id)}
+                                >
+                                    Click to minimize
+                                </span>
                             </div>
                         )}
                     </div>
