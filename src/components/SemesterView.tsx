@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
 import { CourseList } from "./CourseList";
+import { SemesterList } from "./SemesterList";
 
 export const SemesterView = ({
     semester,
@@ -22,23 +23,33 @@ export const SemesterView = ({
         3: "summer"
     };
 
-    function addCourse(code: string) {
+    function addCourse(newCourse: Course) {
+        //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
+        //other way is to pass the course.code into this function and then inside the function find the Course from datafile
         editSemester(semester.id, {
             ...semester,
-            courses: [
-                ...semester.courses,
-                {
-                    code: code,
-                    subjectArea: code.replace(/[^a-zA-Z]+/g, ""),
-                    number: code
-                }
-            ]
+            courses: [...semester.courses, newCourse]
         });
     }
 
-    function deleteCourse(code: string) {}
+    function deleteCourse(code: string) {
+        editSemester(semester.id, {
+            ...semester,
+            courses: semester.courses.filter(
+                (course: Course): boolean => course.code !== code
+            )
+        });
+    }
 
-    function editCourse(code: string) {}
+    function editCourse(code: string, newCourse: Course) {
+        editSemester(semester.id, {
+            ...semester,
+            courses: semester.courses.map(
+                (course: Course): Course =>
+                    course.code === code ? newCourse : course
+            )
+        });
+    }
 
     return (
         <div>
@@ -50,7 +61,10 @@ export const SemesterView = ({
                 editCourse={editCourse}
             ></CourseList>
             {semester.courses.map((course: Course) => (
-                <div key={course.id} className="bg-light border m-2 p-2"></div>
+                <div
+                    key={course.code}
+                    className="bg-light border m-2 p-2"
+                ></div>
             ))}
             <Button onClick={() => addCourse}>+ Add Course</Button>
             <Button onClick={() => deleteSemester(semester.id)}>
