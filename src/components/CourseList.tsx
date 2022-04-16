@@ -6,11 +6,11 @@ import { CourseView } from "./CourseView";
 export const CourseList = ({
     courses,
     deleteCourse,
-    editCourse
+    modifiedCourses
 }: {
     courses: string[];
     deleteCourse: (code: string) => void;
-    editCourse: (code: string, newCourse: string) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     return (
         <div>
@@ -20,7 +20,7 @@ export const CourseList = ({
                         <CourseView
                             course={course}
                             deleteCourse={deleteCourse}
-                            editCourse={editCourse}
+                            modifiedCourses={modifiedCourses}
                         ></CourseView>
                     </div>
                 ))}

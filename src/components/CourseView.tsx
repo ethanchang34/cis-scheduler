@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 
 export const CourseView = ({
     course,
     deleteCourse,
-    editCourse
+    modifiedCourses
 }: {
     course: string;
     deleteCourse: (code: string) => void;
-    editCourse: (code: string, newCourse: string) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
-    //Want to insert here a map from the course (string) to the Course (object) using the data file.
-    const [editing, setEditing] = useState<boolean>(false);
-
-    function changeEditing() {
-        setEditing(!editing);
-    }
-
-    return editing ? (
-        <></>
-    ) : (
+    return (
         <div>
-            <p>Code:{course.code}</p>
-            <p>Credits:{course.credits}</p>
+            <p>Code:{modifiedCourses[course].code}</p>
+            <p>Credits:{modifiedCourses[course].credits}</p>
+            <Button onClick={() => deleteCourse(course)}>-</Button>
         </div>
     );
 };

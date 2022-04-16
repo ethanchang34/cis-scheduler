@@ -1,18 +1,20 @@
+import "../App.css";
 import React from "react";
 import { Stack } from "react-bootstrap";
-// import { Button } from "react-bootstrap";
-import "../App.css";
 import { Plan } from "../interfaces/Plan";
+import { Course } from "../interfaces/Course";
 import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
     deletePlan,
-    editPlan
+    editPlan,
+    modifiedCourses
 }: {
     plans: Plan[];
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     return (
         <div>
@@ -23,6 +25,7 @@ export const PlanList = ({
                             plan={plan}
                             deletePlan={deletePlan}
                             editPlan={editPlan}
+                            modifiedCourses={modifiedCourses}
                         ></PlanView>
                     </div>
                 ))}

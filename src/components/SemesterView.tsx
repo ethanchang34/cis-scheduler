@@ -7,11 +7,13 @@ import { CourseList } from "./CourseList";
 export const SemesterView = ({
     semester,
     deleteSemester,
-    editSemester
+    editSemester,
+    modifiedCourses
 }: {
     semester: Semester;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     const numToSemester: Record<number, string> = {
         0: "fall",
@@ -38,14 +40,15 @@ export const SemesterView = ({
         });
     }
 
-    function editCourse(code: string, newCourse: string) {
+    /* function editCourse(code: string, newCourse: string) {
         editSemester(semester.id, {
             ...semester,
             courses: semester.courses.map((course: string): string =>
                 course === code ? newCourse : course
             )
         });
-    }
+    } */
+    //might be used later when we want the functionality of storing courses in some sidebar (refer to user stories)
 
     function clearCourses() {
         editSemester(semester.id, {
@@ -61,7 +64,7 @@ export const SemesterView = ({
             <CourseList
                 courses={semester.courses}
                 deleteCourse={deleteCourse}
-                editCourse={editCourse}
+                modifiedCourses={modifiedCourses}
             ></CourseList>
             <Button onClick={() => addCourse}>+ Add Course</Button>
             <Button onClick={clearCourses}>Clear Courses</Button>

@@ -19,11 +19,11 @@ interface ActiveCourse {
     typ: string;
 }
 
-const intialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
+const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 
 const originalCourses: Record<string, Course> = {};
 
-Object.entries(intialCourses).forEach(
+Object.entries(initialCourses).forEach(
     // Big hungo jungo method that fills the original courses object with our own courses.
     ([subjectArea, courseRecord]: [string, Record<string, ActiveCourse>]) => {
         Object.entries(courseRecord).forEach(
@@ -97,7 +97,8 @@ Object.entries(intialCourses).forEach(
 // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
-    // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
+    const [modifiedCourses, setModifiedCourses] =
+        useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
@@ -152,6 +153,7 @@ function App(): JSX.Element {
                         addPlan={addPlan}
                         editPlan={editPlan}
                         deletePlan={deletePlan}
+                        modifiedCourses={modifiedCourses}
                     ></Planner>
                 </div>
             </div>

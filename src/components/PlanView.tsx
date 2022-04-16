@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Plan } from "../interfaces/Plan";
 import { Year } from "../interfaces/Year";
+import { Course } from "../interfaces/Course";
 import { PlanEdit } from "./PlanEdit";
 import { YearList } from "./YearList";
 
 export const PlanView = ({
     plan,
     deletePlan,
-    editPlan
+    editPlan,
+    modifiedCourses
 }: {
     plan: Plan;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     const [editing, setEditing] = useState<boolean>(false);
 
@@ -73,6 +76,7 @@ export const PlanView = ({
                 years={plan.years}
                 deleteYear={deleteYear}
                 editYear={editYear}
+                modifiedCourses={modifiedCourses}
             ></YearList>
             <Button onClick={addYear}>+ Add Year</Button>
             <Button className="float-right" size="sm" onClick={changeEditing}>
