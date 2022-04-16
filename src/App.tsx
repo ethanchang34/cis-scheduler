@@ -98,11 +98,12 @@ Object.entries(intialCourses).forEach(
 // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
-    // const [modifiedCourses, setModifiedCourses] = useState<Record<string, Course>>(originalCourses);
+    const [modifiedCourses, setModifiedCourses] =
+        useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
-    //const [pageName, setPageName] = useState<number>(0); // set this value to whatever the navbar needs to display.
+    //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
 
     const addPlan = () => {
         const newPlan: Plan = {
@@ -157,7 +158,10 @@ function App(): JSX.Element {
                 </div>
             </div>
             <div style={{ display: search ? "block" : "none" }}>
-                <CourseSearch></CourseSearch>
+                <CourseSearch
+                    modifiedCourses={modifiedCourses}
+                    setModifiedCourses={setModifiedCourses}
+                ></CourseSearch>
             </div>
         </div>
     );
