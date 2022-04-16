@@ -20,7 +20,6 @@ export const Planner = ({
             <p>You are on the Planner Page</p>
             <PlanList
                 plans={plans}
-                addPlan={addPlan}
                 editPlan={editPlan}
                 deletePlan={deletePlan}
             ></PlanList>

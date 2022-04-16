@@ -1,33 +1,82 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
-import { CourseView } from "./CourseView";
-import { SemesterEdit } from "./SemesterEdit";
+import { CourseList } from "./CourseList";
+import { SemesterList } from "./SemesterList";
 
-export const SemesterView = ({ semester }: { semester: Semester }) => {
-    const [editing, setEditing] = useState<boolean>(false);
+export const SemesterView = ({
+    semester,
+    addSemester,
+    deleteSemester,
+    editSemester
+}: {
+    semester: Semester;
+    addSemester: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    deleteSemester: (id: number) => void;
+    editSemester: (id: number, newSemester: Semester) => void;
+}) => {
+    const numToSemester: Record<number, string> = {
+        0: "fall",
+        1: "winter",
+        2: "spring",
+        3: "summer"
+    };
 
-    function changeEditing() {
-        setEditing(!editing);
+    function addCourse(newCourse: Course) {
+        //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
+        //other way is to pass the course.code into this function and then inside the function find the Course from datafile
+        editSemester(semester.id, {
+            ...semester,
+            courses: [...semester.courses, newCourse]
+        });
     }
 
-    return editing ? (
-        <SemesterEdit
-            changeEditing={changeEditing}
-            semester={semester}
-            editSemester={editSemester}
-            deleteSemester={deleteSemester}
-        ></SemesterEdit>
-    ) : (
+    function deleteCourse(code: string) {
+        editSemester(semester.id, {
+            ...semester,
+            courses: semester.courses.filter(
+                (course: Course): boolean => course.code !== code
+            )
+        });
+    }
+
+    function editCourse(code: string, newCourse: Course) {
+        editSemester(semester.id, {
+            ...semester,
+            courses: semester.courses.map(
+                (course: Course): Course =>
+                    course.code === code ? newCourse : course
+            )
+        });
+    }
+
+    function clearCourses() {
+        editSemester(semester.id, {
+            ...semester,
+            courses: []
+        });
+    }
+
+    return (
         <div>
+            <p>{numToSemester[semester.id]}</p>
+            <p>Semester ID: {semester.id}</p>
+            <CourseList
+                courses={semester.courses}
+                deleteCourse={deleteCourse}
+                editCourse={editCourse}
+            ></CourseList>
             {semester.courses.map((course: Course) => (
-                <div key={course.id} className="bg-light border m-2 p-2">
-                    <CourseView course={course}></CourseView>
-                </div>
+                <div
+                    key={course.code}
+                    className="bg-light border m-2 p-2"
+                ></div>
             ))}
-            <Button className="float-right" size="sm" onClick={changeEditing}>
-                Edit
+            <Button onClick={() => addCourse}>+ Add Course</Button>
+            <Button onClick={clearCourses}>Clear Courses</Button>
+            <Button onClick={() => deleteSemester(semester.id)}>
+                - Delete Semester
             </Button>
         </div>
     );
