@@ -24,7 +24,7 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
     return (
         <div>
             <Hero>
-                <Title>UD CISC Course Schedule Planner</Title>
+                <Title>UD CISC275 Course Schedule Planner</Title>
                 <SubTitle>
                     by
                     <br />
