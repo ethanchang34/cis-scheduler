@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 import { CourseView } from "./CourseView";
 
@@ -10,7 +10,7 @@ export const CourseList = ({
 }: {
     courses: Course[];
     deleteCourse: (code: string) => void;
-    editCourse: (code: string) => void;
+    editCourse: (code: string, newCourse: Course) => void;
 }) => {
     return (
         <div>

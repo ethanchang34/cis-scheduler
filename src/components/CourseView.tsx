@@ -9,7 +9,7 @@ export const CourseView = ({
 }: {
     course: Course;
     deleteCourse: (code: string) => void;
-    editCourse: (code: string) => void;
+    editCourse: (code: string, newCourse: Course) => void;
 }) => {
     const [editing, setEditing] = useState<boolean>(false);
 
