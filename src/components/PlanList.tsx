@@ -1,27 +1,21 @@
-import React /*, { useState }*/ from "react";
-import { Stack } from "react-bootstrap";
-// import { Button } from "react-bootstrap";
 import "../App.css";
+import React from "react";
+import { Stack } from "react-bootstrap";
 import { Plan } from "../interfaces/Plan";
+import { Course } from "../interfaces/Course";
 import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
-    addPlan,
     deletePlan,
-    editPlan
+    editPlan,
+    modifiedCourses
 }: {
     plans: Plan[];
-    addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
-    //const [editing, setEditing] = useState<boolean>(false);
-
-    /*function changeEditing() {
-        setEditing(!editing);
-    }*/
-
     return (
         <div>
             <Stack gap={3}>
@@ -29,9 +23,9 @@ export const PlanList = ({
                     <div key={plan.id} className="bg-light border m-2 p-2">
                         <PlanView
                             plan={plan}
-                            addPlan={addPlan}
                             deletePlan={deletePlan}
                             editPlan={editPlan}
+                            modifiedCourses={modifiedCourses}
                         ></PlanView>
                     </div>
                 ))}

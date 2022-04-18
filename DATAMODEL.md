@@ -19,6 +19,7 @@ Year:
 semesters: Semester[4]
 
 Semester:
+active: boolean; //we aren't adding and deleting semesters, we're activating and de-activating semesters
 courses: int[]
 
 Course:

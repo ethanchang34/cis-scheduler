@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/CourseSearch";
-//import { PlansList } from "./components/PlansList";
 import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
@@ -20,11 +19,11 @@ interface ActiveCourse {
     typ: string;
 }
 
-const intialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
+const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 
 const originalCourses: Record<string, Course> = {};
 
-Object.entries(intialCourses).forEach(
+Object.entries(initialCourses).forEach(
     // Big hungo jungo method that fills the original courses object with our own courses.
     ([subjectArea, courseRecord]: [string, Record<string, ActiveCourse>]) => {
         Object.entries(courseRecord).forEach(
@@ -155,6 +154,7 @@ function App(): JSX.Element {
                         addPlan={addPlan}
                         editPlan={editPlan}
                         deletePlan={deletePlan}
+                        modifiedCourses={modifiedCourses}
                     ></Planner>
                 </div>
             </div>
