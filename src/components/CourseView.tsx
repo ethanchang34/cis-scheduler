@@ -14,7 +14,6 @@ export const CourseView = ({
     return (
         <div>
             <p>{course}</p>
-            <p>Code:{modifiedCourses[course].code}</p>
             <p>Credits:{modifiedCourses[course].credits}</p>
             <Button onClick={() => deleteCourse(course)}>-</Button>
         </div>

@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Plan } from "../interfaces/Plan";
 import { Year } from "../interfaces/Year";
 import { Course } from "../interfaces/Course";
+import { Semester } from "../interfaces/Semester";
 import { PlanEdit } from "./PlanEdit";
 import { YearList } from "./YearList";
 
@@ -62,6 +63,23 @@ export const PlanView = ({
         });
     }
 
+    function clearSemsInPlan() {
+        editPlan(plan.id, {
+            ...plan,
+            years: plan.years.map(
+                (year: Year): Year => ({
+                    ...year,
+                    semesters: year.semesters.map(
+                        (semester: Semester): Semester => ({
+                            ...semester,
+                            active: false
+                        })
+                    )
+                })
+            )
+        });
+    }
+
     return editing ? (
         <PlanEdit
             changeEditing={changeEditing}
@@ -83,6 +101,9 @@ export const PlanView = ({
                         modifiedCourses={modifiedCourses}
                     ></YearList>
                     <Button onClick={addYear}>+ Add Year</Button>
+                    <Button onClick={clearSemsInPlan}>
+                        Clear all semesters
+                    </Button>
                 </span>
             ) : (
                 <Button
