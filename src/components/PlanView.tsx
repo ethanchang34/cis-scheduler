@@ -10,12 +10,14 @@ export const PlanView = ({
     plan,
     deletePlan,
     editPlan,
-    modifiedCourses
+    modifiedCourses,
+    selected
 }: {
     plan: Plan;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
+    selected: boolean;
 }) => {
     const [editing, setEditing] = useState<boolean>(false);
 
@@ -72,16 +74,25 @@ export const PlanView = ({
             <p>Id: {plan.id}</p>
             <p>Title: {plan.title}</p>
             <p>Description: {plan.description}</p>
-            <YearList
-                years={plan.years}
-                deleteYear={deleteYear}
-                editYear={editYear}
-                modifiedCourses={modifiedCourses}
-            ></YearList>
-            <Button onClick={addYear}>+ Add Year</Button>
-            <Button className="float-right" size="sm" onClick={changeEditing}>
-                Edit
-            </Button>
+            {selected ? (
+                <span>
+                    <YearList
+                        years={plan.years}
+                        deleteYear={deleteYear}
+                        editYear={editYear}
+                        modifiedCourses={modifiedCourses}
+                    ></YearList>
+                    <Button onClick={addYear}>+ Add Year</Button>
+                </span>
+            ) : (
+                <Button
+                    className="float-right"
+                    size="sm"
+                    onClick={changeEditing}
+                >
+                    Edit
+                </Button>
+            )}
         </div>
     );
 };

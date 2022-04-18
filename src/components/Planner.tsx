@@ -1,6 +1,5 @@
 import "../App.css";
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Plan } from "../interfaces/Plan";
 import { Course } from "../interfaces/Course";
 import { PlanList } from "./PlanList";
@@ -21,9 +20,9 @@ export const Planner = ({
     return (
         <div>
             <p>You are on the Planner Page</p>
-            <Button onClick={addPlan}>+ Add Plan</Button>
             <PlanList
                 plans={plans}
+                addPlan={addPlan}
                 editPlan={editPlan}
                 deletePlan={deletePlan}
                 modifiedCourses={modifiedCourses}
