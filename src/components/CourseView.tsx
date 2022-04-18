@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 
 export const CourseView = ({
     course,
     deleteCourse,
-    editCourse
+    modifiedCourses
 }: {
-    course: Course;
+    course: string;
     deleteCourse: (code: string) => void;
-    editCourse: (code: string, newCourse: Course) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
-    const [editing, setEditing] = useState<boolean>(false);
-
-    function changeEditing() {
-        setEditing(!editing);
-    }
-
-    return editing ? (
-        <></>
-    ) : (
+    return (
         <div>
-            <p>Code:{course.code}</p>
-            <p>Credits:{course.credits}</p>
+            <p>{course}</p>
+            <p>Code:{modifiedCourses[course].code}</p>
+            <p>Credits:{modifiedCourses[course].credits}</p>
+            <Button onClick={() => deleteCourse(course)}>-</Button>
         </div>
     );
 };

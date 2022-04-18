@@ -6,21 +6,21 @@ import { CourseView } from "./CourseView";
 export const CourseList = ({
     courses,
     deleteCourse,
-    editCourse
+    modifiedCourses
 }: {
-    courses: Course[];
+    courses: string[];
     deleteCourse: (code: string) => void;
-    editCourse: (code: string, newCourse: Course) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     return (
         <div>
             <Stack gap={3}>
-                {courses.map((course: Course) => (
-                    <div key={course.code} className="bg-light border m-2 p-2">
+                {courses.map((course: string) => (
+                    <div key={course} className="bg-light border m-2 p-2">
                         <CourseView
                             course={course}
                             deleteCourse={deleteCourse}
-                            editCourse={editCourse}
+                            modifiedCourses={modifiedCourses}
                         ></CourseView>
                     </div>
                 ))}

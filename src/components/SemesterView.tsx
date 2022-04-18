@@ -3,19 +3,20 @@ import { Button, Form } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
 import { CourseList } from "./CourseList";
-import { SemesterList } from "./SemesterList";
 
 export const SemesterView = ({
     semester,
-    addSemester,
     deleteSemester,
-    editSemester
+    editSemester,
+    modifiedCourses
 }: {
     semester: Semester;
-    addSemester: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
+    const [courseInput, setCourseInput] = useState<string>("");
+
     const numToSemester: Record<number, string> = {
         0: "fall",
         1: "winter",
@@ -23,33 +24,38 @@ export const SemesterView = ({
         3: "summer"
     };
 
-    function addCourse(newCourse: Course) {
+    function addCourse(code: string) {
         //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
         //other way is to pass the course.code into this function and then inside the function find the Course from datafile
-        editSemester(semester.id, {
-            ...semester,
-            courses: [...semester.courses, newCourse]
-        });
+        if (modifiedCourses[code] !== undefined) {
+            editSemester(semester.id, {
+                ...semester,
+                courses: [...semester.courses, code]
+            });
+        } else {
+            alert("Invalid course");
+        }
+        setCourseInput("");
     }
 
     function deleteCourse(code: string) {
         editSemester(semester.id, {
             ...semester,
             courses: semester.courses.filter(
-                (course: Course): boolean => course.code !== code
+                (course: string): boolean => course !== code
             )
         });
     }
 
-    function editCourse(code: string, newCourse: Course) {
+    /* function editCourse(code: string, newCourse: string) {
         editSemester(semester.id, {
             ...semester,
-            courses: semester.courses.map(
-                (course: Course): Course =>
-                    course.code === code ? newCourse : course
+            courses: semester.courses.map((course: string): string =>
+                course === code ? newCourse : course
             )
         });
-    }
+    } */
+    //might be used later when we want the functionality of storing courses in some sidebar (refer to user stories)
 
     function clearCourses() {
         editSemester(semester.id, {
@@ -62,18 +68,42 @@ export const SemesterView = ({
         <div>
             <p>{numToSemester[semester.id]}</p>
             <p>Semester ID: {semester.id}</p>
+
             <CourseList
                 courses={semester.courses}
                 deleteCourse={deleteCourse}
-                editCourse={editCourse}
+                modifiedCourses={modifiedCourses}
             ></CourseList>
-            {semester.courses.map((course: Course) => (
-                <div
-                    key={course.code}
-                    className="bg-light border m-2 p-2"
-                ></div>
-            ))}
-            <Button onClick={() => addCourse}>+ Add Course</Button>
+            <Form.Group controlId="addCourse">
+                <Form.Label>Add Course</Form.Label>
+                <Form.Control
+                    placeholder="Enter course code (e.g. CISC 108)"
+                    value={courseInput}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setCourseInput(event.target.value)
+                    }
+                ></Form.Control>
+                <Button type="submit" onClick={() => addCourse(courseInput)}>
+                    Add Course
+                </Button>
+            </Form.Group>
+            <form
+                onSubmit={(event: React.SyntheticEvent) => {
+                    event.preventDefault();
+                    addCourse(courseInput);
+                }}
+            >
+                <input
+                    type="text"
+                    placeholder="Enter course code (e.g. CISC 108)"
+                    value={courseInput}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setCourseInput(event.target.value)
+                    }
+                />
+                <button type="submit">Submit</button>
+            </form>
+
             <Button onClick={clearCourses}>Clear Courses</Button>
             <Button onClick={() => deleteSemester(semester.id)}>
                 - Delete Semester

@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
+import { Course } from "../interfaces/Course";
 import { PlanView } from "./PlanView";
 
 export const PlanList = ({
     plans,
     addPlan,
     deletePlan,
-    editPlan
+    editPlan,
+    modifiedCourses
 }: {
     plans: Plan[];
     addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     //const [editing, setEditing] = useState<boolean>(false);
 
@@ -45,6 +48,7 @@ export const PlanList = ({
                                     plan={plan}
                                     deletePlan={deletePlan}
                                     editPlan={editPlan}
+                                    modifiedCourses={modifiedCourses}
                                     selected={false}
                                 ></PlanView>
                                 <span
@@ -73,6 +77,7 @@ export const PlanList = ({
                                     plan={plan}
                                     deletePlan={deletePlan}
                                     editPlan={editPlan}
+                                    modifiedCourses={modifiedCourses}
                                     selected={true}
                                 ></PlanView>
                                 <span

@@ -1,38 +1,38 @@
 import React from "react";
-import { Button, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
+import { Course } from "../interfaces/Course";
 import { SemesterView } from "./SemesterView";
 
 export const SemesterList = ({
     semesters,
-    addSemester,
     deleteSemester,
-    editSemester
+    editSemester,
+    modifiedCourses
 }: {
     semesters: Semester[];
-    addSemester: (event: React.ChangeEvent<HTMLSelectElement>) => void; //we aren't actually 'adding', we're switching the Semester's 'active'(boolean) param to false or true
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     return (
         <div>
             <Stack gap={3}>
-                {semesters.map((semester: Semester) =>
-                    semester.active === true ? (
-                        <div
-                            key={semester.id}
-                            className="bg-light border m-2 p-2"
-                        >
-                            <SemesterView
-                                semester={semester}
-                                addSemester={addSemester}
-                                deleteSemester={deleteSemester}
-                                editSemester={editSemester}
-                            ></SemesterView>
-                        </div>
-                    ) : (
-                        <></>
-                    )
+                {semesters.map(
+                    (semester: Semester) =>
+                        semester.active === true && (
+                            <div
+                                key={semester.id}
+                                className="bg-light border m-2 p-2"
+                            >
+                                <SemesterView
+                                    semester={semester}
+                                    deleteSemester={deleteSemester}
+                                    editSemester={editSemester}
+                                    modifiedCourses={modifiedCourses}
+                                ></SemesterView>
+                            </div>
+                        )
                 )}
             </Stack>
         </div>

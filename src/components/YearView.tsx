@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
+import { Course } from "../interfaces/Course";
 import { SemesterList } from "./SemesterList";
 
 export const YearView = ({
     year,
     deleteYear,
-    editYear
+    editYear,
+    modifiedCourses
 }: {
     year: Year;
     deleteYear: (id: number) => void;
     editYear: (id: number, newYear: Year) => void;
+    modifiedCourses: Record<string, Course>;
 }) => {
     const semesterToNumber: Record<string, number> = {
         fall: 0,
@@ -71,9 +74,9 @@ export const YearView = ({
             <p>Year ID: {year.id}</p>
             <SemesterList
                 semesters={year.semesters}
-                addSemester={addSemester}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
+                modifiedCourses={modifiedCourses}
             ></SemesterList>
             <Form.Group controlId="addSemester">
                 <Form.Label>Add Semester</Form.Label>

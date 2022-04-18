@@ -10,7 +10,12 @@ export const DefaultPlans = [
                     {
                         id: 0,
                         active: true,
-                        courses: ["EGG 101", "CISC 108", "MATH 241", "ENGL 110"]
+                        courses: [
+                            "EGGG 101",
+                            "CISC 108",
+                            "MATH 241",
+                            "ENGL 110"
+                        ]
                     },
                     { id: 1, active: false, courses: [] },
                     {
