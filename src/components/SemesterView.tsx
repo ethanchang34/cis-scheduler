@@ -87,22 +87,6 @@ export const SemesterView = ({
                     Add Course
                 </Button>
             </Form.Group>
-            <form
-                onSubmit={(event: React.SyntheticEvent) => {
-                    event.preventDefault();
-                    addCourse(courseInput);
-                }}
-            >
-                <input
-                    type="text"
-                    placeholder="Enter course code (e.g. CISC 108)"
-                    value={courseInput}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        setCourseInput(event.target.value)
-                    }
-                />
-                <button type="submit">Submit</button>
-            </form>
 
             <Button onClick={clearCourses}>Clear Courses</Button>
             <Button onClick={() => deleteSemester(semester.id)}>
