@@ -2,7 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { LandingPage } from "../components/LandingPage";
 
-const flipLanding = () => {};
+const flipLanding = () => {
+    return;
+};
 
 describe("Create landing page UI Students are introduced to the application with a friendly message that clearly explains their goal and how they should get started.", () => {
     beforeEach(() => {
