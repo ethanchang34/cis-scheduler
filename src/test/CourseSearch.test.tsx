@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { CourseSearch } from "../components/CourseSearch";
 import { Course } from "../interfaces/Course";
@@ -90,7 +90,7 @@ const testCourses: Record<string, Course> = {
     }
 };
 
-const handleShowModal = (course: string) => {
+const handleShowModal = () => {
     return;
 };
 
