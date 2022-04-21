@@ -23,6 +23,22 @@ export const EditModalContent = ({
         flipEditing();
     };
 
+    const updateSemester = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newSems: number = parseInt(e.target.value);
+
+        if (newCourse.semsOffered.includes(newSems)) {
+            setNewCourse({
+                ...newCourse,
+                semsOffered: newCourse.semsOffered.filter((e) => e !== newSems)
+            });
+        } else {
+            setNewCourse({
+                ...newCourse,
+                semsOffered: [...newCourse.semsOffered, newSems]
+            });
+        }
+    };
+
     return (
         <>
             <Modal.Header closeButton>
@@ -67,6 +83,53 @@ export const EditModalContent = ({
                         />
                     </Form.Group>
                 </FormDiv>
+
+                <Form.Label>
+                    <b>Set Semesters: </b>
+                </Form.Label>
+                <div>
+                    <Form.Check
+                        inline
+                        type="checkbox"
+                        name="edit-sems"
+                        onChange={updateSemester}
+                        id="edit-sems-fall"
+                        label="Fall"
+                        value="0"
+                        checked={newCourse.semsOffered.includes(0)}
+                    />
+                    <Form.Check
+                        inline
+                        type="checkbox"
+                        name="edit-sems"
+                        onChange={updateSemester}
+                        id="edit-sems-winter"
+                        label="Winter"
+                        value="1"
+                        checked={newCourse.semsOffered.includes(1)}
+                    />
+                    <Form.Check
+                        inline
+                        type="checkbox"
+                        name="edit-sems"
+                        onChange={updateSemester}
+                        id="edit-sems-spring"
+                        label="Spring"
+                        value="2"
+                        checked={newCourse.semsOffered.includes(2)}
+                    />
+                    <Form.Check
+                        inline
+                        type="checkbox"
+                        name="edit-sems"
+                        onChange={updateSemester}
+                        id="edit-sems-summer"
+                        label="Summer"
+                        value="3"
+                        checked={newCourse.semsOffered.includes(3)}
+                    />
+                </div>
+
                 <FormDiv>
                     <Form.Group controlId="Edit Credits">
                         <Form.Label>
@@ -82,6 +145,42 @@ export const EditModalContent = ({
                                 setNewCourse({
                                     ...newCourse,
                                     credits: parseInt(e.target.value)
+                                });
+                            }}
+                        />
+                    </Form.Group>
+                </FormDiv>
+                <FormDiv>
+                    <Form.Group controlId="Edit Prereqs">
+                        <Form.Label>
+                            <b>Edit Prerequisites:</b>
+                        </Form.Label>
+                        <Form.Control
+                            value={newCourse.preReq}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                                setNewCourse({
+                                    ...newCourse,
+                                    preReq: e.target.value
+                                });
+                            }}
+                        />
+                    </Form.Group>
+                </FormDiv>
+                <FormDiv>
+                    <Form.Group controlId="Edit Restrict">
+                        <Form.Label>
+                            <b>Edit Restrictions:</b>
+                        </Form.Label>
+                        <Form.Control
+                            value={newCourse.restrict}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                                setNewCourse({
+                                    ...newCourse,
+                                    restrict: e.target.value
                                 });
                             }}
                         />

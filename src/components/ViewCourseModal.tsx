@@ -33,11 +33,12 @@ export const ViewCourseModal = ({
         <div>
             <Modal
                 show={show}
+                backdrop="static"
                 onHide={() => {
                     setEditing(false);
                     handleClose();
                 }}
-                animation={false}
+                animation={true}
                 dialogClassName="my-modal"
             >
                 {!editing && (
