@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import { CourseSearch } from "../components/CourseSearch";
 import { Course } from "../interfaces/Course";
@@ -90,9 +90,17 @@ const testCourses: Record<string, Course> = {
     }
 };
 
+const [modifiedCourses, setmodifiedCourses] =
+    useState<Record<string, Course>>(testCourses);
+
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
-        render(<CourseSearch modifiedCourses={testCourses} />);
+        render(
+            <CourseSearch
+                modifiedCourses={modifiedCourses}
+                setModifiedCourses={setmodifiedCourses}
+            />
+        );
     });
 
     test("renders 'Search Courses' somehwere", () => {
