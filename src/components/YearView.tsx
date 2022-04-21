@@ -71,7 +71,7 @@ export const YearView = ({
 
     return (
         <div>
-            <p>Year ID: {year.id}</p>
+            <h2>Year {year.id + 1}</h2>
             <SemesterList
                 semesters={year.semesters}
                 addSemester={addSemester}
