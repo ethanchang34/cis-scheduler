@@ -4,7 +4,7 @@ import { CourseSearch } from "../components/CourseSearch";
 import { Course } from "../interfaces/Course";
 import userEvent from "@testing-library/user-event";
 
-const testCourses: Record<string, Course> = {
+export const testCourses: Record<string, Course> = {
     "CISC 101": {
         breadth: "Mathematics, Natural Sciences and Technology",
         code: "CISC 101",
