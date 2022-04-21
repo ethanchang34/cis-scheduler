@@ -17,7 +17,7 @@ export const ViewCourseModal = ({
         <div>
             <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Title</Modal.Title>
+                    <Modal.Title>{course.code + " " + course.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <h1>Modal Body</h1>
