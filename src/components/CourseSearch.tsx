@@ -319,16 +319,19 @@ export const CourseSearch = ({
             </Button>
             <TempCard>
                 {displayedCourses.length === 0 && <h4>{error}</h4>}
-                {displayedCourses.map((course: Course) => (
-                    <CourseLink
-                        key={course.code}
-                        onClick={() => {
-                            handleShowModal(course.code);
-                        }}
-                    >
-                        {course.code} {course.name}
-                    </CourseLink>
-                ))}
+                {displayedCourses.map((c: Course) => {
+                    const course = modifiedCourses[c.code];
+                    return (
+                        <CourseLink
+                            key={course.code}
+                            onClick={() => {
+                                handleShowModal(course.code);
+                            }}
+                        >
+                            {course.code} {course.name}
+                        </CourseLink>
+                    );
+                })}
             </TempCard>
         </CourseSection>
     );
