@@ -16,6 +16,7 @@ export const SemesterView = ({
     modifiedCourses: Record<string, Course>;
 }) => {
     const [courseInput, setCourseInput] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     const numToSemester: Record<number, string> = {
         0: "fall",
@@ -27,14 +28,10 @@ export const SemesterView = ({
     function addCourse(code: string) {
         //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
         //other way is to pass the course.code into this function and then inside the function find the Course from datafile
-        if (modifiedCourses[code] !== undefined) {
-            editSemester(semester.id, {
-                ...semester,
-                courses: [...semester.courses, code]
-            });
-        } else {
-            alert("Invalid course");
-        }
+        editSemester(semester.id, {
+            ...semester,
+            courses: [...semester.courses, code]
+        });
         setCourseInput("");
     }
 
@@ -44,6 +41,13 @@ export const SemesterView = ({
             courses: semester.courses.filter(
                 (course: string): boolean => course !== code
             )
+        });
+    }
+
+    function clearCourses() {
+        editSemester(semester.id, {
+            ...semester,
+            courses: []
         });
     }
 
@@ -57,11 +61,35 @@ export const SemesterView = ({
     } */
     //might be used later when we want the functionality of storing courses in some sidebar (refer to user stories)
 
-    function clearCourses() {
-        editSemester(semester.id, {
-            ...semester,
-            courses: []
-        });
+    function courseExist(): boolean {
+        if (modifiedCourses[courseInput] !== undefined) {
+            //course exists in catalog
+            return true;
+        } else {
+            setErrorMsg("Course does not exist");
+            console.log("course no exist");
+            return false;
+        }
+    }
+
+    function courseRepeat(): boolean {
+        if (semester.courses.includes(courseInput)) {
+            //course already exists in the semester
+            setErrorMsg("Course is already in the semester");
+            console.log("course repeat");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function handleSubmit() {
+        console.log("not hi");
+        if (courseExist() && !courseRepeat()) {
+            addCourse(courseInput);
+            setErrorMsg("");
+            console.log("hi");
+        }
     }
 
     return (
@@ -83,7 +111,15 @@ export const SemesterView = ({
                         setCourseInput(event.target.value)
                     }
                 ></Form.Control>
-                <Button type="submit" onClick={() => addCourse(courseInput)}>
+                {errorMsg ? (
+                    <div
+                        className="error-msg"
+                        style={{ fontSize: "0.9rem", color: "red" }}
+                    >
+                        *{errorMsg}
+                    </div>
+                ) : null}
+                <Button type="submit" onClick={handleSubmit}>
                     Add Course
                 </Button>
             </Form.Group>
