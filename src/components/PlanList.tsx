@@ -18,12 +18,6 @@ export const PlanList = ({
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
-    //const [editing, setEditing] = useState<boolean>(false);
-
-    /*function changeEditing() {
-        setEditing(!editing);
-    }*/
-
     const [selectedID, setSelectedID] = useState<number | null>(null);
 
     const changeSelectedID = (id: number) => {

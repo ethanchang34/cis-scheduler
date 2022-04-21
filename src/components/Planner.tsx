@@ -27,7 +27,6 @@ export const Planner = ({
                 deletePlan={deletePlan}
                 modifiedCourses={modifiedCourses}
             ></PlanList>
-            {/**<div>{plans.map((plan: Plan): string => plan.title)}</div>*/}
         </div>
     );
 };
