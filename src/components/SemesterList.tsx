@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
 import { SemesterView } from "./SemesterView";
@@ -17,11 +17,11 @@ export const SemesterList = ({
 }) => {
     return (
         <div>
-            <Stack gap={3}>
+            <Row>
                 {semesters.map(
                     (semester: Semester) =>
                         semester.active === true && (
-                            <div
+                            <Col
                                 key={semester.id}
                                 className="bg-light border m-2 p-2"
                             >
@@ -31,10 +31,10 @@ export const SemesterList = ({
                                     editSemester={editSemester}
                                     modifiedCourses={modifiedCourses}
                                 ></SemesterView>
-                            </div>
+                            </Col>
                         )
                 )}
-            </Stack>
+            </Row>
         </div>
     );
 };
