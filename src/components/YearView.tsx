@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button /*, Form*/ } from "react-bootstrap";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
@@ -16,19 +16,19 @@ export const YearView = ({
     editYear: (id: number, newYear: Year) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
-    const semesterToNumber: Record<string, number> = {
+    /*const semesterToNumber: Record<string, number> = {
         fall: 0,
         winter: 1,
         spring: 2,
         summer: 3
-    };
+    };*/
 
-    function addSemester(event: React.ChangeEvent<HTMLSelectElement>) {
+    function addSemester(id: number) {
         editYear(year.id, {
             ...year,
             semesters: year.semesters.map(
                 (semester: Semester): Semester =>
-                    semesterToNumber[event.target.value] === semester.id
+                    id === semester.id
                         ? { ...semester, active: true }
                         : semester
             )
@@ -74,10 +74,12 @@ export const YearView = ({
             <p>Year ID: {year.id}</p>
             <SemesterList
                 semesters={year.semesters}
+                addSemester={addSemester}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={modifiedCourses}
             ></SemesterList>
+            {/*
             <Form.Group controlId="addSemester">
                 <Form.Label>Add Semester</Form.Label>
                 <Form.Select onChange={addSemester}>
@@ -87,6 +89,7 @@ export const YearView = ({
                     <option value="summer">Summer</option>
                 </Form.Select>
             </Form.Group>
+            */}
             <Button onClick={clearSemesters}>Clear Semesters</Button>
             <Button onClick={() => deleteYear(year.id)}>- Delete Year</Button>
         </div>
