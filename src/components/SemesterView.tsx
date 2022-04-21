@@ -28,10 +28,19 @@ export const SemesterView = ({
         //event.target.value (course.code) --> map to Course in the datafile --> that Course feeds into this fn arg
         //other way is to pass the course.code into this function and then inside the function find the Course from datafile
         if (modifiedCourses[code] !== undefined) {
-            editSemester(semester.id, {
-                ...semester,
-                courses: [...semester.courses, code]
-            });
+            if (
+                semester.courses.every(
+                    (course: string): boolean =>
+                        course !== modifiedCourses[code].code
+                )
+            ) {
+                editSemester(semester.id, {
+                    ...semester,
+                    courses: [...semester.courses, code]
+                });
+            } else {
+                alert("Course already added");
+            }
         } else {
             alert("Invalid course");
         }
