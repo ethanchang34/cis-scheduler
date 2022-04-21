@@ -90,15 +90,16 @@ const testCourses: Record<string, Course> = {
     }
 };
 
-const [modifiedCourses, setmodifiedCourses] =
-    useState<Record<string, Course>>(testCourses);
+const handleShowModal = (course: string) => {
+    return;
+};
 
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
         render(
             <CourseSearch
-                modifiedCourses={modifiedCourses}
-                setModifiedCourses={setmodifiedCourses}
+                modifiedCourses={testCourses}
+                handleShowModal={handleShowModal}
             />
         );
     });

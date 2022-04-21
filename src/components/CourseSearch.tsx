@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import { Course } from "../interfaces/Course";
-import { ViewCourseModal } from "./ViewCourseModal";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -22,12 +21,26 @@ const TempCard = styled.section`
     justify-content: center;
 `;
 
+const CourseLink = styled.span`
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+`;
+
 export const CourseSearch = ({
     modifiedCourses,
-    setModifiedCourses
+    handleShowModal
 }: {
     modifiedCourses: Record<string, Course>;
-    setModifiedCourses: (newCourse: Record<string, Course>) => void;
+    handleShowModal: (code: string) => void;
 }) => {
     const [subjectArea, setSubjectArea] = useState<string>("");
     const [courseNum, setCourseNum] = useState<string>("");
@@ -37,17 +50,6 @@ export const CourseSearch = ({
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
     );
-
-    const [showCourseModal, setShowCourseModal] = useState(false);
-
-    const handleShowModal = () => setShowCourseModal(true);
-    const handleCloseModal = () => setShowCourseModal(false);
-
-    const editCourse = (newCourse: Course) => {
-        const newModifiedCourses = { ...modifiedCourses };
-        newModifiedCourses[newCourse.code] = newCourse;
-        setModifiedCourses(newModifiedCourses);
-    };
 
     const updateSemester = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newSems = e.target.value;
@@ -150,140 +152,130 @@ export const CourseSearch = ({
     };
 
     return (
-        <>
-            <CourseSection>
-                <h1>Search Courses:</h1>
-                <Form.Group controlId="formSearchArea">
-                    <Form.Label>Subject Area:</Form.Label>
-                    <Form.Control
-                        value={subjectArea}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setSubjectArea(e.target.value)
-                        }
-                    />
-                </Form.Group>
-                <Form.Group controlId="formSearchNum">
-                    <Form.Label>Course Number:</Form.Label>
-                    <Form.Control
-                        type="number"
-                        value={courseNum}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setCourseNum(e.target.value)
-                        }
-                    />
-                </Form.Group>
-                <Form.Label>Semesters Offered: </Form.Label>
-                <div>
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-fall"
-                        label="Fall"
-                        value="Fall"
-                        checked={semesters.includes("Fall")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-winter"
-                        label="Winter"
-                        value="Winter"
-                        checked={semesters.includes("Winter")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-spring"
-                        label="Spring"
-                        value="Spring"
-                        checked={semesters.includes("Spring")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-summer"
-                        label="Summer"
-                        value="Summer"
-                        checked={semesters.includes("Summer")}
-                    />
-                </div>
-                <Form.Label>Filter Breadths: </Form.Label>
-                <div>
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-creative"
-                        label="Creative Arts and Humanities"
-                        name="emotions"
-                        value="Creative Arts and Humanities"
-                        checked={breadth.includes(
-                            "Creative Arts and Humanities"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-history"
-                        label="History and Cultural Change"
-                        name="emotions"
-                        value="History and Cultural Change"
-                        checked={breadth.includes(
-                            "History and Cultural Change"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-social"
-                        label="Social and Behavioral Sciences"
-                        name="emotions"
-                        value="Social and Behavioral Sciences"
-                        checked={breadth.includes(
-                            "Social and Behavioral Sciences"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-math"
-                        label="Mathematics, Natural Sciences and Technology"
-                        name="emotions"
-                        value="Mathematics, Natural Sciences and Technology"
-                        checked={breadth.includes(
-                            "Mathematics, Natural Sciences and Technology"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                </div>
-                <Button
-                    onClick={handleSearch}
-                    className="btn-outline-primary btn-light"
-                >
-                    Search
-                </Button>
-                <TempCard>
-                    {displayedCourses.length === 0 && <h4>{error}</h4>}
-                    {displayedCourses.map((course: Course) => (
-                        <p key={course.code}>
-                            {course.code} {course.name}
-                        </p>
-                    ))}
-                </TempCard>
-                <Button onClick={handleShowModal}>showmodal</Button>
-            </CourseSection>
-            <ViewCourseModal
-                show={showCourseModal}
-                handleClose={handleCloseModal}
-                course={modifiedCourses[0]}
-                editCourse={editCourse}
-            ></ViewCourseModal>
-        </>
+        <CourseSection>
+            <h1>Search Courses:</h1>
+            <Form.Group controlId="formSearchArea">
+                <Form.Label>Subject Area:</Form.Label>
+                <Form.Control
+                    value={subjectArea}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setSubjectArea(e.target.value)
+                    }
+                />
+            </Form.Group>
+            <Form.Group controlId="formSearchNum">
+                <Form.Label>Course Number:</Form.Label>
+                <Form.Control
+                    type="number"
+                    value={courseNum}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setCourseNum(e.target.value)
+                    }
+                />
+            </Form.Group>
+            <Form.Label>Semesters Offered: </Form.Label>
+            <div>
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-fall"
+                    label="Fall"
+                    value="Fall"
+                    checked={semesters.includes("Fall")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-winter"
+                    label="Winter"
+                    value="Winter"
+                    checked={semesters.includes("Winter")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-spring"
+                    label="Spring"
+                    value="Spring"
+                    checked={semesters.includes("Spring")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-summer"
+                    label="Summer"
+                    value="Summer"
+                    checked={semesters.includes("Summer")}
+                />
+            </div>
+            <Form.Label>Filter Breadths: </Form.Label>
+            <div>
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-creative"
+                    label="Creative Arts and Humanities"
+                    name="emotions"
+                    value="Creative Arts and Humanities"
+                    checked={breadth.includes("Creative Arts and Humanities")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-history"
+                    label="History and Cultural Change"
+                    name="emotions"
+                    value="History and Cultural Change"
+                    checked={breadth.includes("History and Cultural Change")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-social"
+                    label="Social and Behavioral Sciences"
+                    name="emotions"
+                    value="Social and Behavioral Sciences"
+                    checked={breadth.includes("Social and Behavioral Sciences")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-math"
+                    label="Mathematics, Natural Sciences and Technology"
+                    name="emotions"
+                    value="Mathematics, Natural Sciences and Technology"
+                    checked={breadth.includes(
+                        "Mathematics, Natural Sciences and Technology"
+                    )}
+                    onChange={updateBreadth}
+                />
+            </div>
+            <Button
+                onClick={handleSearch}
+                className="btn-outline-primary btn-light"
+            >
+                Search
+            </Button>
+            <TempCard>
+                {displayedCourses.length === 0 && <h4>{error}</h4>}
+                {displayedCourses.map((course: Course) => (
+                    <CourseLink
+                        key={course.code}
+                        onClick={() => {
+                            handleShowModal(course.code);
+                        }}
+                    >
+                        {course.code} {course.name}
+                    </CourseLink>
+                ))}
+            </TempCard>
+        </CourseSection>
     );
 };
