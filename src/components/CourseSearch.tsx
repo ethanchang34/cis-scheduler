@@ -140,7 +140,7 @@ export const CourseSearch = ({
     return (
         <CourseSection>
             <h1>Search Courses:</h1>
-            <Form.Group controlId="formMovieName">
+            <Form.Group controlId="formSearchArea">
                 <Form.Label>Subject Area:</Form.Label>
                 <Form.Control
                     value={subjectArea}
@@ -148,6 +148,8 @@ export const CourseSearch = ({
                         setSubjectArea(e.target.value)
                     }
                 />
+            </Form.Group>
+            <Form.Group controlId="formSearchNum">
                 <Form.Label>Course Number:</Form.Label>
                 <Form.Control
                     type="number"
@@ -156,97 +158,91 @@ export const CourseSearch = ({
                         setCourseNum(e.target.value)
                     }
                 />
-                <Form.Label>Semesters Offered: </Form.Label>
-                <div>
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-fall"
-                        label="Fall"
-                        value="Fall"
-                        checked={semesters.includes("Fall")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-winter"
-                        label="Winter"
-                        value="Winter"
-                        checked={semesters.includes("Winter")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-spring"
-                        label="Spring"
-                        value="Spring"
-                        checked={semesters.includes("Spring")}
-                    />
-                    <Form.Check
-                        inline
-                        type="checkbox"
-                        name="sems"
-                        onChange={updateSemester}
-                        id="sems-summer"
-                        label="Summer"
-                        value="Summer"
-                        checked={semesters.includes("Summer")}
-                    />
-                </div>
-                <Form.Label>Filter Breadths: </Form.Label>
-                <div>
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-creative"
-                        label="Creative Arts and Humanities"
-                        name="emotions"
-                        value="Creative Arts and Humanities"
-                        checked={breadth.includes(
-                            "Creative Arts and Humanities"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-history"
-                        label="History and Cultural Change"
-                        name="emotions"
-                        value="History and Cultural Change"
-                        checked={breadth.includes(
-                            "History and Cultural Change"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-social"
-                        label="Social and Behavioral Sciences"
-                        name="emotions"
-                        value="Social and Behavioral Sciences"
-                        checked={breadth.includes(
-                            "Social and Behavioral Sciences"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        id="breadth-check-math"
-                        label="Mathematics, Natural Sciences and Technology"
-                        name="emotions"
-                        value="Mathematics, Natural Sciences and Technology"
-                        checked={breadth.includes(
-                            "Mathematics, Natural Sciences and Technology"
-                        )}
-                        onChange={updateBreadth}
-                    />
-                </div>
             </Form.Group>
+            <Form.Label>Semesters Offered: </Form.Label>
+            <div>
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-fall"
+                    label="Fall"
+                    value="Fall"
+                    checked={semesters.includes("Fall")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-winter"
+                    label="Winter"
+                    value="Winter"
+                    checked={semesters.includes("Winter")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-spring"
+                    label="Spring"
+                    value="Spring"
+                    checked={semesters.includes("Spring")}
+                />
+                <Form.Check
+                    inline
+                    type="checkbox"
+                    name="sems"
+                    onChange={updateSemester}
+                    id="sems-summer"
+                    label="Summer"
+                    value="Summer"
+                    checked={semesters.includes("Summer")}
+                />
+            </div>
+            <Form.Label>Filter Breadths: </Form.Label>
+            <div>
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-creative"
+                    label="Creative Arts and Humanities"
+                    name="emotions"
+                    value="Creative Arts and Humanities"
+                    checked={breadth.includes("Creative Arts and Humanities")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-history"
+                    label="History and Cultural Change"
+                    name="emotions"
+                    value="History and Cultural Change"
+                    checked={breadth.includes("History and Cultural Change")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-social"
+                    label="Social and Behavioral Sciences"
+                    name="emotions"
+                    value="Social and Behavioral Sciences"
+                    checked={breadth.includes("Social and Behavioral Sciences")}
+                    onChange={updateBreadth}
+                />
+                <Form.Check
+                    type="checkbox"
+                    id="breadth-check-math"
+                    label="Mathematics, Natural Sciences and Technology"
+                    name="emotions"
+                    value="Mathematics, Natural Sciences and Technology"
+                    checked={breadth.includes(
+                        "Mathematics, Natural Sciences and Technology"
+                    )}
+                    onChange={updateBreadth}
+                />
+            </div>
             <Button
                 onClick={handleSearch}
                 className="btn-outline-primary btn-light"

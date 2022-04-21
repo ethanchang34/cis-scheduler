@@ -57,7 +57,16 @@ Object.entries(initialCourses).forEach(
                 // }
 
                 const parseBreadth = activeCourse.breadth.split(";"); // Isolate university: and A&S: breadths
-                const courseBreadth = parseBreadth[0].substring(12); // Grab the university breadth at truncate string to only include breadth
+                let courseBreadth = parseBreadth[0].substring(12); // Grab the university breadth at truncate string to only include breadth
+                if (
+                    courseBreadth.substring(courseBreadth.length - 10) ===
+                    "(HIST &amp"
+                ) {
+                    courseBreadth = courseBreadth.substring(
+                        0,
+                        courseBreadth.length - 11
+                    );
+                }
 
                 const parseCredits = activeCourse.credits;
                 let courseCredits = 0;

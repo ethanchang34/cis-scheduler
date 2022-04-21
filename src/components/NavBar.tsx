@@ -36,18 +36,7 @@ export const NavBar = ({
     return (
         <Nav>
             <NavCol>
-                {search ? (
-                    <Button
-                        onClick={() => {
-                            if (!landing) {
-                                flipLanding();
-                            }
-                            flipSearch();
-                        }}
-                    >
-                        Home
-                    </Button>
-                ) : (
+                {!search && (
                     <Button onClick={flipLanding}>
                         {landing ? "Get Started" : "Home"}
                     </Button>
@@ -64,7 +53,7 @@ export const NavBar = ({
                     onClick={flipSearch}
                     className={search ? "btn-danger" : ""}
                 >
-                    {"Search Courses"}
+                    {search ? "Back" : "Search Courses"}
                 </Button>
             </NavCol>
         </Nav>
