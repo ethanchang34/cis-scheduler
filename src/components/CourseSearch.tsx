@@ -46,6 +46,7 @@ export const CourseSearch = ({
     const [courseNum, setCourseNum] = useState<string>("");
     const [semesters, setSemesters] = useState<string[]>([]);
     const [breadth, setBreadth] = useState<string[]>([]);
+    const [tech, setTech] = useState<boolean>(false);
     const [displayedCourses, setDisplayedCourses] = useState<Course[]>([]);
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
@@ -148,6 +149,17 @@ export const CourseSearch = ({
             }
         }
 
+        if (tech) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.tech
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No technical electives found.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
         setDisplayedCourses(tempDisplayed);
     };
 
@@ -159,7 +171,7 @@ export const CourseSearch = ({
                 <Form.Control
                     value={subjectArea}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setSubjectArea(e.target.value)
+                        setSubjectArea(e.target.value.toUpperCase())
                     }
                 />
             </Form.Group>
@@ -217,7 +229,7 @@ export const CourseSearch = ({
                 />
             </div>
             <Form.Label>Filter Breadths: </Form.Label>
-            <div>
+            <div style={{ marginBottom: ".5rem" }}>
                 <Form.Check
                     type="checkbox"
                     id="breadth-check-creative"
@@ -257,9 +269,41 @@ export const CourseSearch = ({
                     onChange={updateBreadth}
                 />
             </div>
+            <Form.Group
+                controlId="tech-search-form"
+                style={{ display: "flex", alignItems: "center" }}
+            >
+                <Form.Label
+                    style={{
+                        marginBottom: ".2rem",
+                        marginRight: ".5rem",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        setTech(!tech);
+                    }}
+                >
+                    Technical Elective:
+                </Form.Label>
+                <Form.Check
+                    type="checkbox"
+                    id="tech-search-check"
+                    name="tech-search-check"
+                    data-testid="tech-search-check"
+                    value="tech-search-check"
+                    checked={tech}
+                    onChange={() => {
+                        setTech(!tech);
+                    }}
+                />
+            </Form.Group>
             <Button
                 onClick={handleSearch}
                 className="btn-outline-primary btn-light"
+                style={{
+                    margin: "0 auto 1rem auto",
+                    display: "block"
+                }}
             >
                 Search
             </Button>

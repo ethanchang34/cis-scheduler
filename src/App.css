@@ -21,3 +21,8 @@ img {
 .my-modal {
     max-width: 800px;
 }
+
+.form-check-label,
+.form-check-input {
+    cursor: pointer;
+}
