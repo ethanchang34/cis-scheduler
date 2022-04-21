@@ -1,7 +1,8 @@
-import React /*{ useState }*/ from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 import { CourseModalContent } from "./CourseModalContent";
+import { EditModalContent } from "./EditModalContent";
 
 export const ViewCourseModal = ({
     show,
@@ -16,7 +17,13 @@ export const ViewCourseModal = ({
     editCourse: (newCourse: Course) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
+    const [editing, setEditing] = useState(false);
+
     const course = modifiedCourses[code];
+
+    const flipEditing = () => {
+        setEditing(!editing);
+    };
 
     const handleTech = () => {
         editCourse({ ...course, tech: !course.tech });
@@ -30,10 +37,20 @@ export const ViewCourseModal = ({
                 animation={false}
                 dialogClassName="my-modal"
             >
-                <CourseModalContent
-                    course={course}
-                    handleTech={handleTech}
-                ></CourseModalContent>
+                {!editing && (
+                    <CourseModalContent
+                        course={course}
+                        handleTech={handleTech}
+                        flipEditing={flipEditing}
+                    ></CourseModalContent>
+                )}
+                {editing && (
+                    <EditModalContent
+                        course={course}
+                        editCourse={editCourse}
+                        flipEditing={flipEditing}
+                    ></EditModalContent>
+                )}
             </Modal>
         </div>
     );

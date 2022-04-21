@@ -1,5 +1,5 @@
 import React /*{ useState }*/ from "react";
-import { Modal, Form } from "react-bootstrap";
+import { Modal, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Course } from "../interfaces/Course";
 
@@ -11,10 +11,12 @@ const FlexDiv = styled.div`
 
 export const CourseModalContent = ({
     course,
-    handleTech
+    handleTech,
+    flipEditing
 }: {
     course: Course;
     handleTech: () => void;
+    flipEditing: () => void;
 }) => {
     let semsOffered = "";
 
@@ -38,7 +40,6 @@ export const CourseModalContent = ({
     }
     return (
         <>
-            {" "}
             <Modal.Header closeButton>
                 <Modal.Title>{course.code + " " + course.name}</Modal.Title>
             </Modal.Header>
@@ -73,7 +74,9 @@ export const CourseModalContent = ({
                     />
                 </FlexDiv>
             </Modal.Body>
-            <Modal.Footer>Button</Modal.Footer>
+            <Modal.Footer>
+                <Button onClick={flipEditing}>Edit</Button>
+            </Modal.Footer>
         </>
     );
 };

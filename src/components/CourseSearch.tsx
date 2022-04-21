@@ -170,9 +170,14 @@ export const CourseSearch = ({
                 <Form.Label>Subject Area:</Form.Label>
                 <Form.Control
                     value={subjectArea}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setSubjectArea(e.target.value.toUpperCase())
-                    }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setSubjectArea(e.target.value.toUpperCase());
+                    }}
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearch();
+                        }
+                    }}
                 />
             </Form.Group>
             <Form.Group controlId="formSearchNum">
@@ -183,6 +188,11 @@ export const CourseSearch = ({
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setCourseNum(e.target.value)
                     }
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearch();
+                        }
+                    }}
                 />
             </Form.Group>
             <Form.Label>Semesters Offered: </Form.Label>
