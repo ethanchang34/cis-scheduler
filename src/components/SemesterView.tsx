@@ -92,13 +92,22 @@ export const SemesterView = ({
                         setCourseInput(event.target.value)
                     }
                 ></Form.Control>
-                <Button type="submit" onClick={() => addCourse(courseInput)}>
+                <Button
+                    className={"btn-success"}
+                    type="submit"
+                    onClick={() => addCourse(courseInput)}
+                >
                     Add Course
                 </Button>
             </Form.Group>
 
-            <Button onClick={clearCourses}>Clear Courses</Button>
-            <Button onClick={() => deleteSemester(semester.id)}>
+            <Button className={"btn-warning"} onClick={clearCourses}>
+                Clear Courses
+            </Button>
+            <Button
+                className={"btn-danger"}
+                onClick={() => deleteSemester(semester.id)}
+            >
                 - Delete Semester
             </Button>
         </div>

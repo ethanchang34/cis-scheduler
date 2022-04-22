@@ -15,7 +15,12 @@ export const CourseView = ({
         <div>
             <p>{course}</p>
             <p>Credits:{modifiedCourses[course].credits}</p>
-            <Button onClick={() => deleteCourse(course)}>-</Button>
+            <Button
+                className={"btn-danger"}
+                onClick={() => deleteCourse(course)}
+            >
+                -
+            </Button>
         </div>
     );
 };

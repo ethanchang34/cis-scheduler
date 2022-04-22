@@ -90,8 +90,15 @@ export const YearView = ({
                 </Form.Select>
             </Form.Group>
             */}
-            <Button onClick={clearSemesters}>Clear Semesters</Button>
-            <Button onClick={() => deleteYear(year.id)}>- Delete Year</Button>
+            <Button className={"btn-warning"} onClick={clearSemesters}>
+                Clear Semesters
+            </Button>
+            <Button
+                className={"btn-danger"}
+                onClick={() => deleteYear(year.id)}
+            >
+                - Delete Year
+            </Button>
         </div>
     );
 };

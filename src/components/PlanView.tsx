@@ -100,8 +100,10 @@ export const PlanView = ({
                         editYear={editYear}
                         modifiedCourses={modifiedCourses}
                     ></YearList>
-                    <Button onClick={addYear}>+ Add Year</Button>
-                    <Button onClick={clearSemsInPlan}>
+                    <Button className={"btn-success"} onClick={addYear}>
+                        + Add Year
+                    </Button>
+                    <Button className={"btn-danger"} onClick={clearSemsInPlan}>
                         Clear all semesters
                     </Button>
                 </span>

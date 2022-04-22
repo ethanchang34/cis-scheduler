@@ -43,7 +43,10 @@ export const SemesterList = ({
                                 justifyContent: "center"
                             }}
                         >
-                            <Button onClick={() => addSemester(semester.id)}>
+                            <Button
+                                className={"btn-success"}
+                                onClick={() => addSemester(semester.id)}
+                            >
                                 + Add Semester
                             </Button>
                         </Col>
