@@ -21,17 +21,32 @@ const TempCard = styled.section`
     justify-content: center;
 `;
 
+const CourseLink = styled.span`
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+`;
+
 export const CourseSearch = ({
-    modifiedCourses
-}: // setModifiedCourses
-{
+    modifiedCourses,
+    handleShowModal
+}: {
     modifiedCourses: Record<string, Course>;
-    // setModifiedCourses: (newCourse: Record<string, Course>) => void;
+    handleShowModal: (code: string) => void;
 }) => {
     const [subjectArea, setSubjectArea] = useState<string>("");
     const [courseNum, setCourseNum] = useState<string>("");
     const [semesters, setSemesters] = useState<string[]>([]);
     const [breadth, setBreadth] = useState<string[]>([]);
+    const [tech, setTech] = useState<boolean>(false);
     const [displayedCourses, setDisplayedCourses] = useState<Course[]>([]);
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
@@ -134,6 +149,17 @@ export const CourseSearch = ({
             }
         }
 
+        if (tech) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.tech
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No technical electives found.");
+                setDisplayedCourses(tempDisplayed);
+                return;
+            }
+        }
+
         setDisplayedCourses(tempDisplayed);
     };
 
@@ -144,9 +170,14 @@ export const CourseSearch = ({
                 <Form.Label>Subject Area:</Form.Label>
                 <Form.Control
                     value={subjectArea}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setSubjectArea(e.target.value)
-                    }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setSubjectArea(e.target.value.toUpperCase());
+                    }}
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearch();
+                        }
+                    }}
                 />
             </Form.Group>
             <Form.Group controlId="formSearchNum">
@@ -157,6 +188,11 @@ export const CourseSearch = ({
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setCourseNum(e.target.value)
                     }
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearch();
+                        }
+                    }}
                 />
             </Form.Group>
             <Form.Label>Semesters Offered: </Form.Label>
@@ -203,12 +239,12 @@ export const CourseSearch = ({
                 />
             </div>
             <Form.Label>Filter Breadths: </Form.Label>
-            <div>
+            <div style={{ marginBottom: ".5rem" }}>
                 <Form.Check
                     type="checkbox"
                     id="breadth-check-creative"
                     label="Creative Arts and Humanities"
-                    name="emotions"
+                    name="breadth-check-filter"
                     value="Creative Arts and Humanities"
                     checked={breadth.includes("Creative Arts and Humanities")}
                     onChange={updateBreadth}
@@ -217,7 +253,7 @@ export const CourseSearch = ({
                     type="checkbox"
                     id="breadth-check-history"
                     label="History and Cultural Change"
-                    name="emotions"
+                    name="breadth-check-filter"
                     value="History and Cultural Change"
                     checked={breadth.includes("History and Cultural Change")}
                     onChange={updateBreadth}
@@ -226,7 +262,7 @@ export const CourseSearch = ({
                     type="checkbox"
                     id="breadth-check-social"
                     label="Social and Behavioral Sciences"
-                    name="emotions"
+                    name="breadth-check-filter"
                     value="Social and Behavioral Sciences"
                     checked={breadth.includes("Social and Behavioral Sciences")}
                     onChange={updateBreadth}
@@ -235,7 +271,7 @@ export const CourseSearch = ({
                     type="checkbox"
                     id="breadth-check-math"
                     label="Mathematics, Natural Sciences and Technology"
-                    name="emotions"
+                    name="breadth-check-filter"
                     value="Mathematics, Natural Sciences and Technology"
                     checked={breadth.includes(
                         "Mathematics, Natural Sciences and Technology"
@@ -243,19 +279,59 @@ export const CourseSearch = ({
                     onChange={updateBreadth}
                 />
             </div>
+            <Form.Group
+                controlId="tech-search-form"
+                style={{ display: "flex", alignItems: "center" }}
+            >
+                <Form.Label
+                    style={{
+                        marginBottom: ".2rem",
+                        marginRight: ".5rem",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        setTech(!tech);
+                    }}
+                >
+                    Technical Elective:
+                </Form.Label>
+                <Form.Check
+                    type="checkbox"
+                    id="tech-search-check"
+                    name="tech-search-check"
+                    data-testid="tech-search-check"
+                    value="tech-search-check"
+                    checked={tech}
+                    onChange={() => {
+                        setTech(!tech);
+                    }}
+                />
+            </Form.Group>
             <Button
                 onClick={handleSearch}
                 className="btn-outline-primary btn-light"
+                style={{
+                    margin: "0 auto 1rem auto",
+                    display: "block"
+                }}
             >
                 Search
             </Button>
             <TempCard>
                 {displayedCourses.length === 0 && <h4>{error}</h4>}
-                {displayedCourses.map((course: Course) => (
-                    <p key={course.code}>
-                        {course.code} {course.name}
-                    </p>
-                ))}
+                {displayedCourses.map((c: Course) => {
+                    const course = modifiedCourses[c.code];
+                    return (
+                        <CourseLink
+                            key={course.code}
+                            onClick={() => {
+                                handleShowModal(course.code);
+                            }}
+                        >
+                            {course.code} {course.name}
+                        </CourseLink>
+                    );
+                })}
             </TempCard>
         </CourseSection>
     );

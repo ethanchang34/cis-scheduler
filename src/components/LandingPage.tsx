@@ -31,7 +31,7 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
                     Aidan Tran, Ethan Chang, Colin Stetler
                 </SubTitle>
             </Hero>
-            <section>
+            <section style={{ backgroundColor: "var(--secondary-color)" }}>
                 <Button
                     style={{
                         marginLeft: "auto",
