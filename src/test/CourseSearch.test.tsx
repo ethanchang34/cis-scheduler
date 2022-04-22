@@ -90,9 +90,18 @@ export const testCourses: Record<string, Course> = {
     }
 };
 
+const handleShowModal = () => {
+    return;
+};
+
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
-        render(<CourseSearch modifiedCourses={testCourses} />);
+        render(
+            <CourseSearch
+                modifiedCourses={testCourses}
+                handleShowModal={handleShowModal}
+            />
+        );
     });
 
     test("renders 'Search Courses' somehwere", () => {

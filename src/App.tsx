@@ -7,6 +7,7 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
+import { ViewCourseModal } from "./components/ViewCourseModal";
 
 interface ActiveCourse {
     code: string;
@@ -106,13 +107,27 @@ Object.entries(initialCourses).forEach(
 // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
-    // const [modifiedCourses, setModifiedCourses] =
-    //     useState<Record<string, Course>>(originalCourses);
-    const modifiedCourses = originalCourses;
+    const [modifiedCourses, setModifiedCourses] =
+        useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
+
+    const [showCourseModal, setShowCourseModal] = useState(false);
+    const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
+
+    const handleShowModal = (code: string) => {
+        setShowCourseModal(true);
+        setCodeModalView(code);
+    };
+    const handleCloseModal = () => setShowCourseModal(false);
+
+    const editCourse = (newCourse: Course) => {
+        const newModifiedCourses = { ...modifiedCourses };
+        newModifiedCourses[newCourse.code] = newCourse;
+        setModifiedCourses(newModifiedCourses);
+    };
 
     const addPlan = () => {
         const newPlan: Plan = {
@@ -170,9 +185,16 @@ function App(): JSX.Element {
             <div style={{ display: search ? "block" : "none" }}>
                 <CourseSearch
                     modifiedCourses={modifiedCourses}
-                    // setModifiedCourses={setModifiedCourses}
+                    handleShowModal={handleShowModal}
                 ></CourseSearch>
             </div>
+            <ViewCourseModal
+                show={showCourseModal}
+                handleClose={handleCloseModal}
+                code={codeModalView}
+                editCourse={editCourse}
+                modifiedCourses={modifiedCourses}
+            ></ViewCourseModal>
         </div>
     );
 }
