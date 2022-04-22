@@ -18,10 +18,10 @@ export const SemesterView = ({
     const [courseInput, setCourseInput] = useState<string>("");
 
     const numToSemester: Record<number, string> = {
-        0: "fall",
-        1: "winter",
-        2: "spring",
-        3: "summer"
+        0: "Fall",
+        1: "Winter",
+        2: "Spring",
+        3: "Summer"
     };
 
     function addCourse(code: string) {
@@ -76,7 +76,7 @@ export const SemesterView = ({
     return (
         <div>
             <p>{numToSemester[semester.id]}</p>
-            <p>Semester ID: {semester.id}</p>
+            {/*<p>Semester ID: {semester.id}</p>*/}
 
             <CourseList
                 courses={semester.courses}
@@ -92,20 +92,19 @@ export const SemesterView = ({
                         setCourseInput(event.target.value)
                     }
                 ></Form.Control>
-                <Button
-                    className={"btn-success"}
-                    type="submit"
-                    onClick={() => addCourse(courseInput)}
-                >
-                    Add Course
-                </Button>
             </Form.Group>
-
-            <Button className={"btn-warning"} onClick={clearCourses}>
+            <Button
+                className="btn-success m-1 mt-2"
+                type="submit"
+                onClick={() => addCourse(courseInput)}
+            >
+                Add Course
+            </Button>
+            <Button className="btn-warning m-1 mt-2" onClick={clearCourses}>
                 Clear Courses
             </Button>
             <Button
-                className={"btn-danger"}
+                className="btn-danger m-1 mt-4"
                 onClick={() => deleteSemester(semester.id)}
             >
                 - Delete Semester

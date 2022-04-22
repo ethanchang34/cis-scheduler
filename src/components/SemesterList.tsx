@@ -22,10 +22,7 @@ export const SemesterList = ({
             <Row>
                 {semesters.map((semester: Semester) =>
                     semester.active === true ? (
-                        <Col
-                            key={semester.id}
-                            className="bg-light border m-2 p-2"
-                        >
+                        <Col key={semester.id} className="border m-2 p-2">
                             <SemesterView
                                 semester={semester}
                                 deleteSemester={deleteSemester}
@@ -36,7 +33,7 @@ export const SemesterList = ({
                     ) : (
                         <Col
                             key={semester.id}
-                            className="bg-light border m-2 p-2"
+                            className="m-2 p-2"
                             style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -44,7 +41,7 @@ export const SemesterList = ({
                             }}
                         >
                             <Button
-                                className={"btn-success"}
+                                className="btn-success"
                                 onClick={() => addSemester(semester.id)}
                             >
                                 + Add Semester

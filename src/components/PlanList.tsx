@@ -72,7 +72,7 @@ export const PlanList = ({
                 {plans.map((plan: Plan) => (
                     <div key={plan.id}>
                         {plan.id === selectedID && (
-                            <div className="bg-light border m-2 p-2">
+                            <div className="m-2 p-2">
                                 <PlanView
                                     plan={plan}
                                     deletePlan={deletePlan}

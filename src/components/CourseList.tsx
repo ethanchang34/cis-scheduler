@@ -16,7 +16,7 @@ export const CourseList = ({
         <div>
             <Stack gap={3}>
                 {courses.map((course: string) => (
-                    <div key={course} className="bg-light border m-2 p-2">
+                    <div key={course} className="bg-light border m-1 p-2">
                         <CourseView
                             course={course}
                             deleteCourse={deleteCourse}

@@ -88,10 +88,10 @@ export const PlanView = ({
             deletePlan={deletePlan}
         ></PlanEdit>
     ) : (
+        //<p>Id: {plan.id}</p>}
         <div>
-            <p>Id: {plan.id}</p>
-            <p>Title: {plan.title}</p>
-            <p>Description: {plan.description}</p>
+            <h1>{plan.title}</h1>
+            <i>Description: {plan.description}</i>
             {selected ? (
                 <span>
                     <YearList
@@ -100,21 +100,26 @@ export const PlanView = ({
                         editYear={editYear}
                         modifiedCourses={modifiedCourses}
                     ></YearList>
-                    <Button className={"btn-success"} onClick={addYear}>
+                    <Button className="btn-success m-1" onClick={addYear}>
                         + Add Year
                     </Button>
-                    <Button className={"btn-danger"} onClick={clearSemsInPlan}>
+                    <Button
+                        className="btn-danger m-1"
+                        onClick={clearSemsInPlan}
+                    >
                         Clear all semesters
                     </Button>
                 </span>
             ) : (
-                <Button
-                    className="float-right"
-                    size="sm"
-                    onClick={changeEditing}
-                >
-                    Edit
-                </Button>
+                <div>
+                    <Button
+                        className="float-right mt-2"
+                        size="sm"
+                        onClick={changeEditing}
+                    >
+                        Edit
+                    </Button>
+                </div>
             )}
         </div>
     );
