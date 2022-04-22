@@ -37,10 +37,12 @@ const CourseLink = styled.span`
 
 export const CourseSearch = ({
     modifiedCourses,
-    handleShowModal
+    handleShowModal,
+    resetCourses
 }: {
     modifiedCourses: Record<string, Course>;
     handleShowModal: (code: string) => void;
+    resetCourses: () => void;
 }) => {
     const [subjectArea, setSubjectArea] = useState<string>("");
     const [courseNum, setCourseNum] = useState<string>("");
@@ -165,7 +167,21 @@ export const CourseSearch = ({
 
     return (
         <CourseSection>
-            <h1>Search Courses:</h1>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h1>Search Courses:</h1>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <Button
+                        className="btn-danger"
+                        onClick={() => {
+                            if (confirm("Revert all course edits?")) {
+                                resetCourses();
+                            }
+                        }}
+                    >
+                        Reset Course Changes
+                    </Button>
+                </div>
+            </div>
             <Form.Group controlId="formSearchArea">
                 <Form.Label>Subject Area:</Form.Label>
                 <Form.Control

@@ -94,12 +94,17 @@ const handleShowModal = () => {
     return;
 };
 
+const resetCourses = () => {
+    return;
+};
+
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
         render(
             <CourseSearch
                 modifiedCourses={testCourses}
                 handleShowModal={handleShowModal}
+                resetCourses={resetCourses}
             />
         );
     });
