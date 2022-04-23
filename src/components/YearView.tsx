@@ -69,9 +69,31 @@ export const YearView = ({
         });
     }
 
+    function yearCreds(semesters: Semester[]): number {
+        const mappedCourses = semesters.map((semester: Semester) =>
+            semester.courses.map(
+                (code: string): Course => modifiedCourses[code]
+            )
+        );
+        return mappedCourses.reduce(
+            (totalCreds: number, courses: Course[]) =>
+                totalCreds +
+                courses.reduce(
+                    (intCreds: number, course: Course) =>
+                        intCreds + course.credits,
+                    0
+                ),
+            0
+        );
+        return 0;
+    }
+
     return (
         <div>
-            <h2>Year {year.id + 1}</h2>
+            <h2 className="d-inline float-left">Year {year.id + 1}</h2>
+            <i style={{ float: "right" }}>
+                Year Credits: {yearCreds(year.semesters)}
+            </i>
             <SemesterList
                 semesters={year.semesters}
                 addSemester={addSemester}
