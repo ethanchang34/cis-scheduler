@@ -13,12 +13,12 @@ export const CourseView = ({
 }) => {
     return (
         <div>
-            <p>{course}</p>
-            <p>Credits:{modifiedCourses[course].credits}</p>
-            <Button
-                className={"btn-danger"}
-                onClick={() => deleteCourse(course)}
-            >
+            <h5 className="d-inline">{course}</h5>
+            <i className="d-block" style={{ float: "right" }}>
+                Credits:{modifiedCourses[course].credits}
+            </i>
+            <br></br>
+            <Button className="btn-danger" onClick={() => deleteCourse(course)}>
                 -
             </Button>
         </div>

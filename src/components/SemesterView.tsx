@@ -73,9 +73,24 @@ export const SemesterView = ({
         });
     }
 
+    function semesterCreds(courses: string[]): number {
+        const mappedCourses = courses.map(
+            (code: string): Course => modifiedCourses[code]
+        );
+        return mappedCourses.reduce(
+            (totalCreds: number, course: Course) => totalCreds + course.credits,
+            0
+        );
+    }
+
     return (
         <div>
-            <p>{numToSemester[semester.id]}</p>
+            <h4 className="d-inline float-left">
+                {numToSemester[semester.id]}
+            </h4>
+            <i style={{ float: "right" }}>
+                Semester Credits: {semesterCreds(semester.courses)}
+            </i>
             {/*<p>Semester ID: {semester.id}</p>*/}
 
             <CourseList
@@ -83,24 +98,26 @@ export const SemesterView = ({
                 deleteCourse={deleteCourse}
                 modifiedCourses={modifiedCourses}
             ></CourseList>
-            <Form.Group controlId="addCourse">
-                <Form.Label>Add Course</Form.Label>
+            <Form.Group controlId="addCourse" className="mt-2">
+                <Form.Label className="d-block">Add Course</Form.Label>
                 <Form.Control
                     placeholder="Enter course code (e.g. CISC 108)"
                     value={courseInput}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         setCourseInput(event.target.value)
                     }
+                    style={{ display: "inline", width: "80%" }}
                 ></Form.Control>
+                <Button
+                    className="btn-success d-inline"
+                    type="submit"
+                    onClick={() => addCourse(courseInput)}
+                    style={{ width: "20%", float: "right" }}
+                >
+                    Add
+                </Button>
             </Form.Group>
-            <Button
-                className="btn-success m-1 mt-2"
-                type="submit"
-                onClick={() => addCourse(courseInput)}
-            >
-                Add Course
-            </Button>
-            <Button className="btn-warning m-1 mt-2" onClick={clearCourses}>
+            <Button className="btn-warning m-1 mt-4" onClick={clearCourses}>
                 Clear Courses
             </Button>
             <Button
