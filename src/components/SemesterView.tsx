@@ -109,7 +109,7 @@ export const SemesterView = ({
                     style={{ display: "inline", width: "80%" }}
                 ></Form.Control>
                 <Button
-                    className="btn-success d-inline"
+                    className="d-inline"
                     type="submit"
                     onClick={() => addCourse(courseInput)}
                     style={{ width: "20%", float: "right" }}
@@ -117,7 +117,7 @@ export const SemesterView = ({
                     Add
                 </Button>
             </Form.Group>
-            <Button className="btn-warning m-1 mt-4" onClick={clearCourses}>
+            <Button className="btn-secondary m-1 mt-4" onClick={clearCourses}>
                 Clear Courses
             </Button>
             <Button

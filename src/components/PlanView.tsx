@@ -89,7 +89,7 @@ export const PlanView = ({
         ></PlanEdit>
     ) : (
         //<p>Id: {plan.id}</p>}
-        <div>
+        <section>
             <h1>{plan.title}</h1>
             <i>Description: {plan.description}</i>
             {selected ? (
@@ -100,7 +100,7 @@ export const PlanView = ({
                         editYear={editYear}
                         modifiedCourses={modifiedCourses}
                     ></YearList>
-                    <Button className="btn-success m-1" onClick={addYear}>
+                    <Button className="m-1" onClick={addYear}>
                         + Add Year
                     </Button>
                     <Button
@@ -121,6 +121,6 @@ export const PlanView = ({
                     </Button>
                 </div>
             )}
-        </div>
+        </section>
     );
 };
