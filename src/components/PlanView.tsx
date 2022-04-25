@@ -87,40 +87,39 @@ export const PlanView = ({
             editPlan={editPlan}
             deletePlan={deletePlan}
         ></PlanEdit>
-    ) : (
-        //<p>Id: {plan.id}</p>}
+    ) : selected === true ? (
         <section>
             <h1>{plan.title}</h1>
             <i>Description: {plan.description}</i>
-            {selected ? (
-                <span>
-                    <YearList
-                        years={plan.years}
-                        deleteYear={deleteYear}
-                        editYear={editYear}
-                        modifiedCourses={modifiedCourses}
-                    ></YearList>
-                    <Button className="m-1" onClick={addYear}>
-                        + Add Year
-                    </Button>
-                    <Button
-                        className="btn-danger m-1"
-                        onClick={clearSemsInPlan}
-                    >
-                        Clear all semesters
-                    </Button>
-                </span>
-            ) : (
-                <div>
-                    <Button
-                        className="float-right mt-2"
-                        size="sm"
-                        onClick={changeEditing}
-                    >
-                        Edit
-                    </Button>
-                </div>
-            )}
+            <span>
+                <YearList
+                    years={plan.years}
+                    deleteYear={deleteYear}
+                    editYear={editYear}
+                    modifiedCourses={modifiedCourses}
+                ></YearList>
+                <Button className="m-1 mx-auto d-block" onClick={addYear}>
+                    + Add Year
+                </Button>
+                <Button
+                    className="btn-danger m-1 mx-auto d-block"
+                    onClick={clearSemsInPlan}
+                >
+                    Clear all semesters
+                </Button>
+            </span>
         </section>
+    ) : (
+        <div>
+            <h1>{plan.title}</h1>
+            <i className="d-block">Description: {plan.description}</i>
+            <Button
+                className="float-right mt-2"
+                size="sm"
+                onClick={changeEditing}
+            >
+                Edit
+            </Button>
+        </div>
     );
 };

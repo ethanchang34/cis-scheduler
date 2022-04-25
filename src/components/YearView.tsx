@@ -114,7 +114,7 @@ export const YearView = ({
                 </Form.Select>
             </Form.Group>
             */}
-            <Button className="btn-warning m-1 mt-3" onClick={clearSemesters}>
+            <Button className="btn-secondary m-1 mt-3" onClick={clearSemesters}>
                 Clear Semesters
             </Button>
             <Button
