@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { SemesterView } from "../components/SemesterView";
 import { testCourses } from "./CourseSearch.test";
 import { DefaultPlans } from "../data/TestData";
+import userEvent from "@testing-library/user-event";
 
 const deleteSemester = () => {
     return;
@@ -64,7 +65,31 @@ describe("User should be able to clear all courses from a semester", () => {
         });
         expect(clearCourses).toBeInTheDocument();
         clearCourses.click();
-        const credits = screen.getAllByText(/credits/i); //idk a better way to grab the number of courses on the screen
-        expect(credits.length).toBe(0);
+        const courses = screen.getAllByText(
+            /EGGG 101/i || /CISC 108/i || /MATH 241/i || /ENGL 110/i
+        );
+        expect(courses).not.toBeInTheDocument();
+    });
+});
+
+describe("User should be able to add a course to a semester", () => {
+    beforeEach(() => {
+        render(
+            <SemesterView
+                semester={DefaultPlans[0].years[0].semesters[0]}
+                deleteSemester={deleteSemester}
+                editSemester={editSemester}
+                modifiedCourses={testCourses}
+            />
+        );
+    });
+
+    test("You can add a course to semester", () => {
+        const subjectInput = screen.getByLabelText(/Add Course/i);
+        userEvent.type(subjectInput, "CISC 106");
+        const addCourse = screen.getByRole("button", { name: /add/i });
+        expect(addCourse).toBeInTheDocument();
+        addCourse.click();
+        expect(screen.getByText(/cisc 106/i)).toBeInTheDocument();
     });
 });
