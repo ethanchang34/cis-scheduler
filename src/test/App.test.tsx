@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
+import userEvent from "@testing-library/user-event";
 
 test("renders the course name somewhere", () => {
     render(<App />);
@@ -73,5 +74,28 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
             }
         });
         expect(seenButton).toBe(true);
+    });
+});
+
+describe("Students can override course's info, but also reset a course back to its default information", () => {
+    beforeEach(() => {
+        render(<App />);
+    });
+
+    test("Users can click on a course to bring up a modal, displaying relevant information.", () => {
+        // First need to navigate to course search page.
+        const courseSearchButton = screen.getByText("Search Courses");
+        courseSearchButton.click();
+
+        const subjectInput = screen.getByLabelText("Subject Area:");
+        userEvent.type(subjectInput, "CISC");
+        const searchButton = screen.getByText("Search");
+        searchButton.click();
+
+        const cisc101Button = screen.getByText(/CISC 101/i);
+        cisc101Button.click();
+
+        const dialogRole = screen.getByRole("dialog");
+        expect(dialogRole).toBeInTheDocument();
     });
 });

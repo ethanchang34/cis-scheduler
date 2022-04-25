@@ -161,7 +161,6 @@ export const CourseSearch = ({
                 return;
             }
         }
-
         setDisplayedCourses(tempDisplayed);
     };
 
