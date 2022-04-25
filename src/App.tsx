@@ -117,6 +117,10 @@ function App(): JSX.Element {
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
 
+    const resetCourses = () => {
+        setModifiedCourses(originalCourses);
+    };
+
     const handleShowModal = (code: string) => {
         setShowCourseModal(true);
         setCodeModalView(code);
@@ -186,6 +190,7 @@ function App(): JSX.Element {
                 <CourseSearch
                     modifiedCourses={modifiedCourses}
                     handleShowModal={handleShowModal}
+                    resetCourses={resetCourses}
                 ></CourseSearch>
             </div>
             <ViewCourseModal
