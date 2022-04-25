@@ -1,9 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Course } from "../interfaces/Course";
-import userEvent from "@testing-library/user-event";
 import { ViewCourseModal } from "../components/ViewCourseModal";
-import App from "../App";
 
 const testCourses: Record<string, Course> = {
     "CISC 101": {
