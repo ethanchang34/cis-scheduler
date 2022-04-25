@@ -21,7 +21,7 @@ export const SemesterList = ({
         <div>
             <Row>
                 {semesters.map((semester: Semester) =>
-                    semester.active === true ? (
+                    semester.id < 2 && semester.active === true ? (
                         <Col
                             key={semester.id}
                             className="border m-2 p-3 text-white"
@@ -37,7 +37,7 @@ export const SemesterList = ({
                                 modifiedCourses={modifiedCourses}
                             ></SemesterView>
                         </Col>
-                    ) : (
+                    ) : semester.id < 2 ? (
                         <Col
                             key={semester.id}
                             className="m-2 p-2"
@@ -51,6 +51,45 @@ export const SemesterList = ({
                                 + Add Semester
                             </Button>
                         </Col>
+                    ) : (
+                        <></>
+                    )
+                )}
+            </Row>
+            <Row>
+                {semesters.map((semester: Semester) =>
+                    semester.id > 1 && semester.active === true ? (
+                        <Col
+                            key={semester.id}
+                            className="border m-2 p-3 text-white"
+                            style={{
+                                backgroundColor: "var(--primary-color)",
+                                borderRadius: 15
+                            }}
+                        >
+                            <SemesterView
+                                semester={semester}
+                                deleteSemester={deleteSemester}
+                                editSemester={editSemester}
+                                modifiedCourses={modifiedCourses}
+                            ></SemesterView>
+                        </Col>
+                    ) : semester.id > 1 ? (
+                        <Col
+                            key={semester.id}
+                            className="m-2 p-2"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Button onClick={() => addSemester(semester.id)}>
+                                + Add Semester
+                            </Button>
+                        </Col>
+                    ) : (
+                        <></>
                     )
                 )}
             </Row>
