@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { SemesterView } from "../components/SemesterView";
-import { testCourses } from "./CourseSearch.test";
+import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 import userEvent from "@testing-library/user-event";
 
@@ -13,22 +13,16 @@ const editSemester = () => {
     return;
 };
 
-describe("User should be able to add and delete semesters", () => {
+describe("User should be able to delete semesters", () => {
     beforeEach(() => {
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
-    });
-
-    //this test might require more work since we use a dropdown menu to add semesters
-    test("You can add a semester", () => {
-        const addSem = screen.getByText(/add semester/i);
-        expect(addSem).toBeInTheDocument();
     });
 
     test("You can delete a semester", () => {
@@ -54,7 +48,7 @@ describe("User should be able to clear all courses from a semester", () => {
                 semester={DefaultPlans[0].years[0].semesters[0]}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });
@@ -68,7 +62,9 @@ describe("User should be able to clear all courses from a semester", () => {
         const courses = screen.getAllByText(
             /EGGG 101/i || /CISC 108/i || /MATH 241/i || /ENGL 110/i
         );
-        expect(courses).not.toBeInTheDocument();
+        courses.forEach((x) => {
+            expect(x).not.toBeInTheDocument();
+        });
     });
 });
 
@@ -79,17 +75,19 @@ describe("User should be able to add a course to a semester", () => {
                 semester={DefaultPlans[0].years[0].semesters[0]}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });
 
     test("You can add a course to semester", () => {
-        const subjectInput = screen.getByLabelText(/Add Course/i);
+        const subjectInput = screen.getByRole("textbox", {
+            name: "Add Course"
+        });
         userEvent.type(subjectInput, "CISC 106");
-        const addCourse = screen.getByRole("button", { name: /add/i });
+        const addCourse = screen.getByRole("button", { name: /add course/i });
         expect(addCourse).toBeInTheDocument();
         addCourse.click();
-        expect(screen.getByText(/cisc 106/i)).toBeInTheDocument();
+        expect(screen.getByText(/CISC 106/i)).toBeInTheDocument();
     });
 });

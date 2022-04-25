@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { SemesterList } from "../components/SemesterList";
-import { testCourses } from "./CourseSearch.test";
+import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
 const deleteSemester = () => {
@@ -19,7 +19,7 @@ describe("Users should be able to view a list of semesters", () => {
                 semesters={DefaultPlans[0].years[0].semesters}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });

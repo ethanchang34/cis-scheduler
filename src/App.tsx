@@ -22,7 +22,7 @@ interface ActiveCourse {
 
 const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 
-const originalCourses: Record<string, Course> = {};
+export const originalCourses: Record<string, Course> = {};
 
 Object.entries(initialCourses).forEach(
     // Big hungo jungo method that fills the original courses object with our own courses.

@@ -15,12 +15,7 @@ export const CourseView = ({
         <div>
             <p>{course}</p>
             <p>Credits:{modifiedCourses[course].credits}</p>
-            <Button
-                data-testId={course + "test_courseview"}
-                onClick={() => deleteCourse(course)}
-            >
-                -
-            </Button>
+            <Button onClick={() => deleteCourse(course)}>-</Button>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { PlanList } from "../components/PlanList";
-import { testCourses } from "./CourseSearch.test";
+import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
 const addPlan = () => {
@@ -24,34 +24,19 @@ describe("User can see a list of plans and be able to edit and delete them", () 
                 addPlan={addPlan}
                 deletePlan={deletePlan}
                 editPlan={editPlan}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });
 
-    test("Exists on the Planner page", () => {
-        const linkElement = screen.getByText(/Plans/i);
-        expect(linkElement).toBeInTheDocument();
-    });
-
     test("There is a button, which adds a plan", () => {
-        const buttons = screen.getAllByRole("button");
-        const oldTitles = screen.getAllByAltText("Title");
-        let seenButton = false;
-        buttons.forEach((x) => {
-            if (x.textContent === "Add Plan") {
-                seenButton = true;
-                const addPlan = x;
-                addPlan.click();
-                const newPlan = screen.getByText(/New Plan/i);
-                expect(newPlan).toBeInTheDocument();
-            }
-        });
-        const newTitles = screen.getAllByAltText("Title");
-        expect(newTitles.length).toBe(oldTitles.length + 1);
-        expect(seenButton).toBe(true);
+        const addPlan = screen.getByRole("button", { name: /add plan/i });
+        expect(addPlan).toBeInTheDocument();
+        addPlan.click();
+        expect(screen.getByText(/New Plan/i)).toBeInTheDocument();
     });
 
+    //add userInputEvent to this test
     test("There is a button, which allows the user to edit or delete a plan", () => {
         const edit = screen.getByRole("button", { name: /edit/i });
         expect(edit).toBeInTheDocument();

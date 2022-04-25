@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { CourseView } from "../components/CourseView";
-import { testCourses } from "./CourseSearch.test";
+import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
 const deleteCourse = () => {
@@ -14,7 +14,7 @@ describe("User should be able to delete a course from a semester", () => {
             <CourseView
                 course={DefaultPlans[0].years[0].semesters[0].courses[0]}
                 deleteCourse={deleteCourse}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });

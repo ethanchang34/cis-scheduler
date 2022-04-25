@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { YearList } from "../components/YearList";
-import { testCourses } from "./CourseSearch.test";
+import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
 const deleteYear = () => {
@@ -19,7 +19,7 @@ describe("User can see a list of years and be able delete a year", () => {
                 years={DefaultPlans[0].years}
                 deleteYear={deleteYear}
                 editYear={editYear}
-                modifiedCourses={testCourses}
+                modifiedCourses={originalCourses}
             />
         );
     });
