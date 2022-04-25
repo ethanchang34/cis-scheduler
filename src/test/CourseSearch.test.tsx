@@ -33,6 +33,20 @@ const testCourses: Record<string, Course> = {
         tech: false
     },
 
+    "CISC 210": {
+        breadth: "",
+        code: "CISC 210",
+        credits: 3,
+        descr: "",
+        name: "Introduction to Systems Programming",
+        number: "210",
+        preReq: "A grade of C- or better in CISC 106 or CISC 108.",
+        restrict: "",
+        semsOffered: [0, 2],
+        subjectArea: "CISC",
+        tech: false
+    },
+
     "AFRA 204": {
         breadth: "Social and Behavioral Sciences",
         code: "AFRA 204",
@@ -94,12 +108,17 @@ const handleShowModal = () => {
     return;
 };
 
+const resetCourses = () => {
+    return;
+};
+
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
         render(
             <CourseSearch
                 modifiedCourses={testCourses}
                 handleShowModal={handleShowModal}
+                resetCourses={resetCourses}
             />
         );
     });
@@ -109,8 +128,8 @@ describe("Course search page has a input text bar and displays all matching cour
         expect(linkElement).toBeInTheDocument();
     });
 
-    test("There is 1 search input button", () => {
-        const searchButton = screen.getByRole("button");
+    test("There is a search input button and a reset course changes", () => {
+        const searchButton = screen.getByText("Search");
         expect(searchButton).toBeInTheDocument();
     });
 
@@ -122,7 +141,7 @@ describe("Course search page has a input text bar and displays all matching cour
     test("User can filter by department", () => {
         const subjectInput = screen.getByLabelText("Subject Area:");
         userEvent.type(subjectInput, "CISC");
-        const searchButton = screen.getByRole("button");
+        const searchButton = screen.getByText("Search");
         searchButton.click();
         expect(screen.getByText(/CISC 101/i)).toBeInTheDocument();
         expect(screen.getByText(/CISC 103/i)).toBeInTheDocument();
@@ -132,7 +151,7 @@ describe("Course search page has a input text bar and displays all matching cour
     test("User can filter by course number", () => {
         const subjectInput = screen.getByLabelText("Course Number:");
         userEvent.type(subjectInput, "1");
-        const searchButton = screen.getByRole("button");
+        const searchButton = screen.getByText("Search");
         searchButton.click();
         expect(screen.getByText(/CISC 101/i)).toBeInTheDocument();
         expect(screen.getByText(/CISC 103/i)).toBeInTheDocument();
@@ -143,7 +162,7 @@ describe("Course search page has a input text bar and displays all matching cour
     test("User can filter by semester", () => {
         const fallInput = screen.getByLabelText("Fall");
         fallInput.click();
-        const searchButton = screen.getByRole("button");
+        const searchButton = screen.getByText("Search");
         searchButton.click();
 
         expect(screen.queryByText(/CISC 103/i)).toBeInTheDocument();
@@ -200,7 +219,7 @@ describe("Course search page has a input text bar and displays all matching cour
 
         const creative = screen.getByLabelText("Creative Arts and Humanities");
         creative.click();
-        const searchButton = screen.getByRole("button");
+        const searchButton = screen.getByText("Search");
         searchButton.click();
 
         expect(screen.queryByText(/CISC 101/i)).not.toBeInTheDocument();
