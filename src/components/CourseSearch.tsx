@@ -3,37 +3,13 @@ import styled from "styled-components";
 import { Course } from "../interfaces/Course";
 import { SearchParam } from "../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
+import { CourseListDisplay } from "./CourseListDisplay";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
     padding-top: 15vh;
     padding-bottom: 15vh;
     color: var(--secondary-color);
-`;
-
-const TempCard = styled.section`
-    background-color: var(--secondary-color);
-    padding: 1rem;
-    border-radius: 30px;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const CourseLink = styled.span`
-    margin-bottom: 1rem;
-    cursor: pointer;
-
-    &:last-of-type {
-        margin-bottom: 0;
-    }
-
-    &:hover {
-        color: var(--primary-color);
-        text-decoration: underline;
-    }
 `;
 
 export const CourseSearch = ({
@@ -159,22 +135,12 @@ export const CourseSearch = ({
                 resetCourses={resetCourses}
                 handleSearch={handleSearch}
             ></CourseSearchForm>
-            <TempCard>
-                {displayedCourses.length === 0 && <h4>{error}</h4>}
-                {displayedCourses.map((c: Course) => {
-                    const course = modifiedCourses[c.code];
-                    return (
-                        <CourseLink
-                            key={course.code}
-                            onClick={() => {
-                                handleShowModal(course.code);
-                            }}
-                        >
-                            {course.code} {course.name}
-                        </CourseLink>
-                    );
-                })}
-            </TempCard>
+            <CourseListDisplay
+                displayedCourses={displayedCourses}
+                error={error}
+                modifiedCourses={modifiedCourses}
+                handleShowModal={handleShowModal}
+            ></CourseListDisplay>
         </CourseSection>
     );
 };

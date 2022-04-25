@@ -13,10 +13,30 @@ const TempCard = styled.section`
     justify-content: center;
 `;
 
+const CourseLink = styled.span`
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+`;
+
 export const CourseListDisplay = ({
-    displayedCourses
+    displayedCourses,
+    error,
+    modifiedCourses,
+    handleShowModal
 }: {
     displayedCourses: Course[];
+    error: string;
+    modifiedCourses: Record<string, Course>;
+    handleShowModal: (code: string) => void;
 }) => {
     return (
         <TempCard>
