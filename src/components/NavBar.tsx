@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);
@@ -33,28 +34,39 @@ export const NavBar = ({
     search: boolean;
     flipSearch: () => void;
 }) => {
+    const [pageTitle, setPageTitle] = useState<string>("Home");
     return (
         <Nav>
             <NavCol>
-                {!search && (
-                    <Button onClick={flipLanding}>
-                        {landing ? "Get Started" : "Home"}
-                    </Button>
-                )}
+                <Link to="/">
+                    <Button onClick={() => setPageTitle("Home")}>Home</Button>
+                </Link>
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
-                <NavText>
-                    {search ? "Course Search" : landing ? "Home Page" : "Plans"}
-                </NavText>
+                <NavText>{pageTitle}</NavText>
             </NavCol>
             <NavCol>
-                <Button
-                    style={{ marginLeft: "auto", display: "block" }}
-                    onClick={flipSearch}
-                    className={search ? "btn-danger" : ""}
-                >
-                    {search ? "Back" : "Search Courses"}
-                </Button>
+                {pageTitle !== "Course Search" ? (
+                    <Link to="/course-search">
+                        <Button
+                            style={{ marginLeft: "auto", display: "block" }}
+                            onClick={() => setPageTitle("Course Search")}
+                            className={search ? "btn-danger" : ""}
+                        >
+                            Search Courses
+                        </Button>
+                    </Link>
+                ) : (
+                    <Link to="/planner">
+                        <Button
+                            style={{ marginLeft: "auto", display: "block" }}
+                            onClick={() => setPageTitle("Planner")}
+                            className={search ? "btn-danger" : ""}
+                        >
+                            Planner
+                        </Button>
+                    </Link>
+                )}
             </NavCol>
         </Nav>
     );

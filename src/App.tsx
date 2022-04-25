@@ -8,6 +8,7 @@ import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { ViewCourseModal } from "./components/ViewCourseModal";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 interface ActiveCourse {
     code: string;
@@ -164,44 +165,91 @@ function App(): JSX.Element {
     };
 
     return (
-        <div className="App">
-            <NavBar
-                landing={landing}
-                flipLanding={flipLanding}
-                search={search}
-                flipSearch={flipSearch}
-            ></NavBar>
-            <div style={{ display: !search ? "block" : "none" }}>
-                {landing && (
-                    <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
-                )}
-                <div style={{ display: !landing ? "block" : "none" }}>
-                    {/*I only set this component to display none because I it to remain the same after switching to and from course search. */}
-                    <Planner
-                        plans={plans}
-                        addPlan={addPlan}
-                        editPlan={editPlan}
-                        deletePlan={deletePlan}
-                        modifiedCourses={modifiedCourses}
-                    ></Planner>
+        <Router>
+            <div className="App">
+                <NavBar
+                    landing={landing}
+                    flipLanding={flipLanding}
+                    search={search}
+                    flipSearch={flipSearch}
+                ></NavBar>
+                {/* <nav>
+                    <Link to="/">Home</Link>
+                    <Link to="/course-search">Course Search</Link>
+                    <Link to="/planner">Planner</Link>
+                </nav> */}
+                <div className="content">
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={<LandingPage flipLanding={flipLanding} />}
+                        />
+                        <Route
+                            path="course-search"
+                            element={
+                                <CourseSearch
+                                    modifiedCourses={modifiedCourses}
+                                    handleShowModal={handleShowModal}
+                                    resetCourses={resetCourses}
+                                />
+                            }
+                        />
+                        <Route
+                            path="planner"
+                            element={
+                                <Planner
+                                    plans={plans}
+                                    addPlan={addPlan}
+                                    editPlan={editPlan}
+                                    deletePlan={deletePlan}
+                                    modifiedCourses={modifiedCourses}
+                                />
+                            }
+                        />
+                    </Routes>
                 </div>
             </div>
-            <div style={{ display: search ? "block" : "none" }}>
-                <CourseSearch
-                    modifiedCourses={modifiedCourses}
-                    handleShowModal={handleShowModal}
-                    resetCourses={resetCourses}
-                ></CourseSearch>
-            </div>
-            <ViewCourseModal
-                show={showCourseModal}
-                handleClose={handleCloseModal}
-                code={codeModalView}
-                editCourse={editCourse}
-                modifiedCourses={modifiedCourses}
-            ></ViewCourseModal>
-        </div>
+        </Router>
     );
 }
 
 export default App;
+
+{
+    /* <div className="App">
+    <NavBar
+        landing={landing}
+        flipLanding={flipLanding}
+        search={search}
+        flipSearch={flipSearch}
+    ></NavBar>
+    <div style={{ display: !search ? "block" : "none" }}>
+        {landing && (
+            <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
+        )}
+        <div style={{ display: !landing ? "block" : "none" }}>
+            <Planner
+                plans={plans}
+                addPlan={addPlan}
+                editPlan={editPlan}
+                deletePlan={deletePlan}
+                modifiedCourses={modifiedCourses}
+            ></Planner>
+        </div>
+    </div>
+    <div style={{ display: search ? "block" : "none" }}>
+        <CourseSearch
+            modifiedCourses={modifiedCourses}
+            handleShowModal={handleShowModal}
+            resetCourses={resetCourses}
+        ></CourseSearch>
+    </div>
+    <ViewCourseModal
+        show={showCourseModal}
+        handleClose={handleCloseModal}
+        code={codeModalView}
+        editCourse={editCourse}
+        modifiedCourses={modifiedCourses}
+    ></ViewCourseModal>
+</div> */
+}

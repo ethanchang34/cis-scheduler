@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 const Hero = styled.section`
     background-color: var(--primary-color);
@@ -32,18 +33,20 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
                 </SubTitle>
             </Hero>
             <section style={{ backgroundColor: "var(--secondary-color)" }}>
-                <Button
-                    style={{
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginBottom: "20px",
-                        display: "block"
-                    }}
-                    onClick={flipLanding}
-                    className="btn-lg"
-                >
-                    Get Started!
-                </Button>
+                <Link to="planner">
+                    <Button
+                        style={{
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            marginBottom: "20px",
+                            display: "block"
+                        }}
+                        onClick={flipLanding}
+                        className="btn-lg"
+                    >
+                        Get Started!
+                    </Button>
+                </Link>
 
                 <h2>Freshman?</h2>
                 <ul>
