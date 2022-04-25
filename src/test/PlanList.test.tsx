@@ -53,9 +53,9 @@ describe("User can see a list of plans and be able to edit and delete them", () 
     });
 
     test("There is a button, which allows the user to edit or delete a plan", () => {
-        const button = screen.getByRole("button", { name: /edit/i });
-        expect(button).toBeInTheDocument();
-        button.click();
+        const edit = screen.getByRole("button", { name: /edit/i });
+        expect(edit).toBeInTheDocument();
+        edit.click();
         const save = screen.getByRole("button", { name: /save/i });
         const cancel = screen.getByRole("button", { name: /cancel/i });
         const deletePlan = screen.getByRole("button", { name: /delete/i });
