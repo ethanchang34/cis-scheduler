@@ -12,7 +12,7 @@ describe("Create landing page UI Students are introduced to the application with
     });
 
     test("renders the course name somewhere", () => {
-        const linkElement = screen.getByText(/CISC275/i);
+        const linkElement = screen.getByText(/UD CISC/i);
         expect(linkElement).toBeInTheDocument();
     });
 
