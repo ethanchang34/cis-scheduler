@@ -65,7 +65,9 @@ export const PlanList = ({
                             </div>
                         ))}
                     </Stack>
-                    <Button onClick={addPlan}>+ Add Plan</Button>
+                    <Button className="m-2" onClick={addPlan}>
+                        + Add Plan
+                    </Button>
                 </div>
             )}
             <Stack gap={3}>
