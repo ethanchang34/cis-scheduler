@@ -70,7 +70,10 @@ export const YearView = ({
     }
 
     function yearCreds(semesters: Semester[]): number {
-        const mappedCourses = semesters.map((semester: Semester) =>
+        const filteredSemesters = semesters.filter(
+            (semester: Semester) => semester.active === true
+        );
+        const mappedCourses = filteredSemesters.map((semester: Semester) =>
             semester.courses.map(
                 (code: string): Course => modifiedCourses[code]
             )
@@ -85,7 +88,6 @@ export const YearView = ({
                 ),
             0
         );
-        return 0;
     }
 
     return (
