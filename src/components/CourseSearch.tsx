@@ -172,9 +172,7 @@ export const CourseSearch = ({
                     <Button
                         className="btn-danger"
                         onClick={() => {
-                            if (confirm("Revert all course edits?")) {
-                                resetCourses();
-                            }
+                            resetCourses();
                         }}
                     >
                         Reset Course Changes

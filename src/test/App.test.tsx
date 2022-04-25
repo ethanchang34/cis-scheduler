@@ -95,7 +95,48 @@ describe("Students can override course's info, but also reset a course back to i
         const cisc101Button = screen.getByText(/CISC 101/i);
         cisc101Button.click();
 
-        const dialogRole = screen.getByRole("dialog");
+        const dialogRole = screen.getByRole("dialog"); // The modal is already tested to display the courses information
         expect(dialogRole).toBeInTheDocument();
+    });
+
+    test("Users can edit tile of course, and revert it using the course search button", () => {
+        // First need to navigate to course search page.
+        const courseSearchButton = screen.getByText("Search Courses");
+        courseSearchButton.click();
+
+        const subjectInput = screen.getByLabelText("Subject Area:");
+        userEvent.type(subjectInput, "CISC");
+        const searchButton = screen.getByText("Search");
+        searchButton.click();
+
+        const cisc101Button = screen.getByText(/CISC 101/i);
+        cisc101Button.click();
+
+        const editButton = screen.getByRole("button", { name: /Edit/i });
+        editButton.click();
+
+        const courseTitleInput = screen.getByLabelText(/Edit Title:/);
+        userEvent.clear(courseTitleInput);
+        userEvent.type(courseTitleInput, "Test Title");
+
+        const saveButton = screen.getByText(/Save/i);
+        saveButton.click();
+
+        expect(screen.getAllByText(/CISC 101 Test Title/i).length).toBe(2);
+
+        const cancelButton = screen.getByRole("button", { name: /Close/i });
+        cancelButton.click();
+
+        const dialogRole = screen.queryByRole("dialog"); // The modal is already tested to display the courses information
+        expect(dialogRole).not.toBeInTheDocument();
+
+        const resetButton = screen.getByRole("button", {
+            name: /Reset Course Changes/i
+        });
+        resetButton.click();
+
+        expect(
+            screen.queryByText(/CISC 101 Test Title/i)
+        ).not.toBeInTheDocument();
     });
 });
