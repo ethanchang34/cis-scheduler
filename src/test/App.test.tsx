@@ -3,12 +3,6 @@ import { render, screen } from "@testing-library/react";
 import App from "../App";
 import userEvent from "@testing-library/user-event";
 
-test("renders the course name somewhere", () => {
-    render(<App />);
-    const linkElement = screen.getByText(/CISC275/i);
-    expect(linkElement).toBeInTheDocument();
-});
-
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
     beforeEach(() => {
         render(<App />);
