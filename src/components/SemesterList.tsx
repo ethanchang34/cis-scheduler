@@ -21,7 +21,7 @@ export const SemesterList = ({
         <div>
             <Row>
                 {semesters.map((semester: Semester) =>
-                    semester.id < 2 && semester.active === true ? (
+                    semester.id % 2 === 0 && semester.active === true ? (
                         <Col
                             key={semester.id}
                             className="border m-2 p-3 text-white"
@@ -37,7 +37,7 @@ export const SemesterList = ({
                                 modifiedCourses={modifiedCourses}
                             ></SemesterView>
                         </Col>
-                    ) : semester.id < 2 ? (
+                    ) : semester.id === 0 || semester.id === 2 ? (
                         <Col
                             key={semester.id}
                             className="m-2 p-2"
@@ -58,7 +58,7 @@ export const SemesterList = ({
             </Row>
             <Row>
                 {semesters.map((semester: Semester) =>
-                    semester.id > 1 && semester.active === true ? (
+                    semester.id % 2 === 1 && semester.active === true ? (
                         <Col
                             key={semester.id}
                             className="border m-2 p-3 text-white"
@@ -74,7 +74,7 @@ export const SemesterList = ({
                                 modifiedCourses={modifiedCourses}
                             ></SemesterView>
                         </Col>
-                    ) : semester.id > 1 ? (
+                    ) : semester.id === 1 || semester.id === 3 ? (
                         <Col
                             key={semester.id}
                             className="m-2 p-2"
