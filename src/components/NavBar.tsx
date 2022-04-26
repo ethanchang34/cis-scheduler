@@ -6,8 +6,7 @@ import {
     Link,
     Route,
     Routes,
-    useNavigate,
-    useLocation
+    useNavigate
 } from "react-router-dom";
 
 const Nav = styled.section`
@@ -31,35 +30,41 @@ const NavText = styled.h2`
 `;
 
 export const NavBar = ({
-    landing,
-    flipLanding,
-    search,
-    flipSearch
+    pageTitle,
+    setPageTitle,
+    prevPage,
+    setPrevPage
 }: {
-    landing: boolean;
-    flipLanding: () => void;
-    search: boolean;
-    flipSearch: () => void;
+    pageTitle: string;
+    setPageTitle: (newTitle: string) => void;
+    prevPage: string;
+    setPrevPage: (newTitle: string) => void;
 }) => {
-    const [pageTitle, setPageTitle] = useState<string>("Home");
-    const [prevPage, setPrevPage] = useState<string>("Home");
     const navigate = useNavigate();
-    const location = useLocation();
 
     return (
         <Nav>
             <NavCol>
-                <Button
-                    onClick={() => {
-                        setPageTitle("Home");
-                        navigate("/");
-                    }}
-                >
-                    Home
-                </Button>
+                {pageTitle !== "Course Search" && (
+                    <Button
+                        onClick={() => {
+                            if (pageTitle === "Home") {
+                                setPageTitle("Plans");
+                                setPrevPage(pageTitle);
+                                navigate("Planner");
+                            } else {
+                                setPageTitle("Home");
+                                setPrevPage(pageTitle);
+                                navigate("/");
+                            }
+                        }}
+                    >
+                        {pageTitle === "Home" ? "Get Started" : "Home"}
+                    </Button>
+                )}
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
-                <NavText>{location.pathname}</NavText>
+                <NavText>{pageTitle}</NavText>
             </NavCol>
             <NavCol>
                 {pageTitle !== "Course Search" ? (
@@ -70,7 +75,9 @@ export const NavBar = ({
                             setPageTitle("Course Search");
                             navigate("course-search");
                         }}
-                        className={search ? "btn-danger" : ""}
+                        className={
+                            pageTitle === "Course Search" ? "btn-danger" : ""
+                        }
                     >
                         Search Courses
                     </Button>
@@ -81,7 +88,9 @@ export const NavBar = ({
                             setPageTitle(prevPage);
                             navigate(-1);
                         }}
-                        className={search ? "btn-danger" : ""}
+                        className={
+                            pageTitle === "Course Search" ? "btn-danger" : ""
+                        }
                     >
                         Back
                     </Button>

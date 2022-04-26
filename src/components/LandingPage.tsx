@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Routes,
+    useNavigate
+} from "react-router-dom";
 
 const Hero = styled.section`
     background-color: var(--primary-color);
@@ -21,7 +27,14 @@ const SubTitle = styled.h3`
     line-height: 2.5rem;
 `;
 
-export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
+export const LandingPage = ({
+    setPageTitle,
+    setPrevPage
+}: {
+    setPageTitle: (newTitle: string) => void;
+    setPrevPage: (prevTitle: string) => void;
+}) => {
+    const navigate = useNavigate();
     return (
         <div>
             <Hero>
@@ -41,7 +54,11 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
                             marginBottom: "20px",
                             display: "block"
                         }}
-                        onClick={flipLanding}
+                        onClick={() => {
+                            setPageTitle("Plans");
+                            setPrevPage("Home");
+                            navigate("planner");
+                        }}
                         className="btn-lg"
                     >
                         Get Started!

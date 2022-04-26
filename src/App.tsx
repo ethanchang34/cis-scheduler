@@ -113,7 +113,9 @@ function App(): JSX.Element {
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
-    //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
+
+    const [pageTitle, setPageTitle] = useState<string>("Home");
+    const [prevPage, setPrevPage] = useState<string>("Home");
 
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
@@ -154,24 +156,14 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
-    const flipLanding = () => {
-        setLanding(!landing);
-        // setSearch(false);
-    };
-
-    const flipSearch = () => {
-        setSearch(!search);
-        // setLanding(false);
-    };
-
     return (
         <Router>
             <div className="App">
                 <NavBar
-                    landing={landing}
-                    flipLanding={flipLanding}
-                    search={search}
-                    flipSearch={flipSearch}
+                    pageTitle={pageTitle}
+                    setPageTitle={setPageTitle}
+                    prevPage={prevPage}
+                    setPrevPage={setPrevPage}
                 ></NavBar>
                 {/* <nav>
                     <Link to="/">Home</Link>
@@ -182,7 +174,12 @@ function App(): JSX.Element {
                     <Routes>
                         <Route
                             path="/"
-                            element={<LandingPage flipLanding={flipLanding} />}
+                            element={
+                                <LandingPage
+                                    setPageTitle={setPageTitle}
+                                    setPrevPage={setPrevPage}
+                                />
+                            }
                         />
                         <Route
                             path="course-search"
