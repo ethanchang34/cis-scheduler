@@ -49,7 +49,6 @@ export const CourseListDisplay = ({
     const pageSize = 15;
 
     const paginate = (array: Course[], pageNum: number) => {
-        console.log(page, displayedCourses.length, pageSize);
         return array.slice((pageNum - 1) * pageSize, pageNum * pageSize);
     };
 
