@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Routes,
+    useNavigate
+} from "react-router-dom";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);
@@ -35,37 +41,48 @@ export const NavBar = ({
     flipSearch: () => void;
 }) => {
     const [pageTitle, setPageTitle] = useState<string>("Home");
+    const [prevPage, setPrevPage] = useState<string>("Home");
+    const navigate = useNavigate();
+
     return (
         <Nav>
             <NavCol>
-                <Link to="/">
-                    <Button onClick={() => setPageTitle("Home")}>Home</Button>
-                </Link>
+                <Button
+                    onClick={() => {
+                        setPageTitle("Home");
+                        navigate("/");
+                    }}
+                >
+                    Home
+                </Button>
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
                 <NavText>{pageTitle}</NavText>
             </NavCol>
             <NavCol>
                 {pageTitle !== "Course Search" ? (
-                    <Link to="/course-search">
-                        <Button
-                            style={{ marginLeft: "auto", display: "block" }}
-                            onClick={() => setPageTitle("Course Search")}
-                            className={search ? "btn-danger" : ""}
-                        >
-                            Search Courses
-                        </Button>
-                    </Link>
+                    <Button
+                        style={{ marginLeft: "auto", display: "block" }}
+                        onClick={() => {
+                            setPrevPage(pageTitle);
+                            setPageTitle("Course Search");
+                            navigate("course-search");
+                        }}
+                        className={search ? "btn-danger" : ""}
+                    >
+                        Search Courses
+                    </Button>
                 ) : (
-                    <Link to="/planner">
-                        <Button
-                            style={{ marginLeft: "auto", display: "block" }}
-                            onClick={() => setPageTitle("Planner")}
-                            className={search ? "btn-danger" : ""}
-                        >
-                            Planner
-                        </Button>
-                    </Link>
+                    <Button
+                        style={{ marginLeft: "auto", display: "block" }}
+                        onClick={() => {
+                            setPageTitle(prevPage);
+                            navigate(-1);
+                        }}
+                        className={search ? "btn-danger" : ""}
+                    >
+                        Back
+                    </Button>
                 )}
             </NavCol>
         </Nav>
