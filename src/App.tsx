@@ -7,12 +7,7 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    useLocation
-} from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 interface ActiveCourse {
     code: string;

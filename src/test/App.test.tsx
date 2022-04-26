@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
-import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
