@@ -14,6 +14,7 @@ const editYear = () => {
 
 describe("User can see a list of years and be able delete a year", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <YearList
                 years={DefaultPlans[0].years}

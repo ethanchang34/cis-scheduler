@@ -73,8 +73,8 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
 });
 
 describe("Students can override course's info, but also reset a course back to its default information", () => {
-    localStorage.clear();
     beforeEach(() => {
+        localStorage.clear();
         render(<App />);
     });
 
