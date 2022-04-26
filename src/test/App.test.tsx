@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(<App />);
     });
 
@@ -72,6 +73,7 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
 });
 
 describe("Students can override course's info, but also reset a course back to its default information", () => {
+    localStorage.clear();
     beforeEach(() => {
         render(<App />);
     });
