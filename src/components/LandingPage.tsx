@@ -51,7 +51,7 @@ export const LandingPage = ({
                         onClick={() => {
                             setPageTitle("Plans");
                             setPrevPage("Home");
-                            navigate("planner");
+                            navigate("/Planner");
                         }}
                         className="btn-lg"
                     >
