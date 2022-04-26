@@ -36,7 +36,6 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
     });
 
     test("'Course Searches' is the text on one of the buttons and clicking it routes you to the course search page.", () => {
-<<<<<<< HEAD
         const searchCourses = screen.getByRole("button", {
             name: "Search Courses"
         });
