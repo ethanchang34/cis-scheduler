@@ -24,14 +24,14 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
     return (
         <div>
             <Hero>
-                <Title>UD CISC275 Course Schedule Planner</Title>
+                <Title>UD CISC Course Schedule Planner</Title>
                 <SubTitle>
                     by
                     <br />
                     Aidan Tran, Ethan Chang, Colin Stetler
                 </SubTitle>
             </Hero>
-            <section>
+            <section style={{ backgroundColor: "var(--secondary-color)" }}>
                 <Button
                     style={{
                         marginLeft: "auto",

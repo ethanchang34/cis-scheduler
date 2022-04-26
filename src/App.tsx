@@ -36,26 +36,6 @@ Object.entries(initialCourses).forEach(
                 if (parseSems.includes("Spring")) sems = [...sems, 2];
                 if (parseSems.includes("Summer")) sems = [...sems, 3];
 
-                // Below comment is logic for extracting mentioned courses in prereqs
-
-                // let coursePreReq: string[] = [];
-                // const parsePreReq = activeCourse.preReq;
-
-                // let consecutiveNums = 0;
-
-                // for (let i = 0; i < parsePreReq.length; i++) {
-                //     if (!isNaN(parseInt(parsePreReq[i]))) {
-                //         consecutiveNums++;
-                //         if (consecutiveNums === 3) {
-                //             coursePreReq = [
-                //                 ...coursePreReq,
-                //                 parsePreReq.substring(i - 7, i + 1)
-                //             ];
-                //             consecutiveNums = 0;
-                //         }
-                //     }
-                // }
-
                 const parseBreadth = activeCourse.breadth.split(";"); // Isolate university: and A&S: breadths
                 let courseBreadth = parseBreadth[0].substring(12); // Grab the university breadth at truncate string to only include breadth
                 if (
@@ -94,25 +74,17 @@ Object.entries(initialCourses).forEach(
     }
 );
 
-// Below I measure performance of selecting from the courses, takes around 10 milliseconds
-
-// const startTime = performance.now();
-// console.log(
-//     Object.values(originalCourses).filter(
-//         (course: Course) => course.subjectArea == "CISC"
-//     )
-// );
-// const endTime = performance.now();
-// console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
-
 function App(): JSX.Element {
-    // const [modifiedCourses, setModifiedCourses] =
-    //     useState<Record<string, Course>>(originalCourses);
-    const modifiedCourses = originalCourses;
+    const [modifiedCourses, setModifiedCourses] =
+        useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
+
+    const resetCourses = () => {
+        setModifiedCourses(originalCourses);
+    };
 
     const addPlan = () => {
         const newPlan: Plan = {
@@ -170,7 +142,8 @@ function App(): JSX.Element {
             <div style={{ display: search ? "block" : "none" }}>
                 <CourseSearch
                     modifiedCourses={modifiedCourses}
-                    // setModifiedCourses={setModifiedCourses}
+                    setModifiedCourses={setModifiedCourses}
+                    resetCourses={resetCourses}
                 ></CourseSearch>
             </div>
         </div>

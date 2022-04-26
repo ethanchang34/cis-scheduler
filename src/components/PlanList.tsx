@@ -51,17 +51,25 @@ export const PlanList = ({
                                     modifiedCourses={modifiedCourses}
                                     selected={false}
                                 ></PlanView>
-                                <span
+                                <div
                                     style={{
                                         display: "flex",
-                                        justifyContent: "center",
-                                        fontSize: "12px",
-                                        fontStyle: "italic"
+                                        justifyContent: "center"
                                     }}
-                                    onClick={() => changeSelectedID(plan.id)}
                                 >
-                                    Click to expand
-                                </span>
+                                    <span
+                                        style={{
+                                            fontSize: "12px",
+                                            fontStyle: "italic",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(plan.id)
+                                        }
+                                    >
+                                        Click to expand
+                                    </span>
+                                </div>
                             </div>
                         ))}
                     </Stack>
@@ -82,17 +90,25 @@ export const PlanList = ({
                                     modifiedCourses={modifiedCourses}
                                     selected={true}
                                 ></PlanView>
-                                <span
+                                <div
                                     style={{
                                         display: "flex",
-                                        justifyContent: "center",
-                                        fontSize: "12px",
-                                        fontStyle: "italic"
+                                        justifyContent: "center"
                                     }}
-                                    onClick={() => changeSelectedID(plan.id)}
                                 >
-                                    Click to minimize
-                                </span>
+                                    <span
+                                        style={{
+                                            fontSize: "12px",
+                                            fontStyle: "italic",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(plan.id)
+                                        }
+                                    >
+                                        Click to minimize
+                                    </span>
+                                </div>
                             </div>
                         )}
                     </div>
