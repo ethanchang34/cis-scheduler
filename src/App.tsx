@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/CourseSearch";
@@ -107,9 +107,35 @@ Object.entries(initialCourses).forEach(
 // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
 function App(): JSX.Element {
-    const [modifiedCourses, setModifiedCourses] =
-        useState<Record<string, Course>>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
+    const [modifiedCourses, setModifiedCourses] = useState<
+        Record<string, Course>
+    >(() => {
+        const saved = localStorage.getItem("modifiedCourses");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return originalCourses;
+        }
+    });
+    const [plans, setPlans] = useState<Plan[]>(() => {
+        const saved = localStorage.getItem("plans");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return DefaultPlans;
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem(
+            "modifiedCourses",
+            JSON.stringify(modifiedCourses)
+        );
+    }, [modifiedCourses]);
+
+    useEffect(() => {
+        localStorage.setItem("plans", JSON.stringify(plans));
+    }, [plans]);
 
     const resetCourses = () => {
         setModifiedCourses(originalCourses);
