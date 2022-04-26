@@ -6,7 +6,8 @@ import {
     Link,
     Route,
     Routes,
-    useNavigate
+    useNavigate,
+    useLocation
 } from "react-router-dom";
 
 const Nav = styled.section`
@@ -43,6 +44,7 @@ export const NavBar = ({
     const [pageTitle, setPageTitle] = useState<string>("Home");
     const [prevPage, setPrevPage] = useState<string>("Home");
     const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <Nav>
@@ -57,7 +59,7 @@ export const NavBar = ({
                 </Button>
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
-                <NavText>{pageTitle}</NavText>
+                <NavText>{location.pathname}</NavText>
             </NavCol>
             <NavCol>
                 {pageTitle !== "Course Search" ? (
