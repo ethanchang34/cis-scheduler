@@ -14,6 +14,7 @@ const editYear = () => {
 
 describe("User should be able to add a semester to a year", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <YearView
                 year={DefaultPlans[0].years[0]}

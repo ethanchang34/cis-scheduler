@@ -14,6 +14,7 @@ const editPlan = () => {
 
 describe("User should be able to add a year", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <PlanView
                 plan={DefaultPlans[0]}
@@ -39,6 +40,7 @@ describe("User should be able to add a year", () => {
 
 describe("User should be able to clear all existing semesters in a plan", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <PlanView
                 plan={DefaultPlans[0]}

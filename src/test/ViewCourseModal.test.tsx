@@ -115,6 +115,7 @@ const editCourse = () => {
 
 describe("Students can establish that a course meets another course's prerequisite.", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <ViewCourseModal
                 show={true}

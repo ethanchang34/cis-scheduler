@@ -10,6 +10,7 @@ const deleteCourse = () => {
 
 describe("User should be able to delete a course from a semester", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <CourseView
                 course={DefaultPlans[0].years[0].semesters[0].courses[0]}

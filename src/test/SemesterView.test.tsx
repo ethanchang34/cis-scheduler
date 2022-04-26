@@ -15,6 +15,7 @@ const editSemester = () => {
 
 describe("User should be able to delete semesters", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
@@ -43,6 +44,7 @@ describe("User should be able to delete semesters", () => {
 
 describe("User should be able to clear all courses from a semester", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
@@ -70,6 +72,7 @@ describe("User should be able to clear all courses from a semester", () => {
 
 describe("User should be able to add a course to a semester", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}

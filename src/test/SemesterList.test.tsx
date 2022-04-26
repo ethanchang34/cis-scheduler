@@ -14,6 +14,7 @@ const editSemester = () => {
 
 describe("Users should be able to view a list of semesters", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <SemesterList
                 semesters={DefaultPlans[0].years[0].semesters}

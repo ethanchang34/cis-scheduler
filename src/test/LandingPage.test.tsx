@@ -4,6 +4,7 @@ import { LandingPage } from "../components/LandingPage";
 
 describe("Create landing page UI Students are introduced to the application with a friendly message that clearly explains their goal and how they should get started.", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(<LandingPage />);
     });
 
