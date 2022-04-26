@@ -32,8 +32,10 @@ export const CourseSearch = ({
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
     );
+    const [page, setPage] = useState(1);
 
     const handleSearch = () => {
+        setPage(1);
         let tempDisplayed: Course[] = Object.values(modifiedCourses);
 
         if (searchParam.subjectArea) {
@@ -140,6 +142,8 @@ export const CourseSearch = ({
                 error={error}
                 modifiedCourses={modifiedCourses}
                 handleShowModal={handleShowModal}
+                page={page}
+                setPage={setPage}
             ></CourseListDisplay>
         </CourseSection>
     );
