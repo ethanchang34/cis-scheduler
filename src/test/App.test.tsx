@@ -41,13 +41,6 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
             name: "Search Courses"
         });
         searchCourses.click();
-=======
-        const button = screen.getByRole("button", {
-            name: "Search Courses"
-        });
-        expect(button).toBeInTheDocument();
-        button.click();
->>>>>>> a365579b93dd611957133fd6165f388330032ef7
         const homePage = screen.queryByText(/Home/i);
         expect(homePage).not.toBeInTheDocument();
         const courseSearch = screen.getByText("Course Search");
@@ -55,27 +48,12 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
     });
 
     test("Once on the course search page, there is a 'Back' button which routes you back to the page you were on before", () => {
-<<<<<<< HEAD
-        const searchCourses = screen.getByRole("button", {
-            name: "Search Courses"
-        });
-        searchCourses.click();
-        const courseSearch = screen.getByText("Course Search");
-        expect(courseSearch).toBeInTheDocument();
-        const backText = screen.getByRole("button", {
-            name: "Back"
-        });
-        backText.click();
-=======
         const courseSearch = screen.getByRole("button", {
             name: "Search Courses"
         });
-        expect(courseSearch).toBeInTheDocument();
         courseSearch.click();
         const back = screen.getByRole("button", { name: "Back" });
-        expect(back).toBeInTheDocument();
         back.click();
->>>>>>> a365579b93dd611957133fd6165f388330032ef7
         const homePage = screen.getByText(/Home/i);
         expect(homePage).toBeInTheDocument();
     });
