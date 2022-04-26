@@ -1,13 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Routes,
-    useNavigate
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Hero = styled.section`
     background-color: var(--primary-color);

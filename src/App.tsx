@@ -7,8 +7,7 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
-import { ViewCourseModal } from "./components/ViewCourseModal";
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 interface ActiveCourse {
     code: string;
@@ -111,29 +110,12 @@ function App(): JSX.Element {
     const [modifiedCourses, setModifiedCourses] =
         useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
-    const [search, setSearch] = useState<boolean>(false);
-    const [landing, setLanding] = useState<boolean>(true);
 
     const [pageTitle, setPageTitle] = useState<string>("Home");
     const [prevPage, setPrevPage] = useState<string>("Home");
 
-    const [showCourseModal, setShowCourseModal] = useState(false);
-    const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
-
     const resetCourses = () => {
         setModifiedCourses(originalCourses);
-    };
-
-    const handleShowModal = (code: string) => {
-        setShowCourseModal(true);
-        setCodeModalView(code);
-    };
-    const handleCloseModal = () => setShowCourseModal(false);
-
-    const editCourse = (newCourse: Course) => {
-        const newModifiedCourses = { ...modifiedCourses };
-        newModifiedCourses[newCourse.code] = newCourse;
-        setModifiedCourses(newModifiedCourses);
     };
 
     const addPlan = () => {
@@ -186,8 +168,8 @@ function App(): JSX.Element {
                             element={
                                 <CourseSearch
                                     modifiedCourses={modifiedCourses}
-                                    handleShowModal={handleShowModal}
                                     resetCourses={resetCourses}
+                                    setModifiedCourses={setModifiedCourses}
                                 />
                             }
                         />
@@ -211,42 +193,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-
-{
-    /* <div className="App">
-    <NavBar
-        landing={landing}
-        flipLanding={flipLanding}
-        search={search}
-        flipSearch={flipSearch}
-    ></NavBar>
-    <div style={{ display: !search ? "block" : "none" }}>
-        {landing && (
-            <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
-        )}
-        <div style={{ display: !landing ? "block" : "none" }}>
-            <Planner
-                plans={plans}
-                addPlan={addPlan}
-                editPlan={editPlan}
-                deletePlan={deletePlan}
-                modifiedCourses={modifiedCourses}
-            ></Planner>
-        </div>
-    </div>
-    <div style={{ display: search ? "block" : "none" }}>
-        <CourseSearch
-            modifiedCourses={modifiedCourses}
-            handleShowModal={handleShowModal}
-            resetCourses={resetCourses}
-        ></CourseSearch>
-    </div>
-    <ViewCourseModal
-        show={showCourseModal}
-        handleClose={handleCloseModal}
-        code={codeModalView}
-        editCourse={editCourse}
-        modifiedCourses={modifiedCourses}
-    ></ViewCourseModal>
-</div> */
-}

@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Routes,
-    useNavigate
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);

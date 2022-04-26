@@ -104,11 +104,11 @@ export const testCourses: Record<string, Course> = {
     }
 };
 
-const handleShowModal = () => {
+const resetCourses = () => {
     return;
 };
 
-const resetCourses = () => {
+const setModifiedCourses = () => {
     return;
 };
 
@@ -117,7 +117,7 @@ describe("Course search page has a input text bar and displays all matching cour
         render(
             <CourseSearch
                 modifiedCourses={testCourses}
-                handleShowModal={handleShowModal}
+                setModifiedCourses={setModifiedCourses}
                 resetCourses={resetCourses}
             />
         );
