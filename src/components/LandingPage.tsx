@@ -21,13 +21,7 @@ const SubTitle = styled.h3`
     line-height: 2.5rem;
 `;
 
-export const LandingPage = ({
-    setPageTitle,
-    setPrevPage
-}: {
-    setPageTitle: (newTitle: string) => void;
-    setPrevPage: (prevTitle: string) => void;
-}) => {
+export const LandingPage = () => {
     const navigate = useNavigate();
     return (
         <div>
@@ -49,9 +43,7 @@ export const LandingPage = ({
                             display: "block"
                         }}
                         onClick={() => {
-                            setPageTitle("Plans");
-                            setPrevPage("Home");
-                            navigate("/Planner");
+                            navigate("planner");
                         }}
                         className="btn-lg"
                     >

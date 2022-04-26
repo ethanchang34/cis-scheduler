@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Course } from "../interfaces/Course";
 import { SearchParam } from "../interfaces/SearchParam";
@@ -22,21 +22,57 @@ export const CourseSearch = ({
     resetCourses: () => void;
     setModifiedCourses: (newCourses: Record<string, Course>) => void;
 }) => {
-    const [searchParam, setSearchParam] = useState<SearchParam>({
-        subjectArea: "",
-        courseNum: "",
-        semesters: [],
-        breadth: [],
-        tech: false
+    const [searchParam, setSearchParam] = useState<SearchParam>(() => {
+        const saved = localStorage.getItem("searchParam");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return {
+                subjectArea: "",
+                courseNum: "",
+                semesters: [],
+                breadth: [],
+                tech: false
+            };
+        }
     });
-    const [displayedCourses, setDisplayedCourses] = useState<Course[]>([]);
+    const [displayedCourses, setDisplayedCourses] = useState<Course[]>(() => {
+        const saved = localStorage.getItem("displayedCourses");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return [];
+        }
+    });
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
     );
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(() => {
+        const saved = localStorage.getItem("page");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return 1;
+        }
+    });
 
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
+
+    useEffect(() => {
+        localStorage.setItem("searchParam", JSON.stringify(searchParam));
+    }, [searchParam]);
+
+    useEffect(() => {
+        localStorage.setItem(
+            "displayedCourses",
+            JSON.stringify(displayedCourses)
+        );
+    }, [displayedCourses]);
+
+    useEffect(() => {
+        localStorage.setItem("page", JSON.stringify(page));
+    }, [page]);
 
     const handleShowModal = (code: string) => {
         setShowCourseModal(true);
@@ -52,6 +88,7 @@ export const CourseSearch = ({
 
     const handleSearch = () => {
         setPage(1);
+        setError("No courses found.");
         let tempDisplayed: Course[] = Object.values(modifiedCourses);
 
         if (searchParam.subjectArea) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);
@@ -23,54 +23,49 @@ const NavText = styled.h2`
     font-weight: 600;
 `;
 
-export const NavBar = ({
-    pageTitle,
-    setPageTitle,
-    prevPage,
-    setPrevPage
-}: {
-    pageTitle: string;
-    setPageTitle: (newTitle: string) => void;
-    prevPage: string;
-    setPrevPage: (newTitle: string) => void;
-}) => {
+const PageTitles: Record<string, string> = {
+    "/": "Home",
+    "/planner": "Plans",
+    "/course-search": "Course Search"
+};
+
+export const NavBar = () => {
     const navigate = useNavigate();
+    const myLocation = useLocation();
 
     return (
         <Nav>
             <NavCol>
-                {pageTitle !== "Course Search" && (
+                {PageTitles[myLocation.pathname] !== "Course Search" && (
                     <Button
                         onClick={() => {
-                            if (pageTitle === "Home") {
-                                setPageTitle("Plans");
-                                setPrevPage(pageTitle);
-                                navigate("Planner");
+                            if (PageTitles[myLocation.pathname] === "Home") {
+                                navigate("planner");
                             } else {
-                                setPageTitle("Home");
-                                setPrevPage(pageTitle);
                                 navigate("/");
                             }
                         }}
                     >
-                        {pageTitle === "Home" ? "Get Started" : "Home"}
+                        {PageTitles[myLocation.pathname] === "Home"
+                            ? "Get Started"
+                            : "Home"}
                     </Button>
                 )}
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
-                <NavText>{pageTitle}</NavText>
+                <NavText>{PageTitles[myLocation.pathname]}</NavText>
             </NavCol>
             <NavCol>
-                {pageTitle !== "Course Search" ? (
+                {PageTitles[myLocation.pathname] !== "Course Search" ? (
                     <Button
                         style={{ marginLeft: "auto", display: "block" }}
                         onClick={() => {
-                            setPrevPage(pageTitle);
-                            setPageTitle("Course Search");
                             navigate("course-search");
                         }}
                         className={
-                            pageTitle === "Course Search" ? "btn-danger" : ""
+                            PageTitles[myLocation.pathname] === "Course Search"
+                                ? "btn-danger"
+                                : ""
                         }
                     >
                         Search Courses
@@ -79,11 +74,12 @@ export const NavBar = ({
                     <Button
                         style={{ marginLeft: "auto", display: "block" }}
                         onClick={() => {
-                            setPageTitle(prevPage);
                             navigate(-1);
                         }}
                         className={
-                            pageTitle === "Course Search" ? "btn-danger" : ""
+                            PageTitles[myLocation.pathname] === "Course Search"
+                                ? "btn-danger"
+                                : ""
                         }
                     >
                         Back

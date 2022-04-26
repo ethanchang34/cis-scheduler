@@ -111,9 +111,6 @@ function App(): JSX.Element {
         useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
 
-    const [pageTitle, setPageTitle] = useState<string>("Home");
-    const [prevPage, setPrevPage] = useState<string>("Home");
-
     const resetCourses = () => {
         setModifiedCourses(originalCourses);
     };
@@ -141,12 +138,7 @@ function App(): JSX.Element {
     return (
         <Router>
             <div className="App">
-                <NavBar
-                    pageTitle={pageTitle}
-                    setPageTitle={setPageTitle}
-                    prevPage={prevPage}
-                    setPrevPage={setPrevPage}
-                ></NavBar>
+                <NavBar></NavBar>
                 {/* <nav>
                     <Link to="/">Home</Link>
                     <Link to="/course-search">Course Search</Link>
@@ -154,15 +146,7 @@ function App(): JSX.Element {
                 </nav> */}
                 <div className="content">
                     <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <LandingPage
-                                    setPageTitle={setPageTitle}
-                                    setPrevPage={setPrevPage}
-                                />
-                            }
-                        />
+                        <Route path="/" element={<LandingPage />} />
                         <Route
                             path="course-search"
                             element={
