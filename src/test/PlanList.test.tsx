@@ -51,12 +51,14 @@ describe("User can see a list of plans and be able to edit and delete them", () 
     });
 
     test("You can see the title of a plan", () => {
-        const titleElement = screen.getByText(/Title/i); //or Title: Default Plan?
+        const titleElement = screen.getByRole("heading", {
+            name: /Default plan/i
+        }); //or Title: Default Plan?
         expect(titleElement).toBeInTheDocument();
     });
 
     test("You can seee the plan description", () => {
-        const descElement = screen.getByText(/Title/i);
+        const descElement = screen.getByText(/Description/i);
         expect(descElement).toBeInTheDocument();
     });
 });

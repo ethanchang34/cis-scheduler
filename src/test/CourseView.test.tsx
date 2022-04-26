@@ -21,7 +21,7 @@ describe("User should be able to delete a course from a semester", () => {
     });
 
     test("You can delete a course", () => {
-        const deleteCourse = screen.getByRole("button", { name: /-/i });
+        const deleteCourse = screen.getByRole("button", { name: "-" });
         expect(deleteCourse).toBeInTheDocument();
         deleteCourse.click();
         expect(screen.queryByText(/EGGG 101/i)).not.toBeInTheDocument();

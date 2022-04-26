@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button /*, Form*/ } from "react-bootstrap";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
@@ -16,19 +16,19 @@ export const YearView = ({
     editYear: (id: number, newYear: Year) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
-    const semesterToNumber: Record<string, number> = {
+    /*const semesterToNumber: Record<string, number> = {
         fall: 0,
         winter: 1,
         spring: 2,
         summer: 3
-    };
+    };*/
 
-    function addSemester(event: React.ChangeEvent<HTMLSelectElement>) {
+    function addSemester(id: number) {
         editYear(year.id, {
             ...year,
             semesters: year.semesters.map(
                 (semester: Semester): Semester =>
-                    semesterToNumber[event.target.value] === semester.id
+                    id === semester.id
                         ? { ...semester, active: true }
                         : semester
             )
@@ -69,15 +69,41 @@ export const YearView = ({
         });
     }
 
+    function yearCreds(semesters: Semester[]): number {
+        const filteredSemesters = semesters.filter(
+            (semester: Semester) => semester.active === true
+        );
+        const mappedCourses = filteredSemesters.map((semester: Semester) =>
+            semester.courses.map(
+                (code: string): Course => modifiedCourses[code]
+            )
+        );
+        return mappedCourses.reduce(
+            (totalCreds: number, courses: Course[]) =>
+                totalCreds +
+                courses.reduce(
+                    (intCreds: number, course: Course) =>
+                        intCreds + course.credits,
+                    0
+                ),
+            0
+        );
+    }
+
     return (
         <div>
-            <p>Year ID: {year.id}</p>
+            <h2 className="d-inline float-left">Year {year.id + 1}</h2>
+            <i style={{ float: "right" }}>
+                Year Credits: {yearCreds(year.semesters)}
+            </i>
             <SemesterList
                 semesters={year.semesters}
+                addSemester={addSemester}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={modifiedCourses}
             ></SemesterList>
+            {/*
             <Form.Group controlId="addSemester">
                 <Form.Label>Add Semester</Form.Label>
                 <Form.Select onChange={addSemester}>
@@ -87,8 +113,16 @@ export const YearView = ({
                     <option value="summer">Summer</option>
                 </Form.Select>
             </Form.Group>
-            <Button onClick={clearSemesters}>Clear Semesters</Button>
-            <Button onClick={() => deleteYear(year.id)}>Delete Year</Button>
+            */}
+            <Button className="btn-secondary m-1 mt-3" onClick={clearSemesters}>
+                Clear Semesters
+            </Button>
+            <Button
+                className="btn-danger m-1 mt-3"
+                onClick={() => deleteYear(year.id)}
+            >
+                Delete Year
+            </Button>
         </div>
     );
 };

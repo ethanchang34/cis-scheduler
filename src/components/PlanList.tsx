@@ -78,14 +78,16 @@ export const PlanList = ({
                             </div>
                         ))}
                     </Stack>
-                    <Button onClick={addPlan}>Add Plan</Button>
+                    <Button className="m-2" onClick={addPlan}>
+                        Add Plan
+                    </Button>
                 </div>
             )}
             <Stack gap={3}>
                 {plans.map((plan: Plan) => (
                     <div key={plan.id}>
                         {plan.id === selectedID && (
-                            <div className="bg-light border m-2 p-2">
+                            <div className="m-2 p-2">
                                 <PlanView
                                     plan={plan}
                                     deletePlan={deletePlan}

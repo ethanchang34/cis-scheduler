@@ -1,12 +1,20 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import App from "../App";
+import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
     beforeEach(() => {
-        localStorage.clear();
-        render(<App />);
+        window.localStorage.clear();
+        render(
+            <MemoryRouter initialEntries={["/"]}>
+                <App />
+            </MemoryRouter>
+        );
+    });
+    afterEach(() => {
+        window.localStorage.clear();
     });
 
     test("App starts on the Home Page", () => {
@@ -28,10 +36,18 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
     });
 
     test("'Course Searches' is the text on one of the buttons and clicking it routes you to the course search page.", () => {
+<<<<<<< HEAD
         const searchCourses = screen.getByRole("button", {
             name: "Search Courses"
         });
         searchCourses.click();
+=======
+        const button = screen.getByRole("button", {
+            name: "Search Courses"
+        });
+        expect(button).toBeInTheDocument();
+        button.click();
+>>>>>>> a365579b93dd611957133fd6165f388330032ef7
         const homePage = screen.queryByText(/Home/i);
         expect(homePage).not.toBeInTheDocument();
         const courseSearch = screen.getByText("Course Search");
@@ -39,6 +55,7 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
     });
 
     test("Once on the course search page, there is a 'Back' button which routes you back to the page you were on before", () => {
+<<<<<<< HEAD
         const searchCourses = screen.getByRole("button", {
             name: "Search Courses"
         });
@@ -49,6 +66,16 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
             name: "Back"
         });
         backText.click();
+=======
+        const courseSearch = screen.getByRole("button", {
+            name: "Search Courses"
+        });
+        expect(courseSearch).toBeInTheDocument();
+        courseSearch.click();
+        const back = screen.getByRole("button", { name: "Back" });
+        expect(back).toBeInTheDocument();
+        back.click();
+>>>>>>> a365579b93dd611957133fd6165f388330032ef7
         const homePage = screen.getByText(/Home/i);
         expect(homePage).toBeInTheDocument();
     });
@@ -56,8 +83,12 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
 
 describe("Students can override course's info, but also reset a course back to its default information", () => {
     beforeEach(() => {
-        localStorage.clear();
-        render(<App />);
+        window.localStorage.clear();
+        render(
+            <MemoryRouter initialEntries={["/"]}>
+                <App />
+            </MemoryRouter>
+        );
     });
 
     test("Users can click on a course to bring up a modal, displaying relevant information.", () => {

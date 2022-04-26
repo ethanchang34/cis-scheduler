@@ -7,7 +7,7 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 interface ActiveCourse {
     code: string;
@@ -130,18 +130,19 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
+    const location = useLocation();
     return (
-        <Router>
-            <div className="App">
-                <NavBar></NavBar>
-                {/* <nav>
+        <div className="App">
+            <NavBar></NavBar>
+            {/* <nav>
                     <Link to="/">Home</Link>
                     <Link to="/course-search">Course Search</Link>
                     <Link to="/planner">Planner</Link>
                 </nav> */}
-                <div className="content">
-                    <Routes>
-                        <Route path="/" element={<LandingPage />} />
+            <div className="content">
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/">
+                        <Route index element={<LandingPage />} />
                         <Route
                             path="course-search"
                             element={
@@ -164,10 +165,10 @@ function App(): JSX.Element {
                                 />
                             }
                         />
-                    </Routes>
-                </div>
+                    </Route>
+                </Routes>
             </div>
-        </Router>
+        </div>
     );
 }
 
