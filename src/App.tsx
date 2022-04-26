@@ -7,7 +7,6 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
-import { ViewCourseModal } from "./components/ViewCourseModal";
 
 interface ActiveCourse {
     code: string;
@@ -114,23 +113,8 @@ function App(): JSX.Element {
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
 
-    const [showCourseModal, setShowCourseModal] = useState(false);
-    const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
-
     const resetCourses = () => {
         setModifiedCourses(originalCourses);
-    };
-
-    const handleShowModal = (code: string) => {
-        setShowCourseModal(true);
-        setCodeModalView(code);
-    };
-    const handleCloseModal = () => setShowCourseModal(false);
-
-    const editCourse = (newCourse: Course) => {
-        const newModifiedCourses = { ...modifiedCourses };
-        newModifiedCourses[newCourse.code] = newCourse;
-        setModifiedCourses(newModifiedCourses);
     };
 
     const addPlan = () => {
@@ -189,17 +173,10 @@ function App(): JSX.Element {
             <div style={{ display: search ? "block" : "none" }}>
                 <CourseSearch
                     modifiedCourses={modifiedCourses}
-                    handleShowModal={handleShowModal}
+                    setModifiedCourses={setModifiedCourses}
                     resetCourses={resetCourses}
                 ></CourseSearch>
             </div>
-            <ViewCourseModal
-                show={showCourseModal}
-                handleClose={handleCloseModal}
-                code={codeModalView}
-                editCourse={editCourse}
-                modifiedCourses={modifiedCourses}
-            ></ViewCourseModal>
         </div>
     );
 }

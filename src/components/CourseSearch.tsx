@@ -4,6 +4,7 @@ import { Course } from "../interfaces/Course";
 import { SearchParam } from "../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
+import { ViewCourseModal } from "./ViewCourseModal";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -14,12 +15,12 @@ const CourseSection = styled.section`
 
 export const CourseSearch = ({
     modifiedCourses,
-    handleShowModal,
-    resetCourses
+    resetCourses,
+    setModifiedCourses
 }: {
     modifiedCourses: Record<string, Course>;
-    handleShowModal: (code: string) => void;
     resetCourses: () => void;
+    setModifiedCourses: (newCourses: Record<string, Course>) => void;
 }) => {
     const [searchParam, setSearchParam] = useState<SearchParam>({
         subjectArea: "",
@@ -33,6 +34,21 @@ export const CourseSearch = ({
         "Fill out your requirements, then click search."
     );
     const [page, setPage] = useState(1);
+
+    const [showCourseModal, setShowCourseModal] = useState(false);
+    const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
+
+    const handleShowModal = (code: string) => {
+        setShowCourseModal(true);
+        setCodeModalView(code);
+    };
+    const handleCloseModal = () => setShowCourseModal(false);
+
+    const editCourse = (newCourse: Course) => {
+        const newModifiedCourses = { ...modifiedCourses };
+        newModifiedCourses[newCourse.code] = newCourse;
+        setModifiedCourses(newModifiedCourses);
+    };
 
     const handleSearch = () => {
         setPage(1);
@@ -145,6 +161,13 @@ export const CourseSearch = ({
                 page={page}
                 setPage={setPage}
             ></CourseListDisplay>
+            <ViewCourseModal
+                show={showCourseModal}
+                handleClose={handleCloseModal}
+                code={codeModalView}
+                editCourse={editCourse}
+                modifiedCourses={modifiedCourses}
+            ></ViewCourseModal>
         </CourseSection>
     );
 };
