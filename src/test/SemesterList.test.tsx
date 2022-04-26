@@ -4,6 +4,10 @@ import { SemesterList } from "../components/SemesterList";
 import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
+const addSemester = () => {
+    return;
+};
+
 const deleteSemester = () => {
     return;
 };
@@ -18,6 +22,7 @@ describe("Users should be able to view a list of semesters", () => {
         render(
             <SemesterList
                 semesters={DefaultPlans[0].years[0].semesters}
+                addSemester={addSemester}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={originalCourses}
