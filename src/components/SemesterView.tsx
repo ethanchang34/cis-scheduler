@@ -127,7 +127,7 @@ export const SemesterView = ({
                     }
                     style={{ display: "inline", width: "80%" }}
                 ></Form.Control>
-              {errorMsg ? (
+                {errorMsg ? (
                     <div
                         className="error-msg"
                         style={{ fontSize: "0.9rem", color: "red" }}
