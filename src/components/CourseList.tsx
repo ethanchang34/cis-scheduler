@@ -1,11 +1,11 @@
 import React from "react";
-import { Stack } from "react-bootstrap";
+//import { Stack } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
-import { CourseView } from "./CourseView";
+//import { CourseView } from "./CourseView";
 
 export const CourseList = ({
     courses,
-    deleteCourse,
+    //deleteCourse,
     modifiedCourses
 }: {
     courses: string[];
@@ -14,9 +14,16 @@ export const CourseList = ({
 }) => {
     return (
         <div>
-            <Stack gap={3}>
+            {/*<Stack gap={3}>
                 {courses.map((course: string) => (
-                    <div key={course} className="bg-light border m-2 p-2">
+                    <div
+                        key={course}
+                        className="border m-1 p-3 text-white"
+                        style={{
+                            backgroundColor: "var(--primary-color)",
+                            borderRadius: 20
+                        }}
+                    >
                         <CourseView
                             course={course}
                             deleteCourse={deleteCourse}
@@ -24,7 +31,12 @@ export const CourseList = ({
                         ></CourseView>
                     </div>
                 ))}
-            </Stack>
+                    </Stack>*/}
+            <ul>
+                {courses.map((course: string) => (
+                    <li key={course}>{modifiedCourses[course].code}</li>
+                ))}
+            </ul>
         </div>
     );
 };
