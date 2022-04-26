@@ -19,10 +19,10 @@ export const SemesterView = ({
     const [errorMsg, setErrorMsg] = useState<string>("");
 
     const numToSemester: Record<number, string> = {
-        0: "fall",
-        1: "winter",
-        2: "spring",
-        3: "summer"
+        0: "Fall",
+        1: "Winter",
+        2: "Spring",
+        3: "Summer"
     };
 
     function addCourse(code: string) {
@@ -92,26 +92,42 @@ export const SemesterView = ({
         }
     }
 
+    function semesterCreds(courses: string[]): number {
+        const mappedCourses = courses.map(
+            (code: string): Course => modifiedCourses[code]
+        );
+        return mappedCourses.reduce(
+            (totalCreds: number, course: Course) => totalCreds + course.credits,
+            0
+        );
+    }
+
     return (
         <div>
-            <p>{numToSemester[semester.id]}</p>
-            <p>Semester ID: {semester.id}</p>
+            <h4 className="d-inline float-left">
+                {numToSemester[semester.id]}
+            </h4>
+            <i style={{ float: "right" }}>
+                Semester Credits: {semesterCreds(semester.courses)}
+            </i>
+            {/*<p>Semester ID: {semester.id}</p>*/}
 
             <CourseList
                 courses={semester.courses}
                 deleteCourse={deleteCourse}
                 modifiedCourses={modifiedCourses}
             ></CourseList>
-            <Form.Group controlId="addCourse">
-                <Form.Label>Add Course</Form.Label>
+            <Form.Group controlId="addCourse" className="mt-2">
+                <Form.Label className="d-block">Add Course</Form.Label>
                 <Form.Control
                     placeholder="Enter course code (e.g. CISC 108)"
                     value={courseInput}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         setCourseInput(event.target.value)
                     }
+                    style={{ display: "inline", width: "80%" }}
                 ></Form.Control>
-                {errorMsg ? (
+              {errorMsg ? (
                     <div
                         className="error-msg"
                         style={{ fontSize: "0.9rem", color: "red" }}
@@ -119,13 +135,22 @@ export const SemesterView = ({
                         *{errorMsg}
                     </div>
                 ) : null}
-                <Button type="submit" onClick={handleSubmit}>
-                    Add Course
+                <Button
+                    className="d-inline"
+                    type="submit"
+                    onClick={handleSubmit}
+                    style={{ width: "20%", float: "right" }}
+                >
+                    Add
                 </Button>
             </Form.Group>
-
-            <Button onClick={clearCourses}>Clear Courses</Button>
-            <Button onClick={() => deleteSemester(semester.id)}>
+            <Button className="btn-secondary m-1 mt-4" onClick={clearCourses}>
+                Clear Courses
+            </Button>
+            <Button
+                className="btn-danger m-1 mt-4"
+                onClick={() => deleteSemester(semester.id)}
+            >
                 - Delete Semester
             </Button>
         </div>

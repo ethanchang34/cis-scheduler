@@ -19,7 +19,6 @@ export const Planner = ({
 }) => {
     return (
         <div>
-            <p>You are on the Planner Page</p>
             <PlanList
                 plans={plans}
                 addPlan={addPlan}

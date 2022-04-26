@@ -19,13 +19,14 @@ export const YearList = ({
         <div>
             <Stack gap={3}>
                 {years.map((year: Year) => (
-                    <div key={year.id} className="bg-light border m-2 p-2">
+                    <div key={year.id} className="p-2 pb-0">
                         <YearView
                             year={year}
                             deleteYear={deleteYear}
                             editYear={editYear}
                             modifiedCourses={modifiedCourses}
                         ></YearView>
+                        <hr></hr>
                     </div>
                 ))}
             </Stack>

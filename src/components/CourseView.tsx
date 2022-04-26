@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 
 export const CourseView = ({
@@ -13,9 +12,18 @@ export const CourseView = ({
 }) => {
     return (
         <div>
-            <p>{course}</p>
-            <p>Credits:{modifiedCourses[course].credits}</p>
-            <Button onClick={() => deleteCourse(course)}>-</Button>
+            <h5 className="d-inline" style={{ marginRight: 5 }}>
+                {course}
+            </h5>
+            <i>{modifiedCourses[course].credits} Credits</i>
+            <span
+                onClick={() => deleteCourse(course)}
+                style={{
+                    float: "right"
+                }}
+            >
+                ❌
+            </span>
         </div>
     );
 };

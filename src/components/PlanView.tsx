@@ -87,33 +87,39 @@ export const PlanView = ({
             editPlan={editPlan}
             deletePlan={deletePlan}
         ></PlanEdit>
+    ) : selected === true ? (
+        <section>
+            <h1>{plan.title}</h1>
+            <i>Description: {plan.description}</i>
+            <span>
+                <YearList
+                    years={plan.years}
+                    deleteYear={deleteYear}
+                    editYear={editYear}
+                    modifiedCourses={modifiedCourses}
+                ></YearList>
+                <Button className="m-1 mx-auto d-block" onClick={addYear}>
+                    + Add Year
+                </Button>
+                <Button
+                    className="btn-danger m-1 mx-auto d-block"
+                    onClick={clearSemsInPlan}
+                >
+                    Clear all semesters
+                </Button>
+            </span>
+        </section>
     ) : (
         <div>
-            <p>Id: {plan.id}</p>
-            <p>Title: {plan.title}</p>
-            <p>Description: {plan.description}</p>
-            {selected ? (
-                <span>
-                    <YearList
-                        years={plan.years}
-                        deleteYear={deleteYear}
-                        editYear={editYear}
-                        modifiedCourses={modifiedCourses}
-                    ></YearList>
-                    <Button onClick={addYear}>+ Add Year</Button>
-                    <Button onClick={clearSemsInPlan}>
-                        Clear all semesters
-                    </Button>
-                </span>
-            ) : (
-                <Button
-                    className="float-right"
-                    size="sm"
-                    onClick={changeEditing}
-                >
-                    Edit
-                </Button>
-            )}
+            <h1>{plan.title}</h1>
+            <i className="d-block">Description: {plan.description}</i>
+            <Button
+                className="float-right mt-2"
+                size="sm"
+                onClick={changeEditing}
+            >
+                Edit
+            </Button>
         </div>
     );
 };
