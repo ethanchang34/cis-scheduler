@@ -19,7 +19,7 @@ export const PlanList = ({
     modifiedCourses: Record<string, Course>;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
-        const saved = localStorage.getItem("selectedID");
+        const saved = localStorage.getItem("CISC275-4-selectedID");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -28,7 +28,10 @@ export const PlanList = ({
     });
 
     useEffect(() => {
-        localStorage.setItem("selectedID", JSON.stringify(selectedID));
+        localStorage.setItem(
+            "CISC275-4-selectedID",
+            JSON.stringify(selectedID)
+        );
     }, [selectedID]);
 
     const changeSelectedID = (id: number) => {
