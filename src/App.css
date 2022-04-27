@@ -9,7 +9,7 @@
 }
 
 section {
-    padding: 2rem 20%;
+    padding: 2rem 1rem;
     margin: 0 auto;
 }
 
@@ -25,4 +25,12 @@ img {
 .form-check-label,
 .form-check-input {
     cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For mobile phones: */
+    section {
+        padding: 2rem 20%;
+        margin: 0 auto;
+    }
 }
