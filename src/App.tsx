@@ -141,7 +141,7 @@ function App(): JSX.Element {
                 </nav> */}
             <div className="content">
                 <Routes location={location} key={location.pathname}>
-                    <Route path="/cis-scheduler-team-4">
+                    <Route path="/">
                         <Route index element={<LandingPage />} />
                         <Route
                             path="course-search"
