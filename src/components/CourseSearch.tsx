@@ -23,7 +23,7 @@ export const CourseSearch = ({
     setModifiedCourses: (newCourses: Record<string, Course>) => void;
 }) => {
     const [searchParam, setSearchParam] = useState<SearchParam>(() => {
-        const saved = localStorage.getItem("searchParam");
+        const saved = localStorage.getItem("CISC275-4-searchParam");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -37,7 +37,7 @@ export const CourseSearch = ({
         }
     });
     const [displayedCourses, setDisplayedCourses] = useState<Course[]>(() => {
-        const saved = localStorage.getItem("displayedCourses");
+        const saved = localStorage.getItem("CISC275-4-displayedCourses");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -48,7 +48,7 @@ export const CourseSearch = ({
         "Fill out your requirements, then click search."
     );
     const [page, setPage] = useState(() => {
-        const saved = localStorage.getItem("page");
+        const saved = localStorage.getItem("CISC275-4-page");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -60,18 +60,21 @@ export const CourseSearch = ({
     const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
 
     useEffect(() => {
-        localStorage.setItem("searchParam", JSON.stringify(searchParam));
+        localStorage.setItem(
+            "CISC275-4-searchParam",
+            JSON.stringify(searchParam)
+        );
     }, [searchParam]);
 
     useEffect(() => {
         localStorage.setItem(
-            "displayedCourses",
+            "CISC275-4-displayedCourses",
             JSON.stringify(displayedCourses)
         );
     }, [displayedCourses]);
 
     useEffect(() => {
-        localStorage.setItem("page", JSON.stringify(page));
+        localStorage.setItem("CISC275-4-page", JSON.stringify(page));
     }, [page]);
 
     const handleShowModal = (code: string) => {

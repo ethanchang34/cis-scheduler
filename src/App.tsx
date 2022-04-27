@@ -79,7 +79,7 @@ function App(): JSX.Element {
     const [modifiedCourses, setModifiedCourses] = useState<
         Record<string, Course>
     >(() => {
-        const saved = localStorage.getItem("modifiedCourses");
+        const saved = localStorage.getItem("CISC275-4-modifiedCourses");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -87,7 +87,7 @@ function App(): JSX.Element {
         }
     });
     const [plans, setPlans] = useState<Plan[]>(() => {
-        const saved = localStorage.getItem("plans");
+        const saved = localStorage.getItem("CISC275-4-plans");
         if (saved) {
             return JSON.parse(saved);
         } else {
@@ -97,13 +97,13 @@ function App(): JSX.Element {
 
     useEffect(() => {
         localStorage.setItem(
-            "modifiedCourses",
+            "CISC275-4-modifiedCourses",
             JSON.stringify(modifiedCourses)
         );
     }, [modifiedCourses]);
 
     useEffect(() => {
-        localStorage.setItem("plans", JSON.stringify(plans));
+        localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
     }, [plans]);
 
     const resetCourses = () => {
