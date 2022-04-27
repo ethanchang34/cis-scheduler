@@ -87,10 +87,11 @@ export const CourseSearch = ({
         const newModifiedCourses = { ...modifiedCourses };
         const saved = localStorage.getItem("CISC275-4-modifiedCourses");
         if (saved) {
-            const localModified: Record<string,Course<
+            const localModified: Record<string, Course> = JSON.parse(saved);
+            localModified[newCourse.code] = newCourse;
             localStorage.setItem(
                 "CISC275-4-modifiedCourses",
-                JSON.stringify((localModified[newCourse.code] = newCourse))
+                JSON.stringify(localModified)
             );
         } else {
             const newLocalModified: Record<string, Course> = {};

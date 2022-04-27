@@ -17,6 +17,7 @@ const TempCard = styled.section`
 const CourseLink = styled.span`
     margin-bottom: 1rem;
     cursor: pointer;
+    text-align: center;
 
     &:hover {
         color: var(--primary-color);

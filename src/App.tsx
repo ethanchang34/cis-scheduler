@@ -81,7 +81,16 @@ function App(): JSX.Element {
     >(() => {
         const saved = localStorage.getItem("CISC275-4-modifiedCourses");
         if (saved) {
-            return JSON.parse(saved);
+            const newModifiedCourses: Record<string, Course> = {
+                ...originalCourses
+            };
+            const modifications: Record<string, Course> = JSON.parse(saved);
+            Object.entries(modifications).forEach(
+                ([subjectArea, course]: [string, Course]) => {
+                    newModifiedCourses[subjectArea] = course;
+                }
+            );
+            return newModifiedCourses;
         } else {
             return originalCourses;
         }
@@ -95,18 +104,12 @@ function App(): JSX.Element {
         }
     });
 
-    // useEffect(() => {
-    //     localStorage.setItem(
-    //         "CISC275-4-modifiedCourses",
-    //         JSON.stringify(modifiedCourses)
-    //     );
-    // }, [modifiedCourses]);
-
     useEffect(() => {
         localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
     }, [plans]);
 
     const resetCourses = () => {
+        localStorage.removeItem("CISC275-4-modifiedCourses");
         setModifiedCourses(originalCourses);
     };
 
