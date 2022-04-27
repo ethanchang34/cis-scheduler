@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "../App";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
