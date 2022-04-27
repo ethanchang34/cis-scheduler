@@ -24,9 +24,9 @@ const NavText = styled.h2`
 `;
 
 const PageTitles: Record<string, string> = {
-    "/": "Home",
-    "/planner": "Plans",
-    "/course-search": "Course Search"
+    "/cis-scheduler-team-4": "Home",
+    "/cis-scheduler-team-4/planner": "Plans",
+    "/cis-scheduler-team-4/course-search": "Course Search"
 };
 
 export const NavBar = () => {
@@ -40,9 +40,9 @@ export const NavBar = () => {
                     <Button
                         onClick={() => {
                             if (PageTitles[myLocation.pathname] === "Home") {
-                                navigate("planner");
+                                navigate("/cis-scheduler-team-4/planner");
                             } else {
-                                navigate("/");
+                                navigate("/cis-scheduler-team-4");
                             }
                         }}
                     >
@@ -60,7 +60,7 @@ export const NavBar = () => {
                     <Button
                         style={{ marginLeft: "auto", display: "block" }}
                         onClick={() => {
-                            navigate("course-search");
+                            navigate("cis-scheduler-team-4/course-search");
                         }}
                         className={
                             PageTitles[myLocation.pathname] === "Course Search"
