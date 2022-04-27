@@ -4,7 +4,7 @@ import { CourseSearch } from "../components/CourseSearch";
 import { Course } from "../interfaces/Course";
 import userEvent from "@testing-library/user-event";
 
-const testCourses: Record<string, Course> = {
+export const testCourses: Record<string, Course> = {
     "CISC 101": {
         breadth: "Mathematics, Natural Sciences and Technology",
         code: "CISC 101",
@@ -114,6 +114,7 @@ const setModifiedCourses = () => {
 
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
+        localStorage.clear();
         render(
             <CourseSearch
                 modifiedCourses={testCourses}

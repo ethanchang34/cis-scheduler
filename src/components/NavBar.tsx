@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);
@@ -22,39 +23,68 @@ const NavText = styled.h2`
     font-weight: 600;
 `;
 
-export const NavBar = ({
-    landing,
-    flipLanding,
-    search,
-    flipSearch
-}: {
-    landing: boolean;
-    flipLanding: () => void;
-    search: boolean;
-    flipSearch: () => void;
-}) => {
+const PageTitles: Record<string, string> = {
+    "/": "Home",
+    "/planner": "Plans",
+    "/course-search": "Course Search"
+};
+
+export const NavBar = () => {
+    const navigate = useNavigate();
+    const myLocation = useLocation();
+
     return (
         <Nav>
             <NavCol>
-                {!search && (
-                    <Button onClick={flipLanding}>
-                        {landing ? "Get Started" : "Home"}
+                {PageTitles[myLocation.pathname] !== "Course Search" && (
+                    <Button
+                        onClick={() => {
+                            if (PageTitles[myLocation.pathname] === "Home") {
+                                navigate("planner");
+                            } else {
+                                navigate("/");
+                            }
+                        }}
+                    >
+                        {PageTitles[myLocation.pathname] === "Home"
+                            ? "Get Started"
+                            : "Home"}
                     </Button>
                 )}
             </NavCol>
             <NavCol style={{ justifyContent: "center" }}>
-                <NavText>
-                    {search ? "Course Search" : landing ? "Home Page" : "Plans"}
-                </NavText>
+                <NavText>{PageTitles[myLocation.pathname]}</NavText>
             </NavCol>
             <NavCol>
-                <Button
-                    style={{ marginLeft: "auto", display: "block" }}
-                    onClick={flipSearch}
-                    className={search ? "btn-danger" : ""}
-                >
-                    {search ? "Back" : "Search Courses"}
-                </Button>
+                {PageTitles[myLocation.pathname] !== "Course Search" ? (
+                    <Button
+                        style={{ marginLeft: "auto", display: "block" }}
+                        onClick={() => {
+                            navigate("course-search");
+                        }}
+                        className={
+                            PageTitles[myLocation.pathname] === "Course Search"
+                                ? "btn-danger"
+                                : ""
+                        }
+                    >
+                        Search Courses
+                    </Button>
+                ) : (
+                    <Button
+                        style={{ marginLeft: "auto", display: "block" }}
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                        className={
+                            PageTitles[myLocation.pathname] === "Course Search"
+                                ? "btn-danger"
+                                : ""
+                        }
+                    >
+                        Back
+                    </Button>
+                )}
             </NavCol>
         </Nav>
     );

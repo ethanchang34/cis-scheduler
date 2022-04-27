@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/CourseSearch";
@@ -7,6 +7,7 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 interface ActiveCourse {
     code: string;
@@ -21,7 +22,7 @@ interface ActiveCourse {
 
 const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 
-const originalCourses: Record<string, Course> = {};
+export const originalCourses: Record<string, Course> = {};
 
 Object.entries(initialCourses).forEach(
     // Big hungo jungo method that fills the original courses object with our own courses.
@@ -75,12 +76,35 @@ Object.entries(initialCourses).forEach(
 );
 
 function App(): JSX.Element {
-    const [modifiedCourses, setModifiedCourses] =
-        useState<Record<string, Course>>(originalCourses);
-    const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
-    const [search, setSearch] = useState<boolean>(false);
-    const [landing, setLanding] = useState<boolean>(true);
-    //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
+    const [modifiedCourses, setModifiedCourses] = useState<
+        Record<string, Course>
+    >(() => {
+        const saved = localStorage.getItem("modifiedCourses");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return originalCourses;
+        }
+    });
+    const [plans, setPlans] = useState<Plan[]>(() => {
+        const saved = localStorage.getItem("plans");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return DefaultPlans;
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem(
+            "modifiedCourses",
+            JSON.stringify(modifiedCourses)
+        );
+    }, [modifiedCourses]);
+
+    useEffect(() => {
+        localStorage.setItem("plans", JSON.stringify(plans));
+    }, [plans]);
 
     const resetCourses = () => {
         setModifiedCourses(originalCourses);
@@ -106,45 +130,43 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
-    const flipLanding = () => {
-        setLanding(!landing);
-        // setSearch(false);
-    };
-
-    const flipSearch = () => {
-        setSearch(!search);
-        // setLanding(false);
-    };
-
+    const location = useLocation();
     return (
         <div className="App">
-            <NavBar
-                landing={landing}
-                flipLanding={flipLanding}
-                search={search}
-                flipSearch={flipSearch}
-            ></NavBar>
-            <div style={{ display: !search ? "block" : "none" }}>
-                {landing && (
-                    <LandingPage flipLanding={flipLanding}></LandingPage> // I unrender this component when I don't need it because it contains to state.
-                )}
-                <div style={{ display: !landing ? "block" : "none" }}>
-                    {/*I only set this component to display none because I it to remain the same after switching to and from course search. */}
-                    <Planner
-                        plans={plans}
-                        addPlan={addPlan}
-                        editPlan={editPlan}
-                        deletePlan={deletePlan}
-                        modifiedCourses={modifiedCourses}
-                    ></Planner>
-                </div>
-            </div>
-            <div style={{ display: search ? "block" : "none" }}>
-                <CourseSearch
-                    modifiedCourses={modifiedCourses}
-                    setModifiedCourses={setModifiedCourses}
-                    resetCourses={resetCourses}
-                ></CourseSearch>
+            <NavBar></NavBar>
+            {/* <nav>
+                    <Link to="/">Home</Link>
+                    <Link to="/course-search">Course Search</Link>
+                    <Link to="/planner">Planner</Link>
+                </nav> */}
+            <div className="content">
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/">
+                        <Route index element={<LandingPage />} />
+                        <Route
+                            path="course-search"
+                            element={
+                                <CourseSearch
+                                    modifiedCourses={modifiedCourses}
+                                    resetCourses={resetCourses}
+                                    setModifiedCourses={setModifiedCourses}
+                                />
+                            }
+                        />
+                        <Route
+                            path="planner"
+                            element={
+                                <Planner
+                                    plans={plans}
+                                    addPlan={addPlan}
+                                    editPlan={editPlan}
+                                    deletePlan={deletePlan}
+                                    modifiedCourses={modifiedCourses}
+                                />
+                            }
+                        />
+                    </Route>
+                </Routes>
             </div>
         </div>
     );

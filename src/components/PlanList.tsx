@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import "../App.css";
 import { Plan } from "../interfaces/Plan";
@@ -18,13 +18,18 @@ export const PlanList = ({
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
-    //const [editing, setEditing] = useState<boolean>(false);
+    const [selectedID, setSelectedID] = useState<number | null>(() => {
+        const saved = localStorage.getItem("selectedID");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return null;
+        }
+    });
 
-    /*function changeEditing() {
-        setEditing(!editing);
-    }*/
-
-    const [selectedID, setSelectedID] = useState<number | null>(null);
+    useEffect(() => {
+        localStorage.setItem("selectedID", JSON.stringify(selectedID));
+    }, [selectedID]);
 
     const changeSelectedID = (id: number) => {
         if (selectedID === null) {
@@ -74,7 +79,7 @@ export const PlanList = ({
                         ))}
                     </Stack>
                     <Button className="m-2" onClick={addPlan}>
-                        + Add Plan
+                        Add Plan
                     </Button>
                 </div>
             )}

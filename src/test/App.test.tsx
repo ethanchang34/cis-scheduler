@@ -1,15 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
+import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
     beforeEach(() => {
-        render(<App />);
+        window.localStorage.clear();
+        render(
+            <MemoryRouter initialEntries={["/"]}>
+                <App />
+            </MemoryRouter>
+        );
+    });
+    afterEach(() => {
+        window.localStorage.clear();
     });
 
     test("App starts on the Home Page", () => {
-        const linkElement = screen.getByText(/Home Page/i);
+        const linkElement = screen.getByText(/Home/i);
         expect(linkElement).toBeInTheDocument();
     });
 
@@ -19,67 +28,52 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
     });
 
     test("'Get Started' is the text on one of the buttons and clicking it routes you to the course page.", () => {
-        const buttons = screen.getAllByRole("button");
-        let seenButton = false;
-        buttons.forEach((x) => {
-            if (x.textContent === "Get Started") {
-                seenButton = true;
-                const getStarted = x;
-                getStarted.click();
-                const linkElement = screen.getByText(/Plans/i);
-                expect(linkElement).toBeInTheDocument();
-            }
-        });
-        expect(seenButton).toBe(true);
+        const getStarted = screen.getByRole("button", { name: "Get Started" });
+
+        getStarted.click();
+        const linkElement = screen.getByText(/Plans/i);
+        expect(linkElement).toBeInTheDocument();
     });
 
     test("'Course Searches' is the text on one of the buttons and clicking it routes you to the course search page.", () => {
-        const buttons = screen.getAllByRole("button");
-        let seenButton = false;
-        buttons.forEach((x) => {
-            if (x.textContent === "Search Courses") {
-                seenButton = true;
-                const getStarted = x;
-                getStarted.click();
-                const homePage = screen.queryByText(/Home Page/i);
-                expect(homePage).not.toBeInTheDocument();
-                const courseSearch = screen.getByText("Course Search");
-                expect(courseSearch).toBeInTheDocument();
-            }
+        const searchCourses = screen.getByRole("button", {
+            name: "Search Courses"
         });
-        expect(seenButton).toBe(true);
+        searchCourses.click();
+        const homePage = screen.queryByText(/Home/i);
+        expect(homePage).not.toBeInTheDocument();
+        const courseSearch = screen.getByText("Course Search");
+        expect(courseSearch).toBeInTheDocument();
     });
 
     test("Once on the course search page, there is a 'Back' button which routes you back to the page you were on before", () => {
-        const buttons = screen.getAllByRole("button");
-        let seenButton = false;
-        buttons.forEach((x) => {
-            if (x.textContent === "Search Courses") {
-                seenButton = true;
-                const getStarted = x;
-                getStarted.click(); // On Course Search Page
-                const courseSearch = screen.getByText("Course Search");
-                expect(courseSearch).toBeInTheDocument();
-                const backText = screen.getByText("Back");
-                expect(backText).toBeInTheDocument();
-                backText.click();
-                const homePage = screen.getByText(/Home Page/i);
-                expect(homePage).toBeInTheDocument();
-            }
+        const courseSearch = screen.getByRole("button", {
+            name: "Search Courses"
         });
-        expect(seenButton).toBe(true);
+        courseSearch.click();
+        const back = screen.getByRole("button", { name: "Back" });
+        back.click();
+        const homePage = screen.getByText(/Home/i);
+        expect(homePage).toBeInTheDocument();
     });
 });
 
 describe("Students can override course's info, but also reset a course back to its default information", () => {
     beforeEach(() => {
-        render(<App />);
+        window.localStorage.clear();
+        render(
+            <MemoryRouter initialEntries={["/"]}>
+                <App />
+            </MemoryRouter>
+        );
     });
 
     test("Users can click on a course to bring up a modal, displaying relevant information.", () => {
-        // First need to navigate to course search page.
-        const courseSearchButton = screen.getByText("Search Courses");
-        courseSearchButton.click();
+        // First need to navigate to course search page.\
+        const searchCourses = screen.getByRole("button", {
+            name: "Search Courses"
+        });
+        searchCourses.click();
 
         const subjectInput = screen.getByLabelText("Subject Area:");
         userEvent.type(subjectInput, "CISC");
@@ -95,8 +89,10 @@ describe("Students can override course's info, but also reset a course back to i
 
     test("Users can edit tile of course, and revert it using the course search button", () => {
         // First need to navigate to course search page.
-        const courseSearchButton = screen.getByText("Search Courses");
-        courseSearchButton.click();
+        const searchCourses = screen.getByRole("button", {
+            name: "Search Courses"
+        });
+        searchCourses.click();
 
         const subjectInput = screen.getByLabelText("Subject Area:");
         userEvent.type(subjectInput, "CISC");
