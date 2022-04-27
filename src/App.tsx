@@ -95,12 +95,12 @@ function App(): JSX.Element {
         }
     });
 
-    useEffect(() => {
-        localStorage.setItem(
-            "CISC275-4-modifiedCourses",
-            JSON.stringify(modifiedCourses)
-        );
-    }, [modifiedCourses]);
+    // useEffect(() => {
+    //     localStorage.setItem(
+    //         "CISC275-4-modifiedCourses",
+    //         JSON.stringify(modifiedCourses)
+    //     );
+    // }, [modifiedCourses]);
 
     useEffect(() => {
         localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));

@@ -39,7 +39,7 @@ export const CourseListDisplay = ({
     page,
     setPage
 }: {
-    displayedCourses: Course[];
+    displayedCourses: string[];
     error: string;
     modifiedCourses: Record<string, Course>;
     handleShowModal: (code: string) => void;
@@ -48,7 +48,7 @@ export const CourseListDisplay = ({
 }) => {
     const pageSize = 15;
 
-    const paginate = (array: Course[], pageNum: number) => {
+    const paginate = (array: string[], pageNum: number) => {
         return array.slice((pageNum - 1) * pageSize, pageNum * pageSize);
     };
 
@@ -83,8 +83,8 @@ export const CourseListDisplay = ({
                 </PageNav>
             )}
             {displayedCourses.length !== 0 &&
-                paginate(displayedCourses, page).map((c: Course) => {
-                    const course = modifiedCourses[c.code];
+                paginate(displayedCourses, page).map((code: string) => {
+                    const course = modifiedCourses[code];
                     return (
                         <CourseLink
                             key={course.code}
