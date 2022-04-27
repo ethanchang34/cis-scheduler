@@ -36,7 +36,7 @@ export const CourseSearch = ({
             };
         }
     });
-    const [displayedCourses, setDisplayedCourses] = useState<Course[]>(() => {
+    const [displayedCourses, setDisplayedCourses] = useState<string[]>(() => {
         const saved = localStorage.getItem("CISC275-4-displayedCourses");
         if (saved) {
             return JSON.parse(saved);
@@ -85,6 +85,22 @@ export const CourseSearch = ({
 
     const editCourse = (newCourse: Course) => {
         const newModifiedCourses = { ...modifiedCourses };
+        const saved = localStorage.getItem("CISC275-4-modifiedCourses");
+        if (saved) {
+            const localModified: Record<string, Course> = JSON.parse(saved);
+            localModified[newCourse.code] = newCourse;
+            localStorage.setItem(
+                "CISC275-4-modifiedCourses",
+                JSON.stringify(localModified)
+            );
+        } else {
+            const newLocalModified: Record<string, Course> = {};
+            newLocalModified[newCourse.code] = newCourse;
+            localStorage.setItem(
+                "CISC275-4-modifiedCourses",
+                JSON.stringify(newLocalModified)
+            );
+        }
         newModifiedCourses[newCourse.code] = newCourse;
         setModifiedCourses(newModifiedCourses);
     };
@@ -101,7 +117,7 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("Department not found.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -122,7 +138,7 @@ export const CourseSearch = ({
             });
             if (tempDisplayed.length === 0) {
                 setError("No matching class numbers with department.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -156,7 +172,7 @@ export const CourseSearch = ({
             });
             if (tempDisplayed.length === 0) {
                 setError("No classes exist during selected semesters.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -167,7 +183,7 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("No courses match selected breadth requirements.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -178,11 +194,17 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("No technical electives found.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
-        setDisplayedCourses(tempDisplayed);
+
+        const stringDisplayed: string[] = tempDisplayed.map(
+            (c: Course): string => {
+                return c.code;
+            }
+        );
+        setDisplayedCourses(stringDisplayed);
     };
 
     return (
