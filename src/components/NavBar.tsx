@@ -9,6 +9,11 @@ const Nav = styled.section`
     // padding-bottom: 10px;
     padding: 10px 10%;
     color: var(--secondary-color);
+`;
+
+const NavContent = styled.div`
+    margin: 0 auto;
+    max-width: 1100px;
     display: grid;
     grid-template-columns: 33% 33% 33%;
 `;
@@ -36,57 +41,63 @@ export const NavBar = () => {
 
     return (
         <Nav>
-            <NavCol>
-                {PageTitles[myLocation.pathname] !== "Course Search" && (
-                    <Button
-                        onClick={() => {
-                            if (PageTitles[myLocation.pathname] === "Home") {
-                                navigate("planner");
-                            } else {
-                                navigate("/");
+            <NavContent>
+                <NavCol>
+                    {PageTitles[myLocation.pathname] !== "Course Search" && (
+                        <Button
+                            onClick={() => {
+                                if (
+                                    PageTitles[myLocation.pathname] === "Home"
+                                ) {
+                                    navigate("planner");
+                                } else {
+                                    navigate("/");
+                                }
+                            }}
+                        >
+                            {PageTitles[myLocation.pathname] === "Home"
+                                ? "Get Started"
+                                : "Home"}
+                        </Button>
+                    )}
+                </NavCol>
+                <NavCol style={{ justifyContent: "center" }}>
+                    <NavText>{PageTitles[myLocation.pathname]}</NavText>
+                </NavCol>
+                <NavCol>
+                    {PageTitles[myLocation.pathname] !== "Course Search" ? (
+                        <Button
+                            style={{ marginLeft: "auto", display: "block" }}
+                            onClick={() => {
+                                navigate("course-search");
+                            }}
+                            className={
+                                PageTitles[myLocation.pathname] ===
+                                "Course Search"
+                                    ? "btn-danger"
+                                    : ""
                             }
-                        }}
-                    >
-                        {PageTitles[myLocation.pathname] === "Home"
-                            ? "Get Started"
-                            : "Home"}
-                    </Button>
-                )}
-            </NavCol>
-            <NavCol style={{ justifyContent: "center" }}>
-                <NavText>{PageTitles[myLocation.pathname]}</NavText>
-            </NavCol>
-            <NavCol>
-                {PageTitles[myLocation.pathname] !== "Course Search" ? (
-                    <Button
-                        style={{ marginLeft: "auto", display: "block" }}
-                        onClick={() => {
-                            navigate("course-search");
-                        }}
-                        className={
-                            PageTitles[myLocation.pathname] === "Course Search"
-                                ? "btn-danger"
-                                : ""
-                        }
-                    >
-                        Search Courses
-                    </Button>
-                ) : (
-                    <Button
-                        style={{ marginLeft: "auto", display: "block" }}
-                        onClick={() => {
-                            navigate(-1);
-                        }}
-                        className={
-                            PageTitles[myLocation.pathname] === "Course Search"
-                                ? "btn-danger"
-                                : ""
-                        }
-                    >
-                        Back
-                    </Button>
-                )}
-            </NavCol>
+                        >
+                            Search Courses
+                        </Button>
+                    ) : (
+                        <Button
+                            style={{ marginLeft: "auto", display: "block" }}
+                            onClick={() => {
+                                navigate(-1);
+                            }}
+                            className={
+                                PageTitles[myLocation.pathname] ===
+                                "Course Search"
+                                    ? "btn-danger"
+                                    : ""
+                            }
+                        >
+                            Back
+                        </Button>
+                    )}
+                </NavCol>
+            </NavContent>
         </Nav>
     );
 };

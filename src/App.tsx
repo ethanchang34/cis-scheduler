@@ -8,6 +8,7 @@ import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
 interface ActiveCourse {
     code: string;
@@ -19,6 +20,11 @@ interface ActiveCourse {
     breadth: string;
     typ: string;
 }
+
+export const SectionContent = styled.div`
+    max-width: 900px;
+    margin: 0 auto;
+`;
 
 const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
 

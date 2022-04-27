@@ -5,6 +5,7 @@ import { SearchParam } from "../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
 import { ViewCourseModal } from "./ViewCourseModal";
+import { SectionContent } from "../App";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -209,20 +210,22 @@ export const CourseSearch = ({
 
     return (
         <CourseSection>
-            <CourseSearchForm
-                searchParam={searchParam}
-                setSearchParam={setSearchParam}
-                resetCourses={resetCourses}
-                handleSearch={handleSearch}
-            ></CourseSearchForm>
-            <CourseListDisplay
-                displayedCourses={displayedCourses}
-                error={error}
-                modifiedCourses={modifiedCourses}
-                handleShowModal={handleShowModal}
-                page={page}
-                setPage={setPage}
-            ></CourseListDisplay>
+            <SectionContent>
+                <CourseSearchForm
+                    searchParam={searchParam}
+                    setSearchParam={setSearchParam}
+                    resetCourses={resetCourses}
+                    handleSearch={handleSearch}
+                ></CourseSearchForm>
+                <CourseListDisplay
+                    displayedCourses={displayedCourses}
+                    error={error}
+                    modifiedCourses={modifiedCourses}
+                    handleShowModal={handleShowModal}
+                    page={page}
+                    setPage={setPage}
+                ></CourseListDisplay>
+            </SectionContent>
             <ViewCourseModal
                 show={showCourseModal}
                 handleClose={handleCloseModal}

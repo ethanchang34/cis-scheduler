@@ -28,7 +28,7 @@ img {
 }
 
 @media only screen and (min-width: 768px) {
-    /* For mobile phones: */
+    /* For desktop users phones: */
     section {
         padding: 2rem 20%;
         margin: 0 auto;
