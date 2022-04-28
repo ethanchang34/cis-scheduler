@@ -9,6 +9,8 @@ import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { StringLiteralLike } from "typescript";
+import { Button } from "react-bootstrap";
 
 interface ActiveCourse {
     code: string;
@@ -139,6 +141,61 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
+    const parseChangedCoursesToCSV = () => {
+        const saved = localStorage.getItem("CISC275-4-modifiedCourses");
+        let csv = "";
+        if (saved) {
+            const testCourse: Course = {
+                code: "",
+                subjectArea: "",
+                number: "",
+                name: "",
+                descr: "",
+                tech: false,
+                breadth: "",
+                preReq: "",
+                restrict: "",
+                semsOffered: [],
+                credits: 0
+            };
+            const changedCourses: Record<string, Course> = JSON.parse(saved);
+            csv = [
+                Object.keys(testCourse).join(","),
+                Object.values(changedCourses)
+                    .map((course: Course): string =>
+                        Object.values(course)
+                            .map((val: string | number[] | boolean): string => {
+                                val.toString()
+                                    .replaceAll('"', '""')
+                                    .replaceAll(",", '", "');
+                            })
+                            .join(",")
+                    )
+                    .join("\r\n")
+            ].join("\r\n");
+        }
+        console.log(csv);
+    };
+
+    /** Download contents as a file
+     * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+     */
+    const downloadBlob = (
+        content: string,
+        filename: string,
+        contentType: string
+    ) => {
+        // Create a blob
+        const blob = new Blob([content], { type: contentType });
+        const url = URL.createObjectURL(blob);
+
+        // Create a link to download it
+        const pom = document.createElement("a");
+        pom.href = url;
+        pom.setAttribute("download", filename);
+        pom.click();
+    };
+
     const location = useLocation();
     return (
         <div className="App">
@@ -177,6 +234,13 @@ function App(): JSX.Element {
                     </Route>
                 </Routes>
             </div>
+            <Button
+                onClick={() => {
+                    parseChangedCoursesToCSV();
+                }}
+            >
+                click
+            </Button>
         </div>
     );
 }
