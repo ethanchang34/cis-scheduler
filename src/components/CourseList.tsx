@@ -21,9 +21,9 @@ export const CourseList = ({
                     {courses.map((course: string) => (
                         <div
                             key={course}
-                            className="border m-1 p-3 text-white"
+                            className="border m-1 p-3 text-black"
                             style={{
-                                backgroundColor: "var(--primary-color)",
+                                backgroundColor: "var(--secondary-color)",
                                 borderRadius: 20
                             }}
                         >

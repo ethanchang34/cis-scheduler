@@ -13,17 +13,19 @@ export const CourseView = ({
     return (
         <div>
             <h5 className="d-inline" style={{ marginRight: 5 }}>
-                {course}
+                {course}: {modifiedCourses[course].name}
             </h5>
             <i>{modifiedCourses[course].credits} Credits</i>
             <span
                 onClick={() => deleteCourse(course)}
                 style={{
-                    float: "right"
+                    float: "right",
+                    cursor: "pointer"
                 }}
             >
                 ❌
             </span>
+            <div>{modifiedCourses[course].descr}</div>
         </div>
     );
 };
