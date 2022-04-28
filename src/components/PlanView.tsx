@@ -88,7 +88,7 @@ export const PlanView = ({
             deletePlan={deletePlan}
         ></PlanEdit>
     ) : selected === true ? (
-        <section>
+        <div>
             <h1>{plan.title}</h1>
             <i>Description: {plan.description}</i>
             <span>
@@ -108,7 +108,7 @@ export const PlanView = ({
                     Clear all semesters
                 </Button>
             </span>
-        </section>
+        </div>
     ) : (
         <div>
             <h1>{plan.title}</h1>

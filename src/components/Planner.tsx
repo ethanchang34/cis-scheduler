@@ -18,7 +18,7 @@ export const Planner = ({
     modifiedCourses: Record<string, Course>;
 }) => {
     return (
-        <div>
+        <section>
             <PlanList
                 plans={plans}
                 addPlan={addPlan}
@@ -27,6 +27,6 @@ export const Planner = ({
                 modifiedCourses={modifiedCourses}
             ></PlanList>
             {/**<div>{plans.map((plan: Plan): string => plan.title)}</div>*/}
-        </div>
+        </section>
     );
 };
