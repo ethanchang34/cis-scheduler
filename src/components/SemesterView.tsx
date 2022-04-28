@@ -8,12 +8,14 @@ export const SemesterView = ({
     semester,
     deleteSemester,
     editSemester,
-    modifiedCourses
+    modifiedCourses,
+    selected
 }: {
     semester: Semester;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
+    selected: boolean;
 }) => {
     const [courseInput, setCourseInput] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState<string>("");
@@ -104,55 +106,115 @@ export const SemesterView = ({
 
     return (
         <div>
-            <h4 className="d-inline float-left">
-                {numToSemester[semester.id]}
-            </h4>
-            <i style={{ float: "right" }}>
-                Semester Credits: {semesterCreds(semester.courses)}
-            </i>
-            {/*<p>Semester ID: {semester.id}</p>*/}
-
-            <CourseList
-                courses={semester.courses}
-                deleteCourse={deleteCourse}
-                modifiedCourses={modifiedCourses}
-            ></CourseList>
-            <Form.Group controlId="addCourse" className="mt-2">
-                <Form.Label className="d-block">Add Course</Form.Label>
-                <Form.Control
-                    placeholder="Enter course code (e.g. CISC 108)"
-                    value={courseInput}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        setCourseInput(event.target.value)
-                    }
-                    style={{ display: "inline", width: "80%" }}
-                ></Form.Control>
-                {errorMsg ? (
-                    <div
-                        className="error-msg"
-                        style={{ fontSize: "0.9rem", color: "red" }}
+            {selected === false ? (
+                <div>
+                    <h4 className="d-inline float-left">
+                        {numToSemester[semester.id]}
+                    </h4>
+                    <i style={{ float: "right" }}>
+                        Semester Credits: {semesterCreds(semester.courses)}
+                    </i>
+                    <CourseList
+                        courses={semester.courses}
+                        deleteCourse={deleteCourse}
+                        modifiedCourses={modifiedCourses}
+                        semSelected={selected}
+                    ></CourseList>
+                    {/*<Form.Group controlId="addCourse" className="mt-2">
+                        <Form.Label className="d-block">Add Course</Form.Label>
+                        <Form.Control
+                            placeholder="Enter course code (e.g. CISC 108)"
+                            value={courseInput}
+                            onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>
+                            ) => setCourseInput(event.target.value)}
+                            style={{ display: "inline", width: "80%" }}
+                        ></Form.Control>
+                        {errorMsg ? (
+                            <div
+                                className="error-msg"
+                                style={{ fontSize: "0.9rem", color: "red" }}
+                            >
+                                *{errorMsg}
+                            </div>
+                        ) : null}
+                        <Button
+                            className="d-inline"
+                            type="submit"
+                            onClick={handleSubmit}
+                            style={{ width: "20%", float: "right" }}
+                        >
+                            Add
+                        </Button>
+                    </Form.Group>
+                    <Button
+                        className="btn-secondary m-1 mt-4"
+                        onClick={clearCourses}
                     >
-                        *{errorMsg}
-                    </div>
-                ) : null}
-                <Button
-                    className="d-inline"
-                    type="submit"
-                    onClick={handleSubmit}
-                    style={{ width: "20%", float: "right" }}
-                >
-                    Add
-                </Button>
-            </Form.Group>
-            <Button className="btn-secondary m-1 mt-4" onClick={clearCourses}>
-                Clear Courses
-            </Button>
-            <Button
-                className="btn-danger m-1 mt-4"
-                onClick={() => deleteSemester(semester.id)}
-            >
-                - Delete Semester
-            </Button>
+                        Clear Courses
+                        </Button>*/}
+                    <Button
+                        className="btn-danger m-1 mt-4"
+                        onClick={() => deleteSemester(semester.id)}
+                    >
+                        - Delete Semester
+                    </Button>
+                </div>
+            ) : (
+                <div>
+                    <h4 className="d-inline float-left">
+                        {numToSemester[semester.id]}
+                    </h4>
+                    <i style={{ float: "right" }}>
+                        Semester Credits: {semesterCreds(semester.courses)}
+                    </i>
+                    <CourseList
+                        courses={semester.courses}
+                        deleteCourse={deleteCourse}
+                        modifiedCourses={modifiedCourses}
+                        semSelected={selected}
+                    ></CourseList>
+                    <Form.Group controlId="addCourse" className="mt-2">
+                        <Form.Label className="d-block">Add Course</Form.Label>
+                        <Form.Control
+                            placeholder="Enter course code (e.g. CISC 108)"
+                            value={courseInput}
+                            onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>
+                            ) => setCourseInput(event.target.value)}
+                            style={{ display: "inline", width: "80%" }}
+                        ></Form.Control>
+                        {errorMsg ? (
+                            <div
+                                className="error-msg"
+                                style={{ fontSize: "0.9rem", color: "red" }}
+                            >
+                                *{errorMsg}
+                            </div>
+                        ) : null}
+                        <Button
+                            className="d-inline"
+                            type="submit"
+                            onClick={handleSubmit}
+                            style={{ width: "20%", float: "right" }}
+                        >
+                            Add
+                        </Button>
+                    </Form.Group>
+                    <Button
+                        className="btn-secondary m-1 mt-4"
+                        onClick={clearCourses}
+                    >
+                        Clear Courses
+                    </Button>
+                    {/*<Button
+                        className="btn-danger m-1 mt-4"
+                        onClick={() => deleteSemester(semester.id)}
+                    >
+                        - Delete Semester
+                    /Button>*/}
+                </div>
+            )}
         </div>
     );
 };

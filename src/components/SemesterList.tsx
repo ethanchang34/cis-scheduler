@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Semester } from "../interfaces/Semester";
 import { Course } from "../interfaces/Course";
@@ -17,82 +17,184 @@ export const SemesterList = ({
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
 }) => {
-    return (
-        <div>
-            <Row>
-                {semesters.map((semester: Semester) =>
-                    semester.id % 2 === 0 && semester.active === true ? (
-                        <Col
-                            key={semester.id}
-                            className="border m-2 p-3 text-white"
-                            style={{
-                                backgroundColor: "var(--primary-color)",
-                                borderRadius: 15
-                            }}
-                        >
-                            <SemesterView
-                                semester={semester}
-                                deleteSemester={deleteSemester}
-                                editSemester={editSemester}
-                                modifiedCourses={modifiedCourses}
-                            ></SemesterView>
-                        </Col>
-                    ) : semester.id === 0 || semester.id === 2 ? (
-                        <Col
-                            key={semester.id}
-                            className="m-2 p-2"
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center"
-                            }}
-                        >
-                            <Button onClick={() => addSemester(semester.id)}>
-                                + Add Semester
-                            </Button>
-                        </Col>
-                    ) : (
-                        <></>
-                    )
-                )}
-            </Row>
-            <Row>
-                {semesters.map((semester: Semester) =>
-                    semester.id % 2 === 1 && semester.active === true ? (
-                        <Col
-                            key={semester.id}
-                            className="border m-2 p-3 text-white"
-                            style={{
-                                backgroundColor: "var(--primary-color)",
-                                borderRadius: 15
-                            }}
-                        >
-                            <SemesterView
-                                semester={semester}
-                                deleteSemester={deleteSemester}
-                                editSemester={editSemester}
-                                modifiedCourses={modifiedCourses}
-                            ></SemesterView>
-                        </Col>
-                    ) : semester.id === 1 || semester.id === 3 ? (
-                        <Col
-                            key={semester.id}
-                            className="m-2 p-2"
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center"
-                            }}
-                        >
-                            <Button onClick={() => addSemester(semester.id)}>
-                                + Add Semester
-                            </Button>
-                        </Col>
-                    ) : (
-                        <></>
-                    )
-                )}
-            </Row>
-        </div>
-    );
+    const [selectedID, setSelectedID] = useState<number | null>(null);
+
+    const changeSelectedID = (id: number) => {
+        if (selectedID === null) {
+            setSelectedID(id);
+        } else {
+            setSelectedID(null);
+        }
+    };
+    if (selectedID === null) {
+        return (
+            <div>
+                <Row>
+                    {semesters.map((semester: Semester) =>
+                        semester.id % 2 === 0 && semester.active === true ? (
+                            <Col
+                                key={semester.id}
+                                className="border m-2 p-3 text-white"
+                                style={{
+                                    backgroundColor: "var(--primary-color)",
+                                    borderRadius: 15
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <span
+                                        style={{
+                                            fontSize: "12px",
+                                            fontStyle: "italic",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(semester.id)
+                                        }
+                                    >
+                                        Click to expand
+                                    </span>
+                                </div>
+                                <SemesterView
+                                    semester={semester}
+                                    deleteSemester={deleteSemester}
+                                    editSemester={editSemester}
+                                    modifiedCourses={modifiedCourses}
+                                    selected={false}
+                                ></SemesterView>
+                            </Col>
+                        ) : semester.id === 0 || semester.id === 2 ? (
+                            <Col
+                                key={semester.id}
+                                className="m-2 p-2"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                            >
+                                <Button
+                                    onClick={() => addSemester(semester.id)}
+                                >
+                                    + Add Semester
+                                </Button>
+                            </Col>
+                        ) : (
+                            <></>
+                        )
+                    )}
+                </Row>
+                <Row>
+                    {semesters.map((semester: Semester) =>
+                        semester.id % 2 === 1 && semester.active === true ? (
+                            <Col
+                                key={semester.id}
+                                className="border m-2 p-3 text-white"
+                                style={{
+                                    backgroundColor: "var(--primary-color)",
+                                    borderRadius: 15
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <span
+                                        style={{
+                                            fontSize: "12px",
+                                            fontStyle: "italic",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(semester.id)
+                                        }
+                                    >
+                                        Click to expand
+                                    </span>
+                                </div>
+                                <SemesterView
+                                    semester={semester}
+                                    deleteSemester={deleteSemester}
+                                    editSemester={editSemester}
+                                    modifiedCourses={modifiedCourses}
+                                    selected={false}
+                                ></SemesterView>
+                            </Col>
+                        ) : semester.id === 1 || semester.id === 3 ? (
+                            <Col
+                                key={semester.id}
+                                className="m-2 p-2"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                            >
+                                <Button
+                                    onClick={() => addSemester(semester.id)}
+                                >
+                                    + Add Semester
+                                </Button>
+                            </Col>
+                        ) : (
+                            <></>
+                        )
+                    )}
+                </Row>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <Row>
+                    {semesters.map(
+                        (semester: Semester) =>
+                            semester.id === selectedID && (
+                                <Col
+                                    key={semester.id}
+                                    className="border m-2 p-3 text-white"
+                                    style={{
+                                        backgroundColor: "var(--primary-color)",
+                                        borderRadius: 15
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center"
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                fontSize: "12px",
+                                                fontStyle: "italic",
+                                                cursor: "pointer"
+                                            }}
+                                            onClick={() =>
+                                                changeSelectedID(semester.id)
+                                            }
+                                        >
+                                            Click to minimize
+                                        </span>
+                                    </div>
+                                    <SemesterView
+                                        semester={semester}
+                                        deleteSemester={deleteSemester}
+                                        editSemester={editSemester}
+                                        modifiedCourses={modifiedCourses}
+                                        selected={true}
+                                    ></SemesterView>
+                                </Col>
+                            )
+                    )}
+                </Row>
+            </div>
+        );
+    }
 };

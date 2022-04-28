@@ -103,17 +103,6 @@ export const YearView = ({
                 editSemester={editSemester}
                 modifiedCourses={modifiedCourses}
             ></SemesterList>
-            {/*
-            <Form.Group controlId="addSemester">
-                <Form.Label>Add Semester</Form.Label>
-                <Form.Select onChange={addSemester}>
-                    <option value="fall">Fall</option>
-                    <option value="winter">Winter</option>
-                    <option value="spring">Spring</option>
-                    <option value="summer">Summer</option>
-                </Form.Select>
-            </Form.Group>
-            */}
             <Button className="btn-secondary m-1 mt-3" onClick={clearSemesters}>
                 Clear Semesters
             </Button>
