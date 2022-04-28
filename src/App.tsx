@@ -160,7 +160,9 @@ function App(): JSX.Element {
             };
             const changedCourses: Record<string, Course> = JSON.parse(saved);
             csv = [
-                Object.keys(testCourse).join(","),
+                Object.keys(testCourse)
+                    .map((val) => '"' + val.toString + '"')
+                    .join(","),
                 Object.values(changedCourses)
                     .map((course: Course): string =>
                         Object.values(course)
@@ -177,6 +179,32 @@ function App(): JSX.Element {
             ].join("\r\n");
         }
         return csv;
+    };
+
+    const parsePlans = () => {
+        let csv = [];
+        if (plans) {
+            let header = ["id", "title", "description", "numYears"];
+            const yearNumArr = plans.map((p: Plan): number => p.years.length);
+            const numYears = Math.max(...yearNumArr);
+            for (let i = 0; i < numYears; i++) {
+                const j = i * 4;
+                header = [
+                    ...header,
+                    ("semester_" + j) as string,
+                    ("semester_" + (j + 1)) as string,
+                    ("semester_" + (j + 2)) as string,
+                    ("semester_" + (j + 3)) as string
+                ];
+            }
+            csv = [
+                header,
+                plans.map((p: Plan): string[] => {
+                    return [p];
+                })
+            ];
+            console.log(csv);
+        }
     };
 
     /** Download contents as a file
@@ -250,7 +278,7 @@ function App(): JSX.Element {
             </div>
             <Button
                 onClick={() => {
-                    downloadCourseChanges();
+                    parsePlans();
                 }}
             >
                 click
