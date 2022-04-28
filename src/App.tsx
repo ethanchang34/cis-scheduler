@@ -165,16 +165,18 @@ function App(): JSX.Element {
                     .map((course: Course): string =>
                         Object.values(course)
                             .map((val: string | number[] | boolean): string => {
-                                val.toString()
-                                    .replaceAll('"', '""')
-                                    .replaceAll(",", '", "');
+                                return (
+                                    '"' +
+                                    val.toString().replaceAll('"', '""') +
+                                    '"'
+                                );
                             })
                             .join(",")
                     )
                     .join("\r\n")
             ].join("\r\n");
         }
-        console.log(csv);
+        return csv;
     };
 
     /** Download contents as a file
@@ -185,6 +187,10 @@ function App(): JSX.Element {
         filename: string,
         contentType: string
     ) => {
+        if (!content) {
+            console.log("No saved content");
+            return;
+        }
         // Create a blob
         const blob = new Blob([content], { type: contentType });
         const url = URL.createObjectURL(blob);
@@ -194,6 +200,14 @@ function App(): JSX.Element {
         pom.href = url;
         pom.setAttribute("download", filename);
         pom.click();
+    };
+
+    const downloadCourseChanges = () => {
+        downloadBlob(
+            parseChangedCoursesToCSV(),
+            "CoursesExport.csv",
+            "text/csv;charset=utf-8;"
+        );
     };
 
     const location = useLocation();
@@ -236,7 +250,7 @@ function App(): JSX.Element {
             </div>
             <Button
                 onClick={() => {
-                    parseChangedCoursesToCSV();
+                    downloadCourseChanges();
                 }}
             >
                 click
