@@ -94,6 +94,16 @@ export const SemesterView = ({
         }
     }
 
+    function handlePoolSubmit() {
+        if (courseExist() && !courseRepeat()) {
+            addCourse(courseInput);
+            {
+                /*removeFromPool(modifiedCourses[courseInput]);*/
+            }
+            setErrorMsg("");
+        }
+    }
+
     function semesterCreds(courses: string[]): number {
         const mappedCourses = courses.map(
             (code: string): Course => modifiedCourses[code]
@@ -175,7 +185,9 @@ export const SemesterView = ({
                         semSelected={selected}
                     ></CourseList>
                     <Form.Group controlId="addCourse" className="mt-2">
-                        <Form.Label className="d-block">Add Course</Form.Label>
+                        <Form.Label className="d-block">
+                            Add Course by Code
+                        </Form.Label>
                         <Form.Control
                             placeholder="Enter course code (e.g. CISC 108)"
                             value={courseInput}
@@ -184,6 +196,14 @@ export const SemesterView = ({
                             ) => setCourseInput(event.target.value)}
                             style={{ display: "inline", width: "80%" }}
                         ></Form.Control>
+                        <Button
+                            className="d-inline"
+                            type="submit"
+                            onClick={handleSubmit}
+                            style={{ width: "20%", float: "right" }}
+                        >
+                            Add
+                        </Button>
                         {errorMsg ? (
                             <div
                                 className="error-msg"
@@ -192,10 +212,24 @@ export const SemesterView = ({
                                 *{errorMsg}
                             </div>
                         ) : null}
+                    </Form.Group>
+                    <Form.Group controlId="addFromPool" className="mt-2">
+                        <Form.Label className="d-block">
+                            Add Course from Pool
+                        </Form.Label>
+                        <Form.Select
+                            value={courseInput}
+                            onChange={(
+                                event: React.ChangeEvent<HTMLSelectElement>
+                            ) => setCourseInput(event.target.value)}
+                            style={{ display: "inline", width: "80%" }}
+                        >
+                            <option value="">Select a class</option>
+                        </Form.Select>
                         <Button
                             className="d-inline"
                             type="submit"
-                            onClick={handleSubmit}
+                            onClick={handlePoolSubmit}
                             style={{ width: "20%", float: "right" }}
                         >
                             Add
