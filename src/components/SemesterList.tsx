@@ -20,10 +20,10 @@ export const SemesterList = ({
     return (
         <div>
             <Row>
-                {semesters.map((semester: Semester) =>
+                {semesters.map((semester: Semester, idx: number) =>
                     semester.id < 2 && semester.active === true ? (
                         <Col
-                            key={semester.id}
+                            key={idx}
                             className="border m-2 p-3 text-white"
                             style={{
                                 backgroundColor: "var(--primary-color)",
@@ -32,14 +32,15 @@ export const SemesterList = ({
                         >
                             <SemesterView
                                 semester={semester}
+                                idx={idx}
                                 deleteSemester={deleteSemester}
                                 editSemester={editSemester}
                                 modifiedCourses={modifiedCourses}
                             ></SemesterView>
                         </Col>
-                    ) : semester.id < 2 ? (
+                    ) : idx < 2 ? (
                         <Col
-                            key={semester.id}
+                            key={idx}
                             className="m-2 p-2"
                             style={{
                                 display: "flex",
@@ -57,10 +58,10 @@ export const SemesterList = ({
                 )}
             </Row>
             <Row>
-                {semesters.map((semester: Semester) =>
+                {semesters.map((semester: Semester, idx: number) =>
                     semester.id > 1 && semester.active === true ? (
                         <Col
-                            key={semester.id}
+                            key={idx}
                             className="border m-2 p-3 text-white"
                             style={{
                                 backgroundColor: "var(--primary-color)",
@@ -72,11 +73,12 @@ export const SemesterList = ({
                                 deleteSemester={deleteSemester}
                                 editSemester={editSemester}
                                 modifiedCourses={modifiedCourses}
+                                idx={idx}
                             ></SemesterView>
                         </Col>
-                    ) : semester.id > 1 ? (
+                    ) : idx > 1 ? (
                         <Col
-                            key={semester.id}
+                            key={idx}
                             className="m-2 p-2"
                             style={{
                                 display: "flex",

@@ -11,8 +11,8 @@ import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { StringLiteralLike } from "typescript";
 import { Button, Form } from "react-bootstrap";
+import csvToJson from "csvtojson";
 
 interface ActiveCourse {
     code: string;
@@ -143,7 +143,9 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
-    const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadPlansOrCourse = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         // Might have removed the file, need to check that the files exist
         if (event.target.files && event.target.files.length) {
             // Get the first filename
@@ -153,10 +155,70 @@ function App(): JSX.Element {
             // Create lambda callback to handle when we read the file
             reader.onload = (loadEvent) => {
                 // Target might be null, so provide default error value
-                const newContent =
+                let newContent =
                     loadEvent.target?.result || "Data was not loaded";
                 // FileReader provides string or ArrayBuffer, force it to be string
-                console.log(newContent);
+                newContent = newContent.toString();
+
+                csvToJson()
+                    .fromString(newContent)
+                    .then((csvRow) => {
+                        if (csvRow[0]["title"]) {
+                            // This is a plans object
+                            console.log(csvRow);
+                            let idNum = 0;
+                            localStorage.removeItem("CISC275-4-selectedID");
+                            setPlans(
+                                csvRow.map((csvPlan): Plan => {
+                                    idNum++;
+                                    const numYears = csvPlan["numYears"];
+                                    let newYears: Year[] = [];
+                                    for (let i = 0; i < numYears; i++) {
+                                        const tempYear: Year = {
+                                            id: i,
+                                            semesters: []
+                                        };
+                                        for (
+                                            let j = i * 4;
+                                            j < i * 4 + 4;
+                                            j++
+                                        ) {
+                                            let tempCourses = [];
+                                            if (csvPlan["semester_" + j]) {
+                                                tempCourses =
+                                                    csvPlan[
+                                                        "semester_" + j
+                                                    ].split(",");
+                                            }
+                                            csvPlan["semester_" + j].split(",");
+                                            tempYear.semesters = [
+                                                ...tempYear.semesters,
+                                                {
+                                                    id: j,
+                                                    active:
+                                                        csvPlan["semester_" + j]
+                                                            .length !== 0,
+                                                    courses: tempCourses
+                                                }
+                                            ];
+                                        }
+                                        newYears = [...newYears, tempYear];
+                                    }
+                                    return {
+                                        id: idNum,
+                                        title: csvPlan["title"],
+                                        description: csvPlan["description"],
+                                        years: newYears
+                                    };
+                                })
+                            );
+                        } else if (csvRow[0]["code"]) {
+                            // This is a course object
+                            console.log("This is a course object");
+                        } else {
+                            console.log("This is invalid data format");
+                        }
+                    });
             };
             // Actually read the file
             reader.readAsText(filename);
@@ -313,19 +375,13 @@ function App(): JSX.Element {
                                     editPlan={editPlan}
                                     deletePlan={deletePlan}
                                     modifiedCourses={modifiedCourses}
+                                    downloadPlans={downloadPlans}
                                 />
                             }
                         />
                     </Route>
                 </Routes>
             </div>
-            <Button
-                onClick={() => {
-                    downloadPlans();
-                }}
-            >
-                Download Plans
-            </Button>
             <Button
                 onClick={() => {
                     downloadCourses();
@@ -335,7 +391,7 @@ function App(): JSX.Element {
             </Button>
             <Form.Group controlId="exampleForm">
                 <Form.Label>Upload a file</Form.Label>
-                <Form.Control type="file" onChange={uploadFile} />
+                <Form.Control type="file" onChange={uploadPlansOrCourse} />
             </Form.Group>
         </div>
     );

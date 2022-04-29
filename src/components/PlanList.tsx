@@ -11,13 +11,15 @@ export const PlanList = ({
     addPlan,
     deletePlan,
     editPlan,
-    modifiedCourses
+    modifiedCourses,
+    downloadPlans
 }: {
     plans: Plan[];
     addPlan: () => void;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
+    downloadPlans: () => void;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
@@ -85,6 +87,13 @@ export const PlanList = ({
                         </Stack>
                         <Button className="m-2" onClick={addPlan}>
                             Add Plan
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                downloadPlans();
+                            }}
+                        >
+                            Download Plans
                         </Button>
                     </div>
                 )}

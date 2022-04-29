@@ -6,11 +6,13 @@ import { CourseList } from "./CourseList";
 
 export const SemesterView = ({
     semester,
+    idx,
     deleteSemester,
     editSemester,
     modifiedCourses
 }: {
     semester: Semester;
+    idx: number;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
@@ -100,9 +102,7 @@ export const SemesterView = ({
 
     return (
         <div>
-            <h4 className="d-inline float-left">
-                {numToSemester[semester.id]}
-            </h4>
+            <h4 className="d-inline float-left">{numToSemester[idx]}</h4>
             <i style={{ float: "right" }}>
                 Semester Credits: {semesterCreds(semester.courses)}
             </i>

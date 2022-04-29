@@ -19,15 +19,14 @@ const editPlan = () => {
 describe("User can see a list of plans and be able to edit and delete them", () => {
     beforeEach(() => {
         localStorage.clear();
-        render(
-            <PlanList
-                plans={DefaultPlans}
-                addPlan={addPlan}
-                deletePlan={deletePlan}
-                editPlan={editPlan}
-                modifiedCourses={originalCourses}
-            />
-        );
+        // render();
+        // <PlanList
+        //     plans={DefaultPlans}
+        //     addPlan={addPlan}
+        //     deletePlan={deletePlan}
+        //     editPlan={editPlan}
+        //     modifiedCourses={originalCourses}
+        // />
     });
 
     test("There is a button, which adds a plan", () => {

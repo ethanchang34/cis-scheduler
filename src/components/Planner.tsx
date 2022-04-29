@@ -9,13 +9,15 @@ export const Planner = ({
     addPlan,
     editPlan,
     deletePlan,
-    modifiedCourses
+    modifiedCourses,
+    downloadPlans
 }: {
     plans: Plan[];
     addPlan: () => void;
     editPlan: (id: number, newPlan: Plan) => void;
     deletePlan: (id: number) => void;
     modifiedCourses: Record<string, Course>;
+    downloadPlans: () => void;
 }) => {
     return (
         <div>
@@ -25,6 +27,7 @@ export const Planner = ({
                 editPlan={editPlan}
                 deletePlan={deletePlan}
                 modifiedCourses={modifiedCourses}
+                downloadPlans={downloadPlans}
             ></PlanList>
         </div>
     );
