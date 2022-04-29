@@ -143,11 +143,6 @@ function App(): JSX.Element {
     return (
         <div className="App">
             <NavBar></NavBar>
-            {/* <nav>
-                    <Link to="/">Home</Link>
-                    <Link to="/course-search">Course Search</Link>
-                    <Link to="/planner">Planner</Link>
-                </nav> */}
             <div className="content">
                 <Routes location={location} key={location.pathname}>
                     <Route path="/">
@@ -172,6 +167,14 @@ function App(): JSX.Element {
                                     deletePlan={deletePlan}
                                     modifiedCourses={modifiedCourses}
                                 />
+                            }
+                        />
+                        <Route
+                            path="*"
+                            element={
+                                <main style={{ padding: "1rem" }}>
+                                    <p>nothing here!</p>
+                                </main>
                             }
                         />
                     </Route>

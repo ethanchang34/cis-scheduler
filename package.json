@@ -1,6 +1,5 @@
 {
     "name": "react-typescript-starter",
-    "proxy": "http://127.0.0.1:5000",
     "homepage": "/cis-scheduler-team-4",
     "version": "0.1.0",
     "private": true,
