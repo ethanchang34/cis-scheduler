@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Course } from "../interfaces/Course";
 
 export const CourseView = ({
     course,
     deleteCourse,
-    modifiedCourses
+    modifiedCourses,
+    addToPool
 }: {
     course: string;
     deleteCourse: (code: string) => void;
     modifiedCourses: Record<string, Course>;
+    addToPool: (course: Course) => boolean;
 }) => {
-    function handlePoolAdd(course: Course) {
-        console.log(course);
+    const [errorMsg, setErrorMsg] = useState<string>("");
+
+    function addPoolHandler() {
+        if (addToPool(modifiedCourses[course]) === true) {
+            deleteCourse(course);
+            setErrorMsg("");
+        } else {
+            setErrorMsg("Course already in pool");
+        }
     }
     return (
         <div>
@@ -30,12 +39,17 @@ export const CourseView = ({
                 ❌
             </span>
             <div>{modifiedCourses[course].descr}</div>
-            <Button
-                className="mt-2"
-                onClick={() => handlePoolAdd(modifiedCourses[course])}
-            >
+            <Button className="mt-2" onClick={() => addPoolHandler()}>
                 Move to Pool
             </Button>
+            {errorMsg ? (
+                <div
+                    className="error-msg"
+                    style={{ fontSize: "0.9rem", color: "red" }}
+                >
+                    *{errorMsg}
+                </div>
+            ) : null}
         </div>
     );
 };

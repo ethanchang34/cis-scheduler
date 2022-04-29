@@ -7,12 +7,14 @@ export const CourseList = ({
     courses,
     deleteCourse,
     modifiedCourses,
-    semSelected
+    semSelected,
+    addToPool
 }: {
     courses: string[];
     deleteCourse: (code: string) => void;
     modifiedCourses: Record<string, Course>;
     semSelected: boolean;
+    addToPool: (course: Course) => boolean;
 }) => {
     return (
         <div>
@@ -31,6 +33,7 @@ export const CourseList = ({
                                 course={course}
                                 deleteCourse={deleteCourse}
                                 modifiedCourses={modifiedCourses}
+                                addToPool={addToPool}
                             ></CourseView>
                         </div>
                     ))}

@@ -9,13 +9,19 @@ export const SemesterList = ({
     addSemester,
     deleteSemester,
     editSemester,
-    modifiedCourses
+    modifiedCourses,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     semesters: Semester[];
     addSemester: (id: number) => void;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(null);
 
@@ -65,6 +71,9 @@ export const SemesterList = ({
                                     editSemester={editSemester}
                                     modifiedCourses={modifiedCourses}
                                     selected={false}
+                                    coursePool={coursePool}
+                                    addToPool={addToPool}
+                                    removeFromPool={removeFromPool}
                                 ></SemesterView>
                             </Col>
                         ) : semester.id === 0 || semester.id === 2 ? (
@@ -124,6 +133,9 @@ export const SemesterList = ({
                                     editSemester={editSemester}
                                     modifiedCourses={modifiedCourses}
                                     selected={false}
+                                    coursePool={coursePool}
+                                    addToPool={addToPool}
+                                    removeFromPool={removeFromPool}
                                 ></SemesterView>
                             </Col>
                         ) : semester.id === 1 || semester.id === 3 ? (
@@ -189,6 +201,9 @@ export const SemesterList = ({
                                         editSemester={editSemester}
                                         modifiedCourses={modifiedCourses}
                                         selected={true}
+                                        coursePool={coursePool}
+                                        addToPool={addToPool}
+                                        removeFromPool={removeFromPool}
                                     ></SemesterView>
                                 </Col>
                             )

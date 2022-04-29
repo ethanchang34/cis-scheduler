@@ -12,13 +12,19 @@ export const PlanView = ({
     deletePlan,
     editPlan,
     modifiedCourses,
-    selected
+    selected,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     plan: Plan;
     deletePlan: (id: number) => void;
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
     selected: boolean;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     const [editing, setEditing] = useState<boolean>(false);
 
@@ -97,6 +103,9 @@ export const PlanView = ({
                     deleteYear={deleteYear}
                     editYear={editYear}
                     modifiedCourses={modifiedCourses}
+                    coursePool={coursePool}
+                    addToPool={addToPool}
+                    removeFromPool={removeFromPool}
                 ></YearList>
                 <Button className="m-1 mx-auto d-block" onClick={addYear}>
                     + Add Year

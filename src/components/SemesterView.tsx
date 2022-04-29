@@ -9,13 +9,19 @@ export const SemesterView = ({
     deleteSemester,
     editSemester,
     modifiedCourses,
-    selected
+    selected,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     semester: Semester;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
     selected: boolean;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     const [courseInput, setCourseInput] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState<string>("");
@@ -97,9 +103,7 @@ export const SemesterView = ({
     function handlePoolSubmit() {
         if (courseExist() && !courseRepeat()) {
             addCourse(courseInput);
-            {
-                /*removeFromPool(modifiedCourses[courseInput]);*/
-            }
+            removeFromPool(modifiedCourses[courseInput]);
             setErrorMsg("");
         }
     }
@@ -129,6 +133,7 @@ export const SemesterView = ({
                         deleteCourse={deleteCourse}
                         modifiedCourses={modifiedCourses}
                         semSelected={selected}
+                        addToPool={addToPool}
                     ></CourseList>
                     {/*<Form.Group controlId="addCourse" className="mt-2">
                         <Form.Label className="d-block">Add Course</Form.Label>
@@ -183,6 +188,7 @@ export const SemesterView = ({
                         deleteCourse={deleteCourse}
                         modifiedCourses={modifiedCourses}
                         semSelected={selected}
+                        addToPool={addToPool}
                     ></CourseList>
                     <Form.Group controlId="addCourse" className="mt-2">
                         <Form.Label className="d-block">
@@ -225,6 +231,11 @@ export const SemesterView = ({
                             style={{ display: "inline", width: "80%" }}
                         >
                             <option value="">Select a class</option>
+                            {coursePool.map((course: Course) => (
+                                <option key={course.code} value={course.code}>
+                                    {course.code}
+                                </option>
+                            ))}
                         </Form.Select>
                         <Button
                             className="d-inline"

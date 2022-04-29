@@ -9,12 +9,18 @@ export const YearView = ({
     year,
     deleteYear,
     editYear,
-    modifiedCourses
+    modifiedCourses,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     year: Year;
     deleteYear: (id: number) => void;
     editYear: (id: number, newYear: Year) => void;
     modifiedCourses: Record<string, Course>;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     /*const semesterToNumber: Record<string, number> = {
         fall: 0,
@@ -102,6 +108,9 @@ export const YearView = ({
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={modifiedCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
             ></SemesterList>
             <Button className="btn-secondary m-1 mt-3" onClick={clearSemesters}>
                 Clear Semesters
