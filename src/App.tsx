@@ -5,6 +5,8 @@ import { CourseSearch } from "./components/CourseSearch";
 import { NavBar } from "./components/NavBar";
 import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
+import { Year } from "./interfaces/Year";
+import { Semester } from "./interfaces/Semester";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -141,7 +143,7 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
-    const parseChangedCoursesToCSV = () => {
+    const downloadCourses = () => {
         const saved = localStorage.getItem("CISC275-4-modifiedCourses");
         let csv = "";
         if (saved) {
@@ -178,11 +180,11 @@ function App(): JSX.Element {
                     .join("\r\n")
             ].join("\r\n");
         }
-        return csv;
+        downloadBlob(csv, "CoursesExport.csv", "text/csv;charset=utf-8;");
     };
 
-    const parsePlans = () => {
-        let csv = [];
+    const downloadPlans = () => {
+        let csv = "";
         if (plans) {
             let header = ["id", "title", "description", "numYears"];
             const yearNumArr = plans.map((p: Plan): number => p.years.length);
@@ -197,13 +199,48 @@ function App(): JSX.Element {
                     ("semester_" + (j + 3)) as string
                 ];
             }
-            csv = [
-                header,
-                plans.map((p: Plan): string[] => {
-                    return [p];
+            const planStrings: string = plans
+                .map((p: Plan): string => {
+                    const semestersString = p.years
+                        .map((y: Year): string => {
+                            return y.semesters
+                                .map((s: Semester): string => {
+                                    return (
+                                        '"' +
+                                        s.courses
+                                            .toString()
+                                            .replaceAll('"', '""') +
+                                        '"'
+                                    );
+                                })
+                                .join(",");
+                        })
+                        .join(",");
+                    return (
+                        '"' +
+                        p.id.toString() +
+                        '"' +
+                        "," +
+                        '"' +
+                        p.title.toString().replaceAll('"', '""') +
+                        '"' +
+                        "," +
+                        '"' +
+                        p.description.toString().replaceAll('"', '""') +
+                        '"' +
+                        "," +
+                        '"' +
+                        p.years.length.toString().replaceAll('"', '""') +
+                        '"' +
+                        "," +
+                        semestersString
+                    );
                 })
-            ];
+                .join("\r\n");
+
+            csv = [header, planStrings].join("\r\n");
             console.log(csv);
+            downloadBlob(csv, "PlansExport.csv", "text/csv;charset=utf-8;");
         }
     };
 
@@ -229,15 +266,6 @@ function App(): JSX.Element {
         pom.setAttribute("download", filename);
         pom.click();
     };
-
-    const downloadCourseChanges = () => {
-        downloadBlob(
-            parseChangedCoursesToCSV(),
-            "CoursesExport.csv",
-            "text/csv;charset=utf-8;"
-        );
-    };
-
     const location = useLocation();
     return (
         <div className="App">
@@ -278,10 +306,17 @@ function App(): JSX.Element {
             </div>
             <Button
                 onClick={() => {
-                    parsePlans();
+                    downloadPlans();
                 }}
             >
-                click
+                Download Plans
+            </Button>
+            <Button
+                onClick={() => {
+                    downloadCourses();
+                }}
+            >
+                Download Courses
             </Button>
         </div>
     );
