@@ -78,6 +78,7 @@ function App(): JSX.Element {
     const [modifiedCourses, setModifiedCourses] =
         useState<Record<string, Course>>(originalCourses);
     const [plans, setPlans] = useState<Plan[]>(DefaultPlans);
+    const [coursePool, setCoursePool] = useState<Course[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [landing, setLanding] = useState<boolean>(true);
     //const [pageName, setPageName] = useState<string>("Plans"); // set this value to whatever the navbar needs to display.
@@ -116,6 +117,23 @@ function App(): JSX.Element {
         // setLanding(false);
     };
 
+    const addToPool = (course: Course): boolean => {
+        if (coursePool.includes(course)) {
+            return false;
+        } else {
+            setCoursePool([...coursePool, course]);
+            return true;
+        }
+    };
+
+    const removeFromPool = (course: Course) => {
+        setCoursePool(
+            coursePool.filter(
+                (crs: Course): boolean => crs.code !== course.code
+            )
+        );
+    };
+
     return (
         <div className="App">
             <NavBar
@@ -136,6 +154,9 @@ function App(): JSX.Element {
                         editPlan={editPlan}
                         deletePlan={deletePlan}
                         modifiedCourses={modifiedCourses}
+                        coursePool={coursePool}
+                        addToPool={addToPool}
+                        removeFromPool={removeFromPool}
                     ></Planner>
                 </div>
             </div>
