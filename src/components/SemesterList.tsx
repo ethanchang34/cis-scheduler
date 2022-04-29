@@ -21,7 +21,7 @@ export const SemesterList = ({
         <div>
             <Row>
                 {semesters.map((semester: Semester, idx: number) =>
-                    semester.id < 2 && semester.active === true ? (
+                    idx < 2 && semester.active === true ? (
                         <Col
                             key={idx}
                             className="border m-2 p-3 text-white"
@@ -59,7 +59,7 @@ export const SemesterList = ({
             </Row>
             <Row>
                 {semesters.map((semester: Semester, idx: number) =>
-                    semester.id > 1 && semester.active === true ? (
+                    idx > 1 && semester.active === true ? (
                         <Col
                             key={idx}
                             className="border m-2 p-3 text-white"
