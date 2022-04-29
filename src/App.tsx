@@ -12,7 +12,7 @@ import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { StringLiteralLike } from "typescript";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 interface ActiveCourse {
     code: string;
@@ -143,6 +143,26 @@ function App(): JSX.Element {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
 
+    const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // Might have removed the file, need to check that the files exist
+        if (event.target.files && event.target.files.length) {
+            // Get the first filename
+            const filename = event.target.files[0];
+            // Create a reader
+            const reader = new FileReader();
+            // Create lambda callback to handle when we read the file
+            reader.onload = (loadEvent) => {
+                // Target might be null, so provide default error value
+                const newContent =
+                    loadEvent.target?.result || "Data was not loaded";
+                // FileReader provides string or ArrayBuffer, force it to be string
+                console.log(newContent);
+            };
+            // Actually read the file
+            reader.readAsText(filename);
+        }
+    };
+
     const downloadCourses = () => {
         const saved = localStorage.getItem("CISC275-4-modifiedCourses");
         let csv = "";
@@ -163,7 +183,7 @@ function App(): JSX.Element {
             const changedCourses: Record<string, Course> = JSON.parse(saved);
             csv = [
                 Object.keys(testCourse)
-                    .map((val) => '"' + val.toString + '"')
+                    .map((val) => val.toString())
                     .join(","),
                 Object.values(changedCourses)
                     .map((course: Course): string =>
@@ -186,7 +206,7 @@ function App(): JSX.Element {
     const downloadPlans = () => {
         let csv = "";
         if (plans) {
-            let header = ["id", "title", "description", "numYears"];
+            let header = ["title", "description", "numYears"];
             const yearNumArr = plans.map((p: Plan): number => p.years.length);
             const numYears = Math.max(...yearNumArr);
             for (let i = 0; i < numYears; i++) {
@@ -218,10 +238,6 @@ function App(): JSX.Element {
                         .join(",");
                     return (
                         '"' +
-                        p.id.toString() +
-                        '"' +
-                        "," +
-                        '"' +
                         p.title.toString().replaceAll('"', '""') +
                         '"' +
                         "," +
@@ -239,7 +255,6 @@ function App(): JSX.Element {
                 .join("\r\n");
 
             csv = [header, planStrings].join("\r\n");
-            console.log(csv);
             downloadBlob(csv, "PlansExport.csv", "text/csv;charset=utf-8;");
         }
     };
@@ -248,16 +263,16 @@ function App(): JSX.Element {
      * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
      */
     const downloadBlob = (
-        content: string,
+        csv: string,
         filename: string,
         contentType: string
     ) => {
-        if (!content) {
+        if (!csv) {
             console.log("No saved content");
             return;
         }
         // Create a blob
-        const blob = new Blob([content], { type: contentType });
+        const blob = new Blob([csv], { type: contentType });
         const url = URL.createObjectURL(blob);
 
         // Create a link to download it
@@ -318,6 +333,10 @@ function App(): JSX.Element {
             >
                 Download Courses
             </Button>
+            <Form.Group controlId="exampleForm">
+                <Form.Label>Upload a file</Form.Label>
+                <Form.Control type="file" onChange={uploadFile} />
+            </Form.Group>
         </div>
     );
 }
