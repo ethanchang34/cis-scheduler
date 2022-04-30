@@ -5,13 +5,12 @@ import { Profile } from "./login_components/Profile";
 
 export const LoginPage = () => {
     return (
-        <div className="flex min-h-screen w-full flex-col items-center justify-center space-y-4">
-            <h1 className="text-3xl font-bold">Auth0 Login</h1>
+        <div className="login">
+            <h1 className="login-header">Auth0 Login</h1>
             <div className="flex space-x-2">
                 <LoginButton />
                 <LogoutButton />
             </div>
-            <Profile />
         </div>
     );
 };
