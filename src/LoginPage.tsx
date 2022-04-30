@@ -33,10 +33,10 @@ export const LoginPage = () => {
         localStorage.setItem("loginData", JSON.stringify(data));
     };
 
-    const handleLogout = () => {
+    /* const handleLogout = () => {
         localStorage.removeItem("loginData");
         setLoginData(null);
-    };
+    }; */
 
     const handleFailure = (result: any) => {
         alert(result);
