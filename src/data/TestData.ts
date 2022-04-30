@@ -27,38 +27,38 @@ export const DefaultPlans = [
                 ]
             },
             {
-                id: 1,
+                id: 4,
                 semesters: [
                     {
                         id: 4,
                         active: true,
                         courses: ["CISC 220", "CISC 260", "MATH 210"]
                     },
-                    { id: 1, active: false, courses: [] },
+                    { id: 5, active: false, courses: [] },
                     {
-                        id: 5,
+                        id: 6,
                         active: true,
                         courses: ["CISC 355", "CISC 275", "MATH 205"]
                     },
-                    { id: 6, active: false, courses: [] }
+                    { id: 7, active: false, courses: [] }
                 ]
             },
             {
-                id: 2,
+                id: 8,
                 semesters: [
-                    { id: 7, active: false, courses: [] },
                     { id: 8, active: false, courses: [] },
                     { id: 9, active: false, courses: [] },
-                    { id: 10, active: false, courses: [] }
+                    { id: 10, active: false, courses: [] },
+                    { id: 11, active: false, courses: [] }
                 ]
             },
             {
-                id: 3,
+                id: 12,
                 semesters: [
-                    { id: 11, active: false, courses: [] },
                     { id: 12, active: false, courses: [] },
                     { id: 13, active: false, courses: [] },
-                    { id: 14, active: false, courses: [] }
+                    { id: 14, active: false, courses: [] },
+                    { id: 15, active: false, courses: [] }
                 ]
             }
         ]

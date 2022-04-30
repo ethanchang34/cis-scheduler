@@ -166,16 +166,14 @@ function App(): JSX.Element {
                         if (csvRow[0]["title"]) {
                             // This is a plans object
                             console.log(csvRow);
-                            let idNum = 0;
                             localStorage.removeItem("CISC275-4-selectedID");
                             setPlans(
-                                csvRow.map((csvPlan): Plan => {
-                                    idNum++;
+                                csvRow.map((csvPlan, idNum): Plan => {
                                     const numYears = csvPlan["numYears"];
                                     let newYears: Year[] = [];
                                     for (let i = 0; i < numYears; i++) {
                                         const tempYear: Year = {
-                                            id: i,
+                                            id: idNum * 40 + i * 4,
                                             semesters: []
                                         };
                                         for (
@@ -194,7 +192,7 @@ function App(): JSX.Element {
                                             tempYear.semesters = [
                                                 ...tempYear.semesters,
                                                 {
-                                                    id: j,
+                                                    id: idNum * 40 + j,
                                                     active:
                                                         csvPlan["semester_" + j]
                                                             .length !== 0,

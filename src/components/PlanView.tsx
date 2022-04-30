@@ -36,20 +36,19 @@ export const PlanView = ({
     function addYear() {
         const yearIdPart =
             plan.years.length === 0
-                ? 0
-                : Math.max(...plan.years.map((y: Year) => y.id)) + 1;
-        const newYearId = plan.id * 10 + yearIdPart;
+                ? plan.id * 40
+                : Math.max(...plan.years.map((y: Year) => y.id)) + 4;
         editPlan(plan.id, {
             ...plan,
             years: [
                 ...plan.years,
                 {
-                    id: newYearId,
+                    id: yearIdPart,
                     semesters: [
-                        { id: yearIdPart * 4, active: true, courses: [] },
-                        { id: yearIdPart * 4 + 1, active: false, courses: [] },
-                        { id: yearIdPart * 4 + 2, active: true, courses: [] },
-                        { id: yearIdPart * 4 + 3, active: false, courses: [] }
+                        { id: yearIdPart, active: true, courses: [] },
+                        { id: yearIdPart + 1, active: false, courses: [] },
+                        { id: yearIdPart + 2, active: true, courses: [] },
+                        { id: yearIdPart + 3, active: false, courses: [] }
                     ]
                 }
             ]

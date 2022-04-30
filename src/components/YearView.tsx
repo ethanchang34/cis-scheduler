@@ -94,7 +94,9 @@ export const YearView = ({
 
     return (
         <div>
-            <h2 className="d-inline float-left">Year {yearIdx + 1}</h2>
+            <h2 className="d-inline float-left">
+                Year {yearIdx + 1} {year.id}
+            </h2>
             <i style={{ float: "right" }}>
                 Year Credits: {yearCreds(year.semesters)}
             </i>

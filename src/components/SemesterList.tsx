@@ -55,7 +55,9 @@ export const SemesterList = ({
                             </Button>
                         </Col>
                     ) : (
-                        <></>
+                        <React.Fragment
+                            key={semester.id + "semId"}
+                        ></React.Fragment>
                     )
                 )}
             </Row>
@@ -95,7 +97,9 @@ export const SemesterList = ({
                             </Button>
                         </Col>
                     ) : (
-                        <></>
+                        <React.Fragment
+                            key={semester.id + "semId"}
+                        ></React.Fragment>
                     )
                 )}
             </Row>
