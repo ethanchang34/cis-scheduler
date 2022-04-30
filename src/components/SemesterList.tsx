@@ -23,13 +23,14 @@ export const SemesterList = ({
                 {semesters.map((semester: Semester, idx: number) =>
                     idx < 2 && semester.active === true ? (
                         <Col
-                            key={idx}
+                            key={semester.id + "semId"}
                             className="border m-2 p-3 text-white"
                             style={{
                                 backgroundColor: "var(--primary-color)",
                                 borderRadius: 15
                             }}
                         >
+                            <p>{semester.id}</p>
                             <SemesterView
                                 semester={semester}
                                 idx={idx}
@@ -40,7 +41,7 @@ export const SemesterList = ({
                         </Col>
                     ) : idx < 2 ? (
                         <Col
-                            key={idx}
+                            key={semester.id + "semId"}
                             className="m-2 p-2"
                             style={{
                                 display: "flex",
@@ -48,6 +49,7 @@ export const SemesterList = ({
                                 justifyContent: "center"
                             }}
                         >
+                            <p>{semester.id}</p>
                             <Button onClick={() => addSemester(semester.id)}>
                                 + Add Semester
                             </Button>
@@ -61,13 +63,14 @@ export const SemesterList = ({
                 {semesters.map((semester: Semester, idx: number) =>
                     idx > 1 && semester.active === true ? (
                         <Col
-                            key={idx}
+                            key={semester.id + "semId"}
                             className="border m-2 p-3 text-white"
                             style={{
                                 backgroundColor: "var(--primary-color)",
                                 borderRadius: 15
                             }}
                         >
+                            <p>{semester.id}</p>
                             <SemesterView
                                 semester={semester}
                                 deleteSemester={deleteSemester}
@@ -78,7 +81,7 @@ export const SemesterList = ({
                         </Col>
                     ) : idx > 1 ? (
                         <Col
-                            key={idx}
+                            key={semester.id + "semId"}
                             className="m-2 p-2"
                             style={{
                                 display: "flex",
@@ -86,6 +89,7 @@ export const SemesterList = ({
                                 justifyContent: "center"
                             }}
                         >
+                            <p>{semester.id}</p>
                             <Button onClick={() => addSemester(semester.id)}>
                                 + Add Semester
                             </Button>
