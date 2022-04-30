@@ -1,5 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Menu } from "@headlessui/react";
+import { LogoutButton } from "../login_components/LogoutButton";
 
 export const Profile = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -13,24 +15,46 @@ export const Profile = () => {
                 </div>
             ) : isAuthenticated && user ? (
                 // logged in and user profile is loaded
-                <div className="flex flex-col items-center">
-                    <img
-                        src={user.picture}
-                        alt="Profile"
-                        className="h-32 w-32 rounded-full"
-                    />
-                    <h1 className="text-2xl font-bold">{user.name}</h1>
-                    <p className="text-xl">{user.email}</p>
-                </div>
-            ) : (
-                // not logged in or user profile not loaded
-                <div>
-                    <h1 className="text-2xl font-bold">Welcome!</h1>
-                    <p className="text-xl">
-                        Please log in to view your profile.
-                    </p>
-                </div>
-            )}
+                <Menu>
+                    <Menu.Button>
+                        <img
+                            src={user.picture}
+                            alt="Profile"
+                            className="profile-pic"
+                        />
+                    </Menu.Button>
+                    <Menu.Items
+                        style={{
+                            position: "absolute",
+                            background: "white",
+                            padding: "0.5rem",
+                            color: "black",
+                            borderRadius: "0.3rem"
+                        }}
+                    >
+                        <Menu.Item>
+                            {({ active }) => (
+                                <div style={{ paddingBottom: "0.3rem" }}>
+                                    {user.name}
+                                </div>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => <LogoutButton />}
+                        </Menu.Item>
+                    </Menu.Items>
+                </Menu>
+            ) : null}
         </div>
     );
 };
+
+// {/* <span className="flex flex-col items-center">
+//                     <img
+//                         src={user.picture}
+//                         alt="Profile"
+//                         className="h-32 w-32 rounded-full"
+//                     />
+//                     <span className="text-2xl font-bold">{user.name}</span>
+//                     {/* <p className="text-xl">{user.email}</p> */}
+//                 </span> */}

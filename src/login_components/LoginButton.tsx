@@ -1,15 +1,13 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "react-bootstrap";
 
 export const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
 
     return (
-        <button
-            onClick={() => loginWithRedirect()}
-            className="rounded-xl bg-indigo-500 p-4 text-2xl font-bold text-white"
-        >
+        <Button onClick={() => loginWithRedirect()} className="login-button">
             Log In
-        </button>
+        </Button>
     );
 };
