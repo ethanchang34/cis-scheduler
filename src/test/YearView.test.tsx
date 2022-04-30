@@ -15,14 +15,15 @@ const editYear = () => {
 describe("User should be able to add a semester to a year", () => {
     beforeEach(() => {
         localStorage.clear();
-        // render(
-        //     <YearView
-        //         year={DefaultPlans[0].years[0]}
-        //         deleteYear={deleteYear}
-        //         editYear={editYear}
-        //         modifiedCourses={originalCourses}
-        //     />
-        // );
+        render(
+            <YearView
+                year={DefaultPlans[0].years[0]}
+                yearIdx={0}
+                deleteYear={deleteYear}
+                editYear={editYear}
+                modifiedCourses={originalCourses}
+            ></YearView>
+        );
     });
 
     //this test might require more work since we use a dropdown menu to add semesters

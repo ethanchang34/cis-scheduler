@@ -4,29 +4,20 @@ import { PlanList } from "../components/PlanList";
 import { originalCourses } from "../App";
 import { DefaultPlans } from "../data/TestData";
 
-const addPlan = () => {
-    return;
-};
-
-const deletePlan = () => {
-    return;
-};
-
-const editPlan = () => {
+const setPlans = () => {
     return;
 };
 
 describe("User can see a list of plans and be able to edit and delete them", () => {
     beforeEach(() => {
         localStorage.clear();
-        // render();
-        // <PlanList
-        //     plans={DefaultPlans}
-        //     addPlan={addPlan}
-        //     deletePlan={deletePlan}
-        //     editPlan={editPlan}
-        //     modifiedCourses={originalCourses}
-        // />
+        render(
+            <PlanList
+                plans={DefaultPlans}
+                setPlans={setPlans}
+                modifiedCourses={originalCourses}
+            ></PlanList>
+        );
     });
 
     test("There is a button, which adds a plan", () => {

@@ -12,6 +12,7 @@ const TempCard = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1rem;
 `;
 
 const CourseLink = styled.span`
