@@ -140,7 +140,7 @@ function App(): JSX.Element {
     const deletePlan = (id: number) => {
         setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
     };
-      
+
     const addToPool = (course: Course): boolean => {
         if (coursePool.includes(course)) {
             return false;
@@ -157,7 +157,7 @@ function App(): JSX.Element {
             )
         );
     };
-              
+
     const location = useLocation();
     return (
         <div className="App">
