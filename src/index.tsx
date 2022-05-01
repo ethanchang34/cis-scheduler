@@ -7,7 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { LoginPage } from "./LoginPage";
 import * as uri from "./uri";
 
 ReactDOM.render(
