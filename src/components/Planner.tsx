@@ -6,18 +6,14 @@ import { PlanList } from "./PlanList";
 
 export const Planner = ({
     plans,
-    addPlan,
-    editPlan,
-    deletePlan,
-    modifiedCourses,
+    setPlans,
+    modifiedCourses
     coursePool,
     addToPool,
     removeFromPool
 }: {
     plans: Plan[];
-    addPlan: () => void;
-    editPlan: (id: number, newPlan: Plan) => void;
-    deletePlan: (id: number) => void;
+    setPlans: (newPlans: Plan[]) => void;
     modifiedCourses: Record<string, Course>;
     coursePool: Course[];
     addToPool: (course: Course) => boolean;
@@ -27,9 +23,7 @@ export const Planner = ({
         <div>
             <PlanList
                 plans={plans}
-                addPlan={addPlan}
-                editPlan={editPlan}
-                deletePlan={deletePlan}
+                setPlans={setPlans}
                 modifiedCourses={modifiedCourses}
                 coursePool={coursePool}
                 addToPool={addToPool}

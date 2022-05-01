@@ -24,10 +24,11 @@ export const YearList = ({
     return (
         <div>
             <Stack gap={3}>
-                {years.map((year: Year) => (
-                    <div key={year.id} className="p-2 pb-0">
+                {years.map((year: Year, yearIdx: number) => (
+                    <div key={year.id + "yearId"} className="p-2 pb-0">
                         <YearView
                             year={year}
+                            yearIdx={yearIdx}
                             deleteYear={deleteYear}
                             editYear={editYear}
                             modifiedCourses={modifiedCourses}

@@ -82,6 +82,29 @@ Object.entries(initialCourses).forEach(
     }
 );
 
+/** Download contents as a file
+ * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+ */
+export const downloadBlob = (
+    csv: string,
+    filename: string,
+    contentType: string
+) => {
+    if (!csv) {
+        console.log("No saved content");
+        return;
+    }
+    // Create a blob
+    const blob = new Blob([csv], { type: contentType });
+    const url = URL.createObjectURL(blob);
+
+    // Create a link to download it
+    const pom = document.createElement("a");
+    pom.href = url;
+    pom.setAttribute("download", filename);
+    pom.click();
+};
+
 function App(): JSX.Element {
     const [modifiedCourses, setModifiedCourses] = useState<
         Record<string, Course>
@@ -121,26 +144,6 @@ function App(): JSX.Element {
         setModifiedCourses(originalCourses);
     };
 
-    const addPlan = () => {
-        const newPlan: Plan = {
-            id: plans.length === 0 ? 0 : plans[plans.length - 1].id + 1,
-            title: "New Plan",
-            description: "Add description",
-            years: []
-        };
-        setPlans([...plans, newPlan]);
-    };
-
-    const editPlan = (id: number, newPlan: Plan) => {
-        setPlans(
-            plans.map((plan: Plan): Plan => (plan.id === id ? newPlan : plan))
-        );
-    };
-
-    const deletePlan = (id: number) => {
-        setPlans(plans.filter((plan: Plan): boolean => plan.id !== id));
-    };
-
     const addToPool = (course: Course): boolean => {
         if (coursePool.includes(course)) {
             return false;
@@ -157,7 +160,6 @@ function App(): JSX.Element {
             )
         );
     };
-
     const location = useLocation();
     return (
         <div className="App">
@@ -181,9 +183,7 @@ function App(): JSX.Element {
                             element={
                                 <Planner
                                     plans={plans}
-                                    addPlan={addPlan}
-                                    editPlan={editPlan}
-                                    deletePlan={deletePlan}
+                                    setPlans={setPlans}
                                     modifiedCourses={modifiedCourses}
                                     coursePool={coursePool}
                                     addToPool={addToPool}
@@ -200,7 +200,7 @@ function App(): JSX.Element {
                             }
                         />
                     </Route>
-                </Routes>
+                </Routes>{" "}
             </div>
         </div>
     );

@@ -5,12 +5,10 @@ import { SearchParam } from "../interfaces/SearchParam";
 export const CourseSearchForm = ({
     searchParam,
     setSearchParam,
-    resetCourses,
     handleSearch
 }: {
     searchParam: SearchParam;
     setSearchParam: (newSearch: SearchParam) => void;
-    resetCourses: () => void;
     handleSearch: () => void;
 }) => {
     const updateSemester = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,19 +44,7 @@ export const CourseSearchForm = ({
     };
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h1>Search Courses:</h1>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <Button
-                        className="btn-danger"
-                        onClick={() => {
-                            resetCourses();
-                        }}
-                    >
-                        Reset Course Changes
-                    </Button>
-                </div>
-            </div>
+            <h1>Search Courses:</h1>
             <Form.Group controlId="formSearchArea">
                 <Form.Label>Subject Area:</Form.Label>
                 <Form.Control

@@ -19,6 +19,7 @@ describe("User should be able to delete semesters", () => {
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
+                idx={0}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={originalCourses}
@@ -48,6 +49,7 @@ describe("User should be able to clear all courses from a semester", () => {
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
+                idx={0}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={originalCourses}
@@ -76,6 +78,7 @@ describe("User should be able to add a course to a semester", () => {
         render(
             <SemesterView
                 semester={DefaultPlans[0].years[0].semesters[0]}
+                idx={0}
                 deleteSemester={deleteSemester}
                 editSemester={editSemester}
                 modifiedCourses={originalCourses}

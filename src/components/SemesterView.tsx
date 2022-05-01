@@ -6,6 +6,7 @@ import { CourseList } from "./CourseList";
 
 export const SemesterView = ({
     semester,
+    idx,
     deleteSemester,
     editSemester,
     modifiedCourses,
@@ -15,6 +16,7 @@ export const SemesterView = ({
     removeFromPool
 }: {
     semester: Semester;
+    idx: number;
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
@@ -119,7 +121,7 @@ export const SemesterView = ({
             {selected === false ? (
                 <div>
                     <h4 className="d-inline float-left">
-                        {numToSemester[semester.id]}
+                        {numToSemester[idx]}
                     </h4>
                     <i style={{ float: "right" }}>
                         Semester Credits: {semesterCreds(semester.courses)}

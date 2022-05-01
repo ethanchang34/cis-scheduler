@@ -18,10 +18,11 @@ describe("User should be able to add a semester to a year", () => {
         render(
             <YearView
                 year={DefaultPlans[0].years[0]}
+                yearIdx={0}
                 deleteYear={deleteYear}
                 editYear={editYear}
                 modifiedCourses={originalCourses}
-            />
+            ></YearView>
         );
     });
 
