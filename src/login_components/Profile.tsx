@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Menu, Transition } from "@headlessui/react";
 import { LogoutButton } from "./LogoutButton";
-import Loading from "./Loading";
+//import Loading from "./Loading";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import "./Profile.css";
 
 const Profile = () => {
@@ -23,6 +24,10 @@ const Profile = () => {
                             src={user.picture}
                             alt="Profile"
                             className="profile-pic"
+                        />
+                        <ChevronDownIcon
+                            className="chevron-down"
+                            aria-hidden="true"
                         />
                     </Menu.Button>
                     <Transition
