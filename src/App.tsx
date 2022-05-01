@@ -8,7 +8,7 @@ import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
 import { DefaultPlans, Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
-import ProtectedRoute from "./login_components/ProtectedRoute";
+//import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
 
 interface ActiveCourse {
