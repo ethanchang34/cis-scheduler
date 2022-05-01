@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { LoginButton } from "../login_components/LoginButton";
+import Profile from "../login_components/Profile";
 
 const Nav = styled.section`
     background-color: var(--tertiary-color);
@@ -38,6 +41,7 @@ const PageTitles: Record<string, string> = {
 export const NavBar = () => {
     const navigate = useNavigate();
     const myLocation = useLocation();
+    const { isAuthenticated } = useAuth0();
 
     return (
         <Nav>
@@ -96,6 +100,7 @@ export const NavBar = () => {
                             Back
                         </Button>
                     )}
+                    {!isAuthenticated ? <LoginButton /> : <Profile />}
                 </NavCol>
             </NavContent>
         </Nav>
