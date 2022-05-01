@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "../login_components/LoginButton";
-import { LogoutButton } from "../login_components/LogoutButton";
 import Profile from "../login_components/Profile";
 
 const Nav = styled.section`
