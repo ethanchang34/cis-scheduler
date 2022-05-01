@@ -13,11 +13,17 @@ import { downloadBlob } from "../App";
 export const PlanList = ({
     plans,
     setPlans,
-    modifiedCourses
+    modifiedCourses,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     plans: Plan[];
     setPlans: (newPlans: Plan[]) => void;
+    coursePool: Course[];
     modifiedCourses: Record<string, Course>;
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
@@ -211,6 +217,9 @@ export const PlanList = ({
                                         editPlan={editPlan}
                                         modifiedCourses={modifiedCourses}
                                         selected={false}
+                                        coursePool={coursePool}
+                                        addToPool={addToPool}
+                                        removeFromPool={removeFromPool}
                                     ></PlanView>
                                     <div
                                         style={{
@@ -261,6 +270,9 @@ export const PlanList = ({
                                         editPlan={editPlan}
                                         modifiedCourses={modifiedCourses}
                                         selected={true}
+                                        coursePool={coursePool}
+                                        addToPool={addToPool}
+                                        removeFromPool={removeFromPool}
                                     ></PlanView>
                                     <div
                                         style={{

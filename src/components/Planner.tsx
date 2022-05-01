@@ -8,10 +8,16 @@ export const Planner = ({
     plans,
     setPlans,
     modifiedCourses
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     plans: Plan[];
     setPlans: (newPlans: Plan[]) => void;
     modifiedCourses: Record<string, Course>;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     return (
         <div>
@@ -19,6 +25,9 @@ export const Planner = ({
                 plans={plans}
                 setPlans={setPlans}
                 modifiedCourses={modifiedCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
             ></PlanList>
         </div>
     );

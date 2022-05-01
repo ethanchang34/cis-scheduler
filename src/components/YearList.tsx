@@ -8,12 +8,18 @@ export const YearList = ({
     years,
     deleteYear,
     editYear,
-    modifiedCourses
+    modifiedCourses,
+    coursePool,
+    addToPool,
+    removeFromPool
 }: {
     years: Year[];
     deleteYear: (id: number) => void;
     editYear: (id: number, newYear: Year) => void;
     modifiedCourses: Record<string, Course>;
+    coursePool: Course[];
+    addToPool: (course: Course) => boolean;
+    removeFromPool: (course: Course) => void;
 }) => {
     return (
         <div>
@@ -26,6 +32,9 @@ export const YearList = ({
                             deleteYear={deleteYear}
                             editYear={editYear}
                             modifiedCourses={modifiedCourses}
+                            coursePool={coursePool}
+                            addToPool={addToPool}
+                            removeFromPool={removeFromPool}
                         ></YearView>
                         <hr></hr>
                     </div>
