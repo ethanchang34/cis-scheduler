@@ -7,7 +7,7 @@ import { PlanList } from "./PlanList";
 export const Planner = ({
     plans,
     setPlans,
-    modifiedCourses
+    modifiedCourses,
     coursePool,
     addToPool,
     removeFromPool

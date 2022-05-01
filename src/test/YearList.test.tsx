@@ -1,27 +1,29 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { YearList } from "../components/YearList";
-import { originalCourses } from "../App";
-import { DefaultPlans } from "../data/TestData";
+// import { YearList } from "../components/YearList";
+// import { originalCourses } from "../App";
+// import { DefaultPlans } from "../data/TestData";
+import App from "../App";
 
-const deleteYear = () => {
-    return;
-};
+// const deleteYear = () => {
+//     return;
+// };
 
-const editYear = () => {
-    return;
-};
+// const editYear = () => {
+//     return;
+// };
 
 describe("User can see a list of years and be able delete a year", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <YearList
-                years={DefaultPlans[0].years}
-                deleteYear={deleteYear}
-                editYear={editYear}
-                modifiedCourses={originalCourses}
-            />
+            // <YearList
+            //     years={DefaultPlans[0].years}
+            //     deleteYear={deleteYear}
+            //     editYear={editYear}
+            //     modifiedCourses={originalCourses}
+            // />
+            <App></App>
         );
     });
 

@@ -1,29 +1,30 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { SemesterView } from "../components/SemesterView";
-import { originalCourses } from "../App";
-import { DefaultPlans } from "../data/TestData";
+// import { SemesterView } from "../components/SemesterView";
+// import { originalCourses } from "../App";
+// import { DefaultPlans } from "../data/TestData";
 import userEvent from "@testing-library/user-event";
+import App from "../App";
+// const deleteSemester = () => {
+//     return;
+// };
 
-const deleteSemester = () => {
-    return;
-};
-
-const editSemester = () => {
-    return;
-};
+// const editSemester = () => {
+//     return;
+// };
 
 describe("User should be able to delete semesters", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <SemesterView
-                semester={DefaultPlans[0].years[0].semesters[0]}
-                idx={0}
-                deleteSemester={deleteSemester}
-                editSemester={editSemester}
-                modifiedCourses={originalCourses}
-            />
+            // <SemesterView
+            //     semester={DefaultPlans[0].years[0].semesters[0]}
+            //     idx={0}
+            //     deleteSemester={deleteSemester}
+            //     editSemester={editSemester}
+            //     modifiedCourses={originalCourses}
+            // />
+            <App></App>
         );
     });
 
@@ -47,13 +48,14 @@ describe("User should be able to clear all courses from a semester", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <SemesterView
-                semester={DefaultPlans[0].years[0].semesters[0]}
-                idx={0}
-                deleteSemester={deleteSemester}
-                editSemester={editSemester}
-                modifiedCourses={originalCourses}
-            />
+            // <SemesterView
+            //     semester={DefaultPlans[0].years[0].semesters[0]}
+            //     idx={0}
+            //     deleteSemester={deleteSemester}
+            //     editSemester={editSemester}
+            //     modifiedCourses={originalCourses}
+            // />
+            <App></App>
         );
     });
 
@@ -76,13 +78,14 @@ describe("User should be able to add a course to a semester", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <SemesterView
-                semester={DefaultPlans[0].years[0].semesters[0]}
-                idx={0}
-                deleteSemester={deleteSemester}
-                editSemester={editSemester}
-                modifiedCourses={originalCourses}
-            />
+            // <SemesterView
+            //     semester={DefaultPlans[0].years[0].semesters[0]}
+            //     idx={0}
+            //     deleteSemester={deleteSemester}
+            //     editSemester={editSemester}
+            //     modifiedCourses={originalCourses}
+            // />
+            <App></App>
         );
     });
 

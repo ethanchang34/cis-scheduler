@@ -67,6 +67,7 @@ export const SemesterList = ({
                                 </div>
                                 <SemesterView
                                     semester={semester}
+                                    idx={idx}
                                     deleteSemester={deleteSemester}
                                     editSemester={editSemester}
                                     modifiedCourses={modifiedCourses}
@@ -93,12 +94,12 @@ export const SemesterList = ({
                                 </Button>
                             </Col>
                         ) : (
-                            <></>
+                            <React.Fragment key={semester.id}></React.Fragment>
                         )
                     )}
                 </Row>
                 <Row>
-                    {semesters.map((semester: Semester) =>
+                    {semesters.map((semester: Semester, idx: number) =>
                         idx % 2 === 1 && semester.active === true ? (
                             <Col
                                 key={semester.id}
@@ -129,6 +130,7 @@ export const SemesterList = ({
                                 </div>
                                 <SemesterView
                                     semester={semester}
+                                    idx={idx}
                                     deleteSemester={deleteSemester}
                                     editSemester={editSemester}
                                     modifiedCourses={modifiedCourses}
@@ -166,7 +168,7 @@ export const SemesterList = ({
             <div>
                 <Row>
                     {semesters.map(
-                        (semester: Semester) =>
+                        (semester: Semester, idx: number) =>
                             semester.id === selectedID && (
                                 <Col
                                     key={semester.id}
@@ -197,6 +199,7 @@ export const SemesterList = ({
                                     </div>
                                     <SemesterView
                                         semester={semester}
+                                        idx={idx}
                                         deleteSemester={deleteSemester}
                                         editSemester={editSemester}
                                         modifiedCourses={modifiedCourses}

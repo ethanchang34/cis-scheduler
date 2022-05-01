@@ -1,28 +1,30 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { PlanView } from "../components/PlanView";
-import { originalCourses } from "../App";
-import { DefaultPlans } from "../data/TestData";
+// import { PlanView } from "../components/PlanView";
+// import { originalCourses } from "../App";
+// import { DefaultPlans } from "../data/TestData";
+import App from "../App";
 
-const deletePlan = () => {
-    return;
-};
+// const deletePlan = () => {
+//     return;
+// };
 
-const editPlan = () => {
-    return;
-};
+// const editPlan = () => {
+//     return;
+// };
 
 describe("User should be able to add a year", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <PlanView
-                plan={DefaultPlans[0]}
-                deletePlan={deletePlan}
-                editPlan={editPlan}
-                modifiedCourses={originalCourses}
-                selected={true}
-            />
+            // <PlanView
+            //     plan={DefaultPlans[0]}
+            //     deletePlan={deletePlan}
+            //     editPlan={editPlan}
+            //     modifiedCourses={originalCourses}
+            //     selected={true}
+            // />
+            <App></App>
         );
     });
 
@@ -42,13 +44,14 @@ describe("User should be able to clear all existing semesters in a plan", () => 
     beforeEach(() => {
         localStorage.clear();
         render(
-            <PlanView
-                plan={DefaultPlans[0]}
-                deletePlan={deletePlan}
-                editPlan={editPlan}
-                modifiedCourses={originalCourses}
-                selected={true}
-            />
+            // <PlanView
+            //     plan={DefaultPlans[0]}
+            //     deletePlan={deletePlan}
+            //     editPlan={editPlan}
+            //     modifiedCourses={originalCourses}
+            //     selected={true}
+            // />
+            <App></App>
         );
     });
 

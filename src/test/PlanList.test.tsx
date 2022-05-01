@@ -1,22 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { PlanList } from "../components/PlanList";
-import { originalCourses } from "../App";
-import { DefaultPlans } from "../data/TestData";
+// import { PlanList } from "../components/PlanList";
+// import { originalCourses } from "../App";
+// import { DefaultPlans } from "../data/TestData";
+import App from "../App";
 
-const setPlans = () => {
-    return;
-};
+// const setPlans = () => {
+//     return;
+// };
 
 describe("User can see a list of plans and be able to edit and delete them", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            <PlanList
-                plans={DefaultPlans}
-                setPlans={setPlans}
-                modifiedCourses={originalCourses}
-            ></PlanList>
+            // <PlanList
+            //     plans={DefaultPlans}
+            //     setPlans={setPlans}
+            //     modifiedCourses={originalCourses}
+            // ></PlanList>
+            <App></App>
         );
     });
 
