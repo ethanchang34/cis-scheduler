@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { SectionContent } from "../App";
 
 const Hero = styled.section`
     background-color: var(--primary-color);
@@ -20,7 +22,8 @@ const SubTitle = styled.h3`
     line-height: 2.5rem;
 `;
 
-export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
+export const LandingPage = () => {
+    const navigate = useNavigate();
     return (
         <div>
             <Hero>
@@ -32,49 +35,57 @@ export const LandingPage = ({ flipLanding }: { flipLanding: () => void }) => {
                 </SubTitle>
             </Hero>
             <section style={{ backgroundColor: "var(--secondary-color)" }}>
-                <Button
-                    style={{
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginBottom: "20px",
-                        display: "block"
-                    }}
-                    onClick={flipLanding}
-                    className="btn-lg"
-                >
-                    Get Started!
-                </Button>
-
-                <h2>Freshman?</h2>
-                <ul>
-                    <li>
-                        Click &quot;Get Started&quot; to begin editing your
-                        plan!
-                    </li>
-                    <li>
-                        Click &quot;Search Courses&quot; to look for courses!
-                    </li>
-                </ul>
-                <h2>Sophomore?</h2>
-                <ul>
-                    <li>
-                        Click &quot;Get Started&quot; to begin editing your
-                        plan!
-                    </li>
-                    <li>
-                        Click &quot;Search Courses&quot; to look for courses!
-                    </li>
-                </ul>
-                <h2>Junior?</h2>
-                <ul>
-                    <li>
-                        Click &quot;Get Started&quot; to begin editing your
-                        plan!
-                    </li>
-                    <li>
-                        Click &quot;Search Courses&quot; to look for courses!
-                    </li>
-                </ul>
+                <SectionContent>
+                    <Link to="planner">
+                        <Button
+                            style={{
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                                marginBottom: "20px",
+                                display: "block"
+                            }}
+                            onClick={() => {
+                                navigate("planner");
+                            }}
+                            className="btn-lg"
+                        >
+                            Get Started!
+                        </Button>
+                    </Link>
+                    <h2>Freshman?</h2>
+                    <ul>
+                        <li>
+                            Click &quot;Get Started&quot; to begin editing your
+                            plan!
+                        </li>
+                        <li>
+                            Click &quot;Search Courses&quot; to look for
+                            courses!
+                        </li>
+                    </ul>
+                    <h2>Sophomore?</h2>
+                    <ul>
+                        <li>
+                            Click &quot;Get Started&quot; to begin editing your
+                            plan!
+                        </li>
+                        <li>
+                            Click &quot;Search Courses&quot; to look for
+                            courses!
+                        </li>
+                    </ul>
+                    <h2>Junior?</h2>
+                    <ul>
+                        <li>
+                            Click &quot;Get Started&quot; to begin editing your
+                            plan!
+                        </li>
+                        <li>
+                            Click &quot;Search Courses&quot; to look for
+                            courses!
+                        </li>
+                    </ul>
+                </SectionContent>
             </section>
         </div>
     );

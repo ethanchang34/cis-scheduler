@@ -24,7 +24,7 @@ export const Planner = ({
     removeFromPool: (course: Course) => void;
 }) => {
     return (
-        <section>
+        <div>
             <PlanList
                 plans={plans}
                 addPlan={addPlan}
@@ -35,7 +35,6 @@ export const Planner = ({
                 addToPool={addToPool}
                 removeFromPool={removeFromPool}
             ></PlanList>
-            {/**<div>{plans.map((plan: Plan): string => plan.title)}</div>*/}
-        </section>
+        </div>
     );
 };

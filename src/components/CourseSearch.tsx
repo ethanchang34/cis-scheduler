@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Course } from "../interfaces/Course";
 import { SearchParam } from "../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
 import { ViewCourseModal } from "./ViewCourseModal";
+import { SectionContent } from "../App";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -22,21 +23,60 @@ export const CourseSearch = ({
     resetCourses: () => void;
     setModifiedCourses: (newCourses: Record<string, Course>) => void;
 }) => {
-    const [searchParam, setSearchParam] = useState<SearchParam>({
-        subjectArea: "",
-        courseNum: "",
-        semesters: [],
-        breadth: [],
-        tech: false
+    const [searchParam, setSearchParam] = useState<SearchParam>(() => {
+        const saved = localStorage.getItem("CISC275-4-searchParam");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return {
+                subjectArea: "",
+                courseNum: "",
+                semesters: [],
+                breadth: [],
+                tech: false
+            };
+        }
     });
-    const [displayedCourses, setDisplayedCourses] = useState<Course[]>([]);
+    const [displayedCourses, setDisplayedCourses] = useState<string[]>(() => {
+        const saved = localStorage.getItem("CISC275-4-displayedCourses");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return [];
+        }
+    });
     const [error, setError] = useState<string>(
         "Fill out your requirements, then click search."
     );
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(() => {
+        const saved = localStorage.getItem("CISC275-4-page");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return 1;
+        }
+    });
 
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [codeModalView, setCodeModalView] = useState<string>("CISC 437");
+
+    useEffect(() => {
+        localStorage.setItem(
+            "CISC275-4-searchParam",
+            JSON.stringify(searchParam)
+        );
+    }, [searchParam]);
+
+    useEffect(() => {
+        localStorage.setItem(
+            "CISC275-4-displayedCourses",
+            JSON.stringify(displayedCourses)
+        );
+    }, [displayedCourses]);
+
+    useEffect(() => {
+        localStorage.setItem("CISC275-4-page", JSON.stringify(page));
+    }, [page]);
 
     const handleShowModal = (code: string) => {
         setShowCourseModal(true);
@@ -46,12 +86,29 @@ export const CourseSearch = ({
 
     const editCourse = (newCourse: Course) => {
         const newModifiedCourses = { ...modifiedCourses };
+        const saved = localStorage.getItem("CISC275-4-modifiedCourses");
+        if (saved) {
+            const localModified: Record<string, Course> = JSON.parse(saved);
+            localModified[newCourse.code] = newCourse;
+            localStorage.setItem(
+                "CISC275-4-modifiedCourses",
+                JSON.stringify(localModified)
+            );
+        } else {
+            const newLocalModified: Record<string, Course> = {};
+            newLocalModified[newCourse.code] = newCourse;
+            localStorage.setItem(
+                "CISC275-4-modifiedCourses",
+                JSON.stringify(newLocalModified)
+            );
+        }
         newModifiedCourses[newCourse.code] = newCourse;
         setModifiedCourses(newModifiedCourses);
     };
 
     const handleSearch = () => {
         setPage(1);
+        setError("No courses found.");
         let tempDisplayed: Course[] = Object.values(modifiedCourses);
 
         if (searchParam.subjectArea) {
@@ -61,7 +118,7 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("Department not found.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -82,7 +139,7 @@ export const CourseSearch = ({
             });
             if (tempDisplayed.length === 0) {
                 setError("No matching class numbers with department.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -116,7 +173,7 @@ export const CourseSearch = ({
             });
             if (tempDisplayed.length === 0) {
                 setError("No classes exist during selected semesters.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -127,7 +184,7 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("No courses match selected breadth requirements.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
@@ -138,29 +195,37 @@ export const CourseSearch = ({
             );
             if (tempDisplayed.length === 0) {
                 setError("No technical electives found.");
-                setDisplayedCourses(tempDisplayed);
+                setDisplayedCourses([]);
                 return;
             }
         }
-        setDisplayedCourses(tempDisplayed);
+
+        const stringDisplayed: string[] = tempDisplayed.map(
+            (c: Course): string => {
+                return c.code;
+            }
+        );
+        setDisplayedCourses(stringDisplayed);
     };
 
     return (
         <CourseSection>
-            <CourseSearchForm
-                searchParam={searchParam}
-                setSearchParam={setSearchParam}
-                resetCourses={resetCourses}
-                handleSearch={handleSearch}
-            ></CourseSearchForm>
-            <CourseListDisplay
-                displayedCourses={displayedCourses}
-                error={error}
-                modifiedCourses={modifiedCourses}
-                handleShowModal={handleShowModal}
-                page={page}
-                setPage={setPage}
-            ></CourseListDisplay>
+            <SectionContent>
+                <CourseSearchForm
+                    searchParam={searchParam}
+                    setSearchParam={setSearchParam}
+                    resetCourses={resetCourses}
+                    handleSearch={handleSearch}
+                ></CourseSearchForm>
+                <CourseListDisplay
+                    displayedCourses={displayedCourses}
+                    error={error}
+                    modifiedCourses={modifiedCourses}
+                    handleShowModal={handleShowModal}
+                    page={page}
+                    setPage={setPage}
+                ></CourseListDisplay>
+            </SectionContent>
             <ViewCourseModal
                 show={showCourseModal}
                 handleClose={handleCloseModal}

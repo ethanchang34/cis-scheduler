@@ -119,7 +119,7 @@ export const YearView = ({
                 className="btn-danger m-1 mt-3"
                 onClick={() => deleteYear(year.id)}
             >
-                - Delete Year
+                Delete Year
             </Button>
         </div>
     );

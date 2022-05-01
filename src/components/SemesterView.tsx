@@ -75,7 +75,6 @@ export const SemesterView = ({
             return true;
         } else {
             setErrorMsg("Course does not exist");
-            console.log("course no exist");
             return false;
         }
     }
@@ -84,7 +83,6 @@ export const SemesterView = ({
         if (semester.courses.includes(courseInput)) {
             //course already exists in the semester
             setErrorMsg("Course is already in the semester");
-            console.log("course repeat");
             return true;
         } else {
             return false;
@@ -92,11 +90,9 @@ export const SemesterView = ({
     }
 
     function handleSubmit() {
-        console.log("not hi");
         if (courseExist() && !courseRepeat()) {
             addCourse(courseInput);
             setErrorMsg("");
-            console.log("hi");
         }
     }
 

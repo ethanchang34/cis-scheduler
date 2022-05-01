@@ -1,14 +1,16 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { LandingPage } from "../components/LandingPage";
-
-const flipLanding = () => {
-    return;
-};
+import { BrowserRouter as Router } from "react-router-dom";
 
 describe("Create landing page UI Students are introduced to the application with a friendly message that clearly explains their goal and how they should get started.", () => {
     beforeEach(() => {
-        render(<LandingPage flipLanding={flipLanding} />);
+        localStorage.clear();
+        render(
+            <Router>
+                <LandingPage />
+            </Router>
+        );
     });
 
     test("renders the course name somewhere", () => {
