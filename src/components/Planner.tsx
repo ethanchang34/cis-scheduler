@@ -3,6 +3,12 @@ import React from "react";
 import { Plan } from "../interfaces/Plan";
 import { Course } from "../interfaces/Course";
 import { PlanList } from "./PlanList";
+import { RequiredCourses } from "./RequiredCourses";
+import styled from "styled-components";
+
+const Table = styled.div`
+    border: 1px solid;
+`;
 
 export const Planner = ({
     plans,
@@ -29,6 +35,11 @@ export const Planner = ({
                 addToPool={addToPool}
                 removeFromPool={removeFromPool}
             ></PlanList>
+            <section>
+                <Table>
+                    <RequiredCourses></RequiredCourses>
+                </Table>
+            </section>
         </div>
     );
 };
