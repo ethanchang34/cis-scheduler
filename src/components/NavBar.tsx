@@ -12,6 +12,8 @@ const Nav = styled.section`
     // padding-bottom: 10px;
     padding: 10px 10%;
     color: var(--secondary-color);
+    width: 100%;
+    position: fixed;
 `;
 
 const NavContent = styled.div`
