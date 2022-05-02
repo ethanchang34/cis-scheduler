@@ -15,7 +15,7 @@ export const Planner = ({
     plans: Plan[];
     setPlans: (newPlans: Plan[]) => void;
     modifiedCourses: Record<string, Course>;
-    coursePool: Course[];
+    coursePool: string[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
 }) => {

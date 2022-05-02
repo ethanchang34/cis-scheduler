@@ -9,13 +9,15 @@ export const ViewCourseModal = ({
     handleClose,
     code,
     editCourse,
-    modifiedCourses
+    modifiedCourses,
+    addToPool
 }: {
     show: boolean;
     handleClose: () => void;
     code: string;
     editCourse: (newCourse: Course) => void;
     modifiedCourses: Record<string, Course>;
+    addToPool: (course: Course) => boolean;
 }) => {
     const [editing, setEditing] = useState(false);
 
@@ -45,6 +47,7 @@ export const ViewCourseModal = ({
                         course={course}
                         handleTech={handleTech}
                         flipEditing={flipEditing}
+                        addToPool={addToPool}
                     ></CourseModalContent>
                 )}
                 {editing && (

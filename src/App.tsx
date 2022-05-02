@@ -133,7 +133,7 @@ function App(): JSX.Element {
             return DefaultPlans;
         }
     });
-    const [coursePool, setCoursePool] = useState<Course[]>([]);
+    const [coursePool, setCoursePool] = useState<string[]>([]);
 
     useEffect(() => {
         localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
@@ -145,10 +145,10 @@ function App(): JSX.Element {
     };
 
     const addToPool = (course: Course): boolean => {
-        if (coursePool.includes(course)) {
+        if (coursePool.includes(course.code)) {
             return false;
         } else {
-            setCoursePool([...coursePool, course]);
+            setCoursePool([...coursePool, course.code]);
             return true;
         }
     };
@@ -156,7 +156,8 @@ function App(): JSX.Element {
     const removeFromPool = (course: Course) => {
         setCoursePool(
             coursePool.filter(
-                (crs: Course): boolean => crs.code !== course.code
+                (crs: string): boolean =>
+                    modifiedCourses[crs].code !== course.code
             )
         );
     };
@@ -175,6 +176,7 @@ function App(): JSX.Element {
                                     modifiedCourses={modifiedCourses}
                                     resetCourses={resetCourses}
                                     setModifiedCourses={setModifiedCourses}
+                                    addToPool={addToPool}
                                 />
                             }
                         />
