@@ -20,7 +20,7 @@ export const PlanList = ({
 }: {
     plans: Plan[];
     setPlans: (newPlans: Plan[]) => void;
-    coursePool: Course[];
+    coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;

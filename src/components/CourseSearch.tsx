@@ -20,11 +20,13 @@ const CourseSection = styled.section`
 export const CourseSearch = ({
     modifiedCourses,
     resetCourses,
-    setModifiedCourses
+    setModifiedCourses,
+    addToPool
 }: {
     modifiedCourses: Record<string, Course>;
     resetCourses: () => void;
     setModifiedCourses: (newCourses: Record<string, Course>) => void;
+    addToPool: (course: Course) => boolean;
 }) => {
     const [searchParam, setSearchParam] = useState<SearchParam>(() => {
         const saved = localStorage.getItem("CISC275-4-searchParam");
@@ -359,6 +361,7 @@ export const CourseSearch = ({
                 code={codeModalView}
                 editCourse={editCourse}
                 modifiedCourses={modifiedCourses}
+                addToPool={addToPool}
             ></ViewCourseModal>
         </CourseSection>
     );

@@ -22,7 +22,7 @@ export const PlanView = ({
     editPlan: (id: number, newPlan: Plan) => void;
     modifiedCourses: Record<string, Course>;
     selected: boolean;
-    coursePool: Course[];
+    coursePool: string[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
 }) => {
