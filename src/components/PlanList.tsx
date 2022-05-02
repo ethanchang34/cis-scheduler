@@ -264,6 +264,17 @@ export const PlanList = ({
                         <div key={plan.id}>
                             {plan.id === selectedID && (
                                 <div className="m-2 p-2">
+                                    <span
+                                        style={{
+                                            fontSize: "40px",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(plan.id)
+                                        }
+                                    >
+                                        🠔
+                                    </span>
                                     <PlanView
                                         plan={plan}
                                         deletePlan={deletePlan}
@@ -274,25 +285,6 @@ export const PlanList = ({
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
                                     ></PlanView>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center"
-                                        }}
-                                    >
-                                        <span
-                                            style={{
-                                                fontSize: "12px",
-                                                fontStyle: "italic",
-                                                cursor: "pointer"
-                                            }}
-                                            onClick={() =>
-                                                changeSelectedID(plan.id)
-                                            }
-                                        >
-                                            Click to minimize
-                                        </span>
-                                    </div>
                                 </div>
                             )}
                         </div>
