@@ -104,7 +104,11 @@ export const PlanView = ({
                 <div>
                     <h1>{plan.title}</h1>
                     <i>Description: {plan.description}</i>
-                    <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
+                    <ReqCoursePlan
+                        plan={plan}
+                        reqs={reqs}
+                        modifiedCourses={modifiedCourses}
+                    ></ReqCoursePlan>
                     <span>
                         <YearList
                             years={plan.years}

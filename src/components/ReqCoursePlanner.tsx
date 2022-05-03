@@ -12,6 +12,7 @@ export const ReqCoursePlanner = ({ reqs }: { reqs: Requirement }) => {
                 style={{
                     display: "flex",
                     flexDirection: "row",
+                    flexWrap: "wrap",
                     textAlign: "left"
                 }}
             >

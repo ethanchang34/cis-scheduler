@@ -14,6 +14,7 @@ const Nav = styled.section`
     color: var(--secondary-color);
     width: 100%;
     position: fixed;
+    z-index: 2;
 `;
 
 const NavContent = styled.div`

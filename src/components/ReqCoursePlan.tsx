@@ -4,6 +4,7 @@ import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
 import { Requirement } from "../interfaces/Requirement";
 import styled from "styled-components";
+import { Course } from "../interfaces/Course";
 
 const FixedRequirements = styled.div`
     @media only screen and (max-width: 768px) {
@@ -47,21 +48,57 @@ const CoursesListDiv = styled.div`
 
 export const ReqCoursePlan = ({
     plan,
-    reqs
+    reqs,
+    modifiedCourses
 }: {
     plan: Plan;
     reqs: Requirement;
+    modifiedCourses: Record<string, Course>;
 }) => {
     let userCourses: string[] = [];
+    let techCredits = 0;
+    let creativeCredits = 0;
+    let historyCredits = 0;
+    let socialCredits = 0;
+    let mathCredits = 0;
+
+    const normalStyle = { color: "black" };
+    const completedStyle = {
+        color: "green",
+        textDecorationLine: "line-through"
+    };
     return (
         <FixedRequirements>
             <h5>Requirements</h5>
             {plan.years.forEach((year: Year) =>
                 year.semesters.forEach((sem: Semester) =>
-                    sem.courses.forEach(
-                        (course: string) =>
-                            (userCourses = [...userCourses, course])
-                    )
+                    sem.courses.forEach((course: string) => {
+                        userCourses = [...userCourses, course];
+                        const myCourse = modifiedCourses[course];
+                        if (myCourse.tech) {
+                            techCredits += myCourse.credits;
+                        }
+                        if (
+                            myCourse.breadth === "Creative Arts and Humanities"
+                        ) {
+                            creativeCredits += myCourse.credits;
+                        } else if (
+                            myCourse.breadth === "History and Cultural Change"
+                        ) {
+                            historyCredits += myCourse.credits;
+                        } else if (
+                            myCourse.breadth ===
+                            "Social and Behavioral Sciences"
+                        ) {
+                            socialCredits += myCourse.credits;
+                        } else if (
+                            myCourse.breadth ===
+                                "Mathematics, Natural Sciences and Technology" &&
+                            myCourse.subjectArea !== "CISC"
+                        ) {
+                            mathCredits += myCourse.credits;
+                        }
+                    })
                 )
             )}
             <CoursesListDiv>
@@ -70,13 +107,56 @@ export const ReqCoursePlan = ({
                         key={req}
                         style={
                             userCourses.includes(req)
-                                ? { color: "green" }
-                                : { color: "black" }
+                                ? completedStyle
+                                : normalStyle
                         }
                     >
                         {req}
                     </div>
                 ))}
+            </CoursesListDiv>
+            <CoursesListDiv>
+                <div
+                    style={
+                        techCredits >= reqs.tech ? completedStyle : normalStyle
+                    }
+                >
+                    T: {techCredits + "/" + reqs.tech}
+                </div>
+                <div
+                    style={
+                        creativeCredits >= reqs.creative
+                            ? completedStyle
+                            : normalStyle
+                    }
+                >
+                    C: {creativeCredits + "/" + reqs.creative}
+                </div>
+                <div
+                    style={
+                        socialCredits >= reqs.social
+                            ? completedStyle
+                            : normalStyle
+                    }
+                >
+                    S: {socialCredits + "/" + reqs.social}
+                </div>
+                <div
+                    style={
+                        historyCredits >= reqs.history
+                            ? completedStyle
+                            : normalStyle
+                    }
+                >
+                    H: {historyCredits + "/" + reqs.history}
+                </div>
+                <div
+                    style={
+                        mathCredits >= reqs.math ? completedStyle : normalStyle
+                    }
+                >
+                    M: {mathCredits + "/" + reqs.math}
+                </div>
             </CoursesListDiv>
 
             <MobileHeader></MobileHeader>
