@@ -3,6 +3,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Semester } from "../../../interfaces/Semester";
 import { Course } from "../../../interfaces/Course";
 import { SemesterView } from "./SemesterView";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 
 export const SemesterList = ({
     semesters,
@@ -40,31 +41,19 @@ export const SemesterList = ({
                         idx % 2 === 0 && semester.active === true ? (
                             <Col
                                 key={semester.id}
-                                className="border m-2 p-3 text-white"
+                                className="border m-2 text-white"
                                 style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "space-between",
+                                    alignItems: "stretch",
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 8
+                                    borderRadius: 8,
+                                    padding: "1rem",
+                                    paddingBottom: 0,
+                                    paddingTop: "1rem"
                                 }}
                             >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center"
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontSize: "12px",
-                                            fontStyle: "italic",
-                                            cursor: "pointer"
-                                        }}
-                                        onClick={() =>
-                                            changeSelectedID(semester.id)
-                                        }
-                                    >
-                                        Click to expand
-                                    </span>
-                                </div>
                                 <SemesterView
                                     semester={semester}
                                     idx={idx}
@@ -76,6 +65,18 @@ export const SemesterList = ({
                                     addToPool={addToPool}
                                     removeFromPool={removeFromPool}
                                 ></SemesterView>
+                                <ChevronDownIcon
+                                    style={{
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                        width: "2rem",
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={() =>
+                                        changeSelectedID(semester.id)
+                                    }
+                                ></ChevronDownIcon>
                             </Col>
                         ) : idx % 2 === 0 ? (
                             <Col
@@ -103,31 +104,19 @@ export const SemesterList = ({
                         idx % 2 === 1 && semester.active === true ? (
                             <Col
                                 key={semester.id}
-                                className="border m-2 p-3 text-white"
+                                className="border m-2 text-white"
                                 style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "space-between",
+                                    alignItems: "stretch",
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 8
+                                    borderRadius: 8,
+                                    padding: "1rem",
+                                    paddingBottom: 0,
+                                    paddingTop: "1rem"
                                 }}
                             >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center"
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontSize: "12px",
-                                            fontStyle: "italic",
-                                            cursor: "pointer"
-                                        }}
-                                        onClick={() =>
-                                            changeSelectedID(semester.id)
-                                        }
-                                    >
-                                        Click to expand
-                                    </span>
-                                </div>
                                 <SemesterView
                                     semester={semester}
                                     idx={idx}
@@ -139,6 +128,18 @@ export const SemesterList = ({
                                     addToPool={addToPool}
                                     removeFromPool={removeFromPool}
                                 ></SemesterView>
+                                <ChevronDownIcon
+                                    style={{
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                        width: "2rem",
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={() =>
+                                        changeSelectedID(semester.id)
+                                    }
+                                ></ChevronDownIcon>
                             </Col>
                         ) : idx % 2 === 1 ? (
                             <Col
@@ -172,10 +173,13 @@ export const SemesterList = ({
                             semester.id === selectedID && (
                                 <Col
                                     key={semester.id}
-                                    className="border m-2 p-3 text-white"
+                                    className="border m-2 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
-                                        borderRadius: 8
+                                        borderRadius: 8,
+                                        padding: "1rem",
+                                        paddingTop: "0",
+                                        paddingBottom: "1rem"
                                     }}
                                 >
                                     <div
@@ -184,18 +188,15 @@ export const SemesterList = ({
                                             justifyContent: "center"
                                         }}
                                     >
-                                        <span
+                                        <ChevronUpIcon
                                             style={{
-                                                fontSize: "12px",
-                                                fontStyle: "italic",
+                                                width: "2rem",
                                                 cursor: "pointer"
                                             }}
                                             onClick={() =>
                                                 changeSelectedID(semester.id)
                                             }
-                                        >
-                                            Click to minimize
-                                        </span>
+                                        ></ChevronUpIcon>
                                     </div>
                                     <SemesterView
                                         semester={semester}
