@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import { Course } from "../interfaces/Course";
+import { Course } from "../../interfaces/Course";
 
 const TempCard = styled.section`
     background-color: var(--secondary-color);

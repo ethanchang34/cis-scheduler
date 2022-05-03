@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
-import { CourseSearch } from "./components/CourseSearch";
+import { CourseSearch } from "./components/course_search/CourseSearch";
 import { NavBar } from "./components/NavBar";
 import { Course } from "./interfaces/Course";
-import { Planner } from "./components/Planner";
+import { Planner } from "./components/planner/Planner";
 import { Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";

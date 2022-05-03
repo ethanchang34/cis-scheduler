@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { CourseSearch } from "../components/CourseSearch";
+import { CourseSearch } from "../components/course_search/CourseSearch";
 import { Course } from "../interfaces/Course";
 import userEvent from "@testing-library/user-event";
 

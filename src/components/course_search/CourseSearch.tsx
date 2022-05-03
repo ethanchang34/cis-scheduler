@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Course } from "../interfaces/Course";
-import { SearchParam } from "../interfaces/SearchParam";
+import { Course } from "../../interfaces/Course";
+import { SearchParam } from "../../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
-import { ViewCourseModal } from "./ViewCourseModal";
-import { SectionContent } from "../App";
-import { downloadBlob } from "../App";
+import { ViewCourseModal } from "../course_modal/ViewCourseModal";
+import { SectionContent } from "../../App";
+import { downloadBlob } from "../../App";
 import csvToJson from "csvtojson";
 import { Button, Form } from "react-bootstrap";
 

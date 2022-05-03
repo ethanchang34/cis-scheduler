@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { Course } from "../interfaces/Course";
+import { Course } from "../../../interfaces/Course";
 import { CourseView } from "./CourseView";
 
 export const CourseList = ({

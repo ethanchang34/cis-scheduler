@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 import "../App.css";
-import { Plan } from "../interfaces/Plan";
-import { Course } from "../interfaces/Course";
-import { Year } from "../interfaces/Year";
+import { Plan } from "../../interfaces/Plan";
+import { Course } from "../../interfaces/Course";
+import { Year } from "../../interfaces/Year";
 import { PlanView } from "./PlanView";
-import { SectionContent } from "../App";
+import { SectionContent } from "../../App";
 import csvToJson from "csvtojson";
-import { Semester } from "../interfaces/Semester";
-import { downloadBlob } from "../App";
+import { Semester } from "../../interfaces/Semester";
+import { downloadBlob } from "../../App";
 import styled from "styled-components";
-import { Requirement } from "../interfaces/Requirement";
-import { DefaultPlans } from "../data/TestData";
+import { Requirement } from "../../interfaces/Requirement";
+import { DefaultPlans } from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
 
 const Expand = styled.span`
