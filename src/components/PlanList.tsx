@@ -10,6 +10,8 @@ import csvToJson from "csvtojson";
 import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
+import { DefaultPlans } from "../data/TestData";
+import { RequiredCourses } from "./RequiredCourses";
 
 const Expand = styled.span`
     &:hover {
@@ -19,15 +21,11 @@ const Expand = styled.span`
 `;
 
 export const PlanList = ({
-    plans,
-    setPlans,
     modifiedCourses,
     coursePool,
     addToPool,
     removeFromPool
 }: {
-    plans: Plan[];
-    setPlans: (newPlans: Plan[]) => void;
     coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
@@ -41,6 +39,19 @@ export const PlanList = ({
             return null;
         }
     });
+
+    const [plans, setPlans] = useState<Plan[]>(() => {
+        const saved = localStorage.getItem("CISC275-4-plans");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return DefaultPlans;
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
+    }, [plans]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -217,7 +228,7 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="border m-2 p-3 text-white"
+                                    className="p-3 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
                                         borderRadius: 8
@@ -255,20 +266,28 @@ export const PlanList = ({
                                 </div>
                             ))}
                         </Stack>
-                        <Button className="m-2" onClick={addPlan}>
+                        <Button
+                            style={{ marginTop: ".5rem", marginRight: "1rem" }}
+                            onClick={addPlan}
+                        >
                             Add Plan
                         </Button>
                         <Button
+                            style={{ marginTop: ".5rem" }}
                             onClick={() => {
                                 downloadPlans();
                             }}
                         >
                             Download Plans
                         </Button>
-                        <Form.Group controlId="exampleForm">
+                        <Form.Group
+                            style={{ marginBottom: "1rem" }}
+                            controlId="exampleForm"
+                        >
                             <Form.Label>Upload a plans file</Form.Label>
                             <Form.Control type="file" onChange={uploadPlans} />
                         </Form.Group>
+                        <RequiredCourses></RequiredCourses>
                     </div>
                 )}
                 <Stack gap={3}>
