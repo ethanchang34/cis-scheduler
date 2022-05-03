@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Plan } from "../interfaces/Plan";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
@@ -12,6 +12,7 @@ export const ReqCoursePlan = ({
     plan: Plan;
     reqs: Requirement;
 }) => {
+    let userCourses: string[] = [];
     return (
         <div
             style={{
@@ -22,15 +23,23 @@ export const ReqCoursePlan = ({
             }}
         >
             <u>Requirements:</u>
-            {reqs.courses.map((req: string) =>
-                plan.years.map((year: Year) =>
-                    year.semesters.map((sem: Semester) =>
-                        sem.courses.map((course: string) =>
-                            req === course ? (
-                                <div style={{ color: "green" }}>{req}</div>
-                            ) : null
-                        )
+            {plan.years.forEach((year: Year) =>
+                year.semesters.forEach((sem: Semester) =>
+                    sem.courses.forEach(
+                        (course: string) =>
+                            (userCourses = [...userCourses, course])
                     )
+                )
+            )}
+            {reqs.courses.map((req: string) =>
+                userCourses.includes(req) ? (
+                    <div key={req} style={{ color: "green" }}>
+                        {req}
+                    </div>
+                ) : (
+                    <div key={req} style={{ color: "black" }}>
+                        {req}
+                    </div>
                 )
             )}
         </div>
