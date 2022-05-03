@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Semester } from "../interfaces/Semester";
-import { Course } from "../interfaces/Course";
+import { Semester } from "../../../interfaces/Semester";
+import { Course } from "../../../interfaces/Course";
 import { CourseList } from "./CourseList";
 
 export const SemesterView = ({

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { PlanList } from "../components/PlanList";
+import { PlanList } from "../components/planner/PlanList";
 import { originalCourses } from "../App";
 import { Course } from "../interfaces/Course";
 import { DefaultRequirement } from "../data/TestData";

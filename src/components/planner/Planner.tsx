@@ -1,9 +1,8 @@
-import "../App.css";
 import React, { useState } from "react";
-import { Course } from "../interfaces/Course";
+import { Course } from "../../interfaces/Course";
 import { PlanList } from "./PlanList";
-import { Requirement } from "../interfaces/Requirement";
-import { DefaultRequirement } from "../data/TestData";
+import { Requirement } from "../../interfaces/Requirement";
+import { DefaultRequirement } from "../../data/TestData";
 
 export const Planner = ({
     modifiedCourses,

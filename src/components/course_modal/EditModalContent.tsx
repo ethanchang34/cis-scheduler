@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { Course } from "../interfaces/Course";
+import { Course } from "../../interfaces/Course";
 
 const FormDiv = styled.div`
     margin-bottom: 0.25rem;

@@ -1,10 +1,10 @@
 import React from "react";
-import { Plan } from "../interfaces/Plan";
-import { Year } from "../interfaces/Year";
-import { Semester } from "../interfaces/Semester";
-import { Requirement } from "../interfaces/Requirement";
+import { Plan } from "../../../interfaces/Plan";
+import { Year } from "../../../interfaces/Year";
+import { Semester } from "../../../interfaces/Semester";
+import { Requirement } from "../../../interfaces/Requirement";
 import styled from "styled-components";
-import { Course } from "../interfaces/Course";
+import { Course } from "../../../interfaces/Course";
 
 const FixedRequirements = styled.div`
     @media only screen and (max-width: 768px) {
