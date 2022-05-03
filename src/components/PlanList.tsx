@@ -217,8 +217,11 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="bg-light border m-2 p-2"
-                                    style={{ borderRadius: "0.3rem" }}
+                                    className="border m-2 p-3 text-white"
+                                    style={{
+                                        backgroundColor: "var(--primary-color)",
+                                        borderRadius: 8
+                                    }}
                                 >
                                     <PlanView
                                         plan={plan}
@@ -273,6 +276,17 @@ export const PlanList = ({
                         <div key={plan.id}>
                             {plan.id === selectedID && (
                                 <div className="m-2 p-2">
+                                    <span
+                                        style={{
+                                            fontSize: "40px",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(plan.id)
+                                        }
+                                    >
+                                        🠔
+                                    </span>
                                     <PlanView
                                         plan={plan}
                                         deletePlan={deletePlan}
@@ -283,25 +297,6 @@ export const PlanList = ({
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
                                     ></PlanView>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center"
-                                        }}
-                                    >
-                                        <Expand
-                                            style={{
-                                                fontSize: "12px",
-                                                fontStyle: "italic",
-                                                cursor: "pointer"
-                                            }}
-                                            onClick={() =>
-                                                changeSelectedID(plan.id)
-                                            }
-                                        >
-                                            Click to minimize
-                                        </Expand>
-                                    </div>
                                 </div>
                             )}
                         </div>

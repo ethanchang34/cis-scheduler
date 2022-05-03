@@ -43,7 +43,7 @@ export const SemesterList = ({
                                 className="border m-2 p-3 text-white"
                                 style={{
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 15
+                                    borderRadius: 8
                                 }}
                             >
                                 <div
@@ -106,7 +106,7 @@ export const SemesterList = ({
                                 className="border m-2 p-3 text-white"
                                 style={{
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 15
+                                    borderRadius: 8
                                 }}
                             >
                                 <div
@@ -175,7 +175,7 @@ export const SemesterList = ({
                                     className="border m-2 p-3 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
-                                        borderRadius: 15
+                                        borderRadius: 8
                                     }}
                                 >
                                     <div
