@@ -24,7 +24,7 @@ const REQUIREMENTS: Requirement = {
 };
 
 export const RequiredCourses = () => {
-    const [reqs, setReqs] = useState<Requirement>(REQUIREMENTS);
+    const [reqs /* , setReqs */] = useState<Requirement>(REQUIREMENTS);
 
     /* function addReq(req: string) {
         setReqs([...reqs, req]);
