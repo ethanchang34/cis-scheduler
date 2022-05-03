@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Plan } from "../interfaces/Plan";
 import { Year } from "../interfaces/Year";
 import { Semester } from "../interfaces/Semester";
 import { Requirement } from "../interfaces/Requirement";
-import { Course } from "../interfaces/Course";
 
 export const ReqCoursePlan = ({
     plan,
@@ -19,10 +18,12 @@ export const ReqCoursePlan = ({
                 display: "block",
                 position: "fixed",
                 right: "0",
-                margin: "10px"
+                top: "25vh",
+                marginLeft: "100%",
+                padding: "1rem"
             }}
         >
-            <u>Requirements:</u>
+            <u>Requirements</u>
             {plan.years.forEach((year: Year) =>
                 year.semesters.forEach((sem: Semester) =>
                     sem.courses.forEach(

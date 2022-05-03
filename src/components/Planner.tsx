@@ -25,8 +25,7 @@ const REQUIREMENTS: Requirement = {
         "CISC 260",
         "MATH 210",
         "CISC 355",
-        "CISC 275",
-        "Unfulfilled Req"
+        "CISC 275"
     ],
     tech: 6,
     creative: 3,

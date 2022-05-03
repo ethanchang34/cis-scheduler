@@ -141,7 +141,9 @@ export const PlanView = ({
                     </Button>
                 </div>
             )}
-            <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
+            {selected && (
+                <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
+            )}
         </div>
     );
 };
