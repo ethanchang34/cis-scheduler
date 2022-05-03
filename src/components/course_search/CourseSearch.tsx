@@ -232,6 +232,7 @@ export const CourseSearch = ({
                     onClick={() => {
                         downloadCourses();
                     }}
+                    style={{ marginRight: "1rem" }}
                 >
                     Download Courses
                 </Button>
