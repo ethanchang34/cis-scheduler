@@ -11,7 +11,7 @@ const FixedRequirements = styled.div`
         margin-bottom: 1rem;
     }
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
         text-align: center;
         border-radius: 8px;
         border: 1px solid var(--tertiary-color);
@@ -31,7 +31,7 @@ const FixedRequirements = styled.div`
 `;
 
 const MobileHeader = styled.hr`
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
         display: none;
     }
 `;
@@ -78,6 +78,7 @@ export const ReqCoursePlan = ({
                     </div>
                 ))}
             </CoursesListDiv>
+
             <MobileHeader></MobileHeader>
         </FixedRequirements>
     );
