@@ -39,6 +39,11 @@ export const PlanEdit = ({
                                 title: event.target.value
                             })
                         }
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                save();
+                            }
+                        }}
                     ></Form.Control>
                     <Form.Label>Plan Description: </Form.Label>
                     <Form.Control
@@ -50,6 +55,11 @@ export const PlanEdit = ({
                                 ...newPlan,
                                 description: event.target.value
                             });
+                        }}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                save();
+                            }
                         }}
                     ></Form.Control>
                 </Form.Group>

@@ -197,7 +197,14 @@ export const SemesterView = ({
                             value={courseInput}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
-                            ) => setCourseInput(event.target.value)}
+                            ) =>
+                                setCourseInput(event.target.value.toUpperCase())
+                            }
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSubmit();
+                                }
+                            }}
                             style={{ display: "inline", width: "80%" }}
                         ></Form.Control>
                         <Button
