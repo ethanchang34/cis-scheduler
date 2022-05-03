@@ -78,25 +78,28 @@ export const ReqCoursePlan = ({
                         if (myCourse.tech) {
                             techCredits += myCourse.credits;
                         }
-                        if (
-                            myCourse.breadth === "Creative Arts and Humanities"
-                        ) {
-                            creativeCredits += myCourse.credits;
-                        } else if (
-                            myCourse.breadth === "History and Cultural Change"
-                        ) {
-                            historyCredits += myCourse.credits;
-                        } else if (
-                            myCourse.breadth ===
-                            "Social and Behavioral Sciences"
-                        ) {
-                            socialCredits += myCourse.credits;
-                        } else if (
-                            myCourse.breadth ===
-                                "Mathematics, Natural Sciences and Technology" &&
-                            myCourse.subjectArea !== "CISC"
-                        ) {
-                            mathCredits += myCourse.credits;
+                        if (myCourse.subjectArea !== "CISC") {
+                            if (
+                                myCourse.breadth ===
+                                "Creative Arts and Humanities"
+                            ) {
+                                creativeCredits += myCourse.credits;
+                            } else if (
+                                myCourse.breadth ===
+                                "History and Cultural Change"
+                            ) {
+                                historyCredits += myCourse.credits;
+                            } else if (
+                                myCourse.breadth ===
+                                "Social and Behavioral Sciences"
+                            ) {
+                                socialCredits += myCourse.credits;
+                            } else if (
+                                myCourse.breadth ===
+                                "Mathematics, Natural Sciences and Technology"
+                            ) {
+                                mathCredits += myCourse.credits;
+                            }
                         }
                     })
                 )
