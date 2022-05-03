@@ -13,25 +13,22 @@ describe("Swappable windows to Planner, Course Search, Plans Component.", () => 
             </MemoryRouter>
         );
     });
-    afterEach(() => {
-        window.localStorage.clear();
-    });
 
     test("App starts on the Home Page", () => {
         const linkElement = screen.getByText(/Home/i);
         expect(linkElement).toBeInTheDocument();
     });
 
-    test("renders three buttons on screen", () => {
+    test("renders four buttons on screen", () => {
         const buttons = screen.getAllByRole("button");
-        expect(buttons.length).toBe(3);
+        expect(buttons.length).toBe(4);
     });
 
     test("'Get Started' is the text on one of the buttons and clicking it routes you to the course page.", () => {
         const getStarted = screen.getByRole("button", { name: "Get Started" });
 
         getStarted.click();
-        const linkElement = screen.getByText(/Plans/i);
+        const linkElement = screen.queryByText("Plans");
         expect(linkElement).toBeInTheDocument();
     });
 

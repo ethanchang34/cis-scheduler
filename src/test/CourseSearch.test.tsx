@@ -1,9 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-// import { CourseSearch } from "../components/CourseSearch";
+import { CourseSearch } from "../components/CourseSearch";
 import { Course } from "../interfaces/Course";
 import userEvent from "@testing-library/user-event";
-import App from "../App";
 
 export const testCourses: Record<string, Course> = {
     "CISC 101": {
@@ -105,24 +104,28 @@ export const testCourses: Record<string, Course> = {
     }
 };
 
-// const resetCourses = () => {
-//     return;
-// };
+const resetCourses = () => {
+    return;
+};
 
-// const setModifiedCourses = () => {
-//     return;
-// };
+const setModifiedCourses = () => {
+    return;
+};
+
+const addToPool = (course: Course): boolean => {
+    return true;
+};
 
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            // <CourseSearch
-            //     modifiedCourses={testCourses}
-            //     setModifiedCourses={setModifiedCourses}
-            //     resetCourses={resetCourses}
-            // />
-            <App></App>
+            <CourseSearch
+                modifiedCourses={testCourses}
+                setModifiedCourses={setModifiedCourses}
+                addToPool={addToPool}
+                resetCourses={resetCourses}
+            />
         );
     });
 

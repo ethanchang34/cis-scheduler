@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
-// import { PlanList } from "../components/PlanList";
-// import { originalCourses } from "../App";
-// import { DefaultPlans } from "../data/TestData";
+import { PlanList } from "../components/PlanList";
+import { originalCourses } from "../App";
 import App from "../App";
+import { Course } from "../interfaces/Course";
+import { DefaultRequirement } from "../data/TestData";
 
-// const setPlans = () => {
-//     return;
-// };
-
+const coursePool: string[] = [];
+const addToPool = (course: Course) => {
+    return false;
+};
+const removeFromPool = (course: Course) => {
+    return;
+};
 describe("User can see a list of plans and be able to edit and delete them", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            // <PlanList
-            //     plans={DefaultPlans}
-            //     setPlans={setPlans}
-            //     modifiedCourses={originalCourses}
-            // ></PlanList>
-            <App></App>
+            <PlanList
+                modifiedCourses={originalCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            ></PlanList>
         );
     });
 
