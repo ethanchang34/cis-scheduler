@@ -113,6 +113,7 @@ const setModifiedCourses = () => {
 };
 
 const addToPool = (course: Course): boolean => {
+    console.log(course);
     return true;
 };
 
