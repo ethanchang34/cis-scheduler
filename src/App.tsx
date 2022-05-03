@@ -10,99 +10,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
 
-// interface ActiveCourse {
-//     code: string;
-//     name: string;
-//     descr: string;
-//     credits: string;
-//     preReq: string;
-//     restrict: string;
-//     breadth: string;
-//     typ: string;
-// }
-
 export const SectionContent = styled.div`
     max-width: 900px;
     margin: 0 auto;
 `;
 
-// const initialCourses: Record<string, Record<string, ActiveCourse>> = Catalog;
-
 export const originalCourses: Record<string, Course> = Catalog;
-
-// Object.entries(initialCourses).forEach(
-//     // Big hungo jungo method that fills the original courses object with our own courses.
-//     ([subjectArea, courseRecord]: [string, Record<string, ActiveCourse>]) => {
-//         Object.entries(courseRecord).forEach(
-//             ([courseName, activeCourse]: [string, ActiveCourse]) => {
-//                 const parseSems = activeCourse.typ.split(" ");
-//                 let sems: number[] = [];
-
-//                 if (parseSems.includes("Fall")) sems = [...sems, 0];
-//                 if (parseSems.includes("Winter")) sems = [...sems, 1];
-//                 if (parseSems.includes("Spring")) sems = [...sems, 2];
-//                 if (parseSems.includes("Summer")) sems = [...sems, 3];
-
-//                 const parseBreadth = activeCourse.breadth.split(";"); // Isolate university: and A&S: breadths
-//                 let courseBreadth = parseBreadth[0].substring(12); // Grab the university breadth at truncate string to only include breadth
-//                 if (
-//                     courseBreadth.substring(courseBreadth.length - 10) ===
-//                     "(HIST &amp"
-//                 ) {
-//                     courseBreadth = courseBreadth.substring(
-//                         0,
-//                         courseBreadth.length - 11
-//                     );
-//                 }
-
-//                 const parseCredits = activeCourse.credits;
-//                 let courseCredits = 0;
-//                 if (!parseCredits.includes("-")) {
-//                     courseCredits = parseInt(parseCredits[1]);
-//                 }
-
-//                 const newCourse: Course = {
-//                     code: activeCourse.code, // Gets the code of course form "CISC 101"
-//                     subjectArea: subjectArea, // "CISC"
-//                     number: activeCourse.code.substring(5, 8), // Number of course stored as string
-//                     name: activeCourse.name,
-//                     descr: activeCourse.descr,
-//                     tech: false, // All courses are not techs unless user sets them to be.
-//                     breadth: courseBreadth, // String representing what university breadth the course satisfies,
-//                     preReq: activeCourse.preReq,
-//                     restrict: activeCourse.restrict,
-//                     semsOffered: sems, // Array of numbers of sems offered. Empty array indicates no data, assume all?
-//                     credits: courseCredits
-//                 };
-
-//                 originalCourses[courseName] = newCourse;
-//             }
-//         );
-//     }
-// );
-
-/** Download contents as a file
- * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
- */
-export const downloadBlob = (
-    csv: string,
-    filename: string,
-    contentType: string
-) => {
-    if (!csv) {
-        console.log("No saved content");
-        return;
-    }
-    // Create a blob
-    const blob = new Blob([csv], { type: contentType });
-    const url = URL.createObjectURL(blob);
-
-    // Create a link to download it
-    const pom = document.createElement("a");
-    pom.href = url;
-    pom.setAttribute("download", filename);
-    pom.click();
-};
 
 function App(): JSX.Element {
     const [modifiedCourses, setModifiedCourses] = useState<
