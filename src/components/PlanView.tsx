@@ -124,7 +124,7 @@ export const PlanView = ({
             <h1>{plan.title}</h1>
             <i className="d-block">Description: {plan.description}</i>
             <Button
-                className="float-right mt-2"
+                className="btn-outline-primary btn-light mt-2"
                 size="sm"
                 onClick={changeEditing}
             >

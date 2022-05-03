@@ -209,7 +209,12 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="bg-light border m-2 p-2"
+                                    // className="bg-light border m-2 p-2"
+                                    className="border m-2 p-3 text-white"
+                                    style={{
+                                        backgroundColor: "var(--primary-color)",
+                                        borderRadius: 8
+                                    }}
                                 >
                                     <PlanView
                                         plan={plan}

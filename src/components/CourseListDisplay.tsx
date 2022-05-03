@@ -6,7 +6,7 @@ import { Course } from "../interfaces/Course";
 const TempCard = styled.section`
     background-color: var(--secondary-color);
     padding: 1rem;
-    border-radius: 30px;
+    border-radius: 8px;
     color: black;
     display: flex;
     flex-direction: column;
