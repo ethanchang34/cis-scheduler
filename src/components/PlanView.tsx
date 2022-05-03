@@ -104,6 +104,7 @@ export const PlanView = ({
                 <div>
                     <h1>{plan.title}</h1>
                     <i>Description: {plan.description}</i>
+                    <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
                     <span>
                         <YearList
                             years={plan.years}
@@ -140,9 +141,6 @@ export const PlanView = ({
                         Edit
                     </Button>
                 </div>
-            )}
-            {selected && (
-                <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
             )}
         </div>
     );
