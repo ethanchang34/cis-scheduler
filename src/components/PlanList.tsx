@@ -11,6 +11,7 @@ import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
 import { DefaultPlans } from "../data/TestData";
+import { RequiredCourses } from "./RequiredCourses";
 
 const Expand = styled.span`
     &:hover {
@@ -227,7 +228,7 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="border m-2 p-3 text-white"
+                                    className="p-3 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
                                         borderRadius: 8
@@ -265,20 +266,28 @@ export const PlanList = ({
                                 </div>
                             ))}
                         </Stack>
-                        <Button className="m-2" onClick={addPlan}>
+                        <Button
+                            style={{ marginTop: ".5rem", marginRight: "1rem" }}
+                            onClick={addPlan}
+                        >
                             Add Plan
                         </Button>
                         <Button
+                            style={{ marginTop: ".5rem" }}
                             onClick={() => {
                                 downloadPlans();
                             }}
                         >
                             Download Plans
                         </Button>
-                        <Form.Group controlId="exampleForm">
+                        <Form.Group
+                            style={{ marginBottom: "1rem" }}
+                            controlId="exampleForm"
+                        >
                             <Form.Label>Upload a plans file</Form.Label>
                             <Form.Control type="file" onChange={uploadPlans} />
                         </Form.Group>
+                        <RequiredCourses></RequiredCourses>
                     </div>
                 )}
                 <Stack gap={3}>
