@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { PlanList } from "../components/PlanList";
 import { originalCourses } from "../App";
-import App from "../App";
 import { Course } from "../interfaces/Course";
 import { DefaultRequirement } from "../data/TestData";
 
 const coursePool: string[] = [];
 const addToPool = (course: Course) => {
+    console.log(course);
     return false;
 };
 const removeFromPool = (course: Course) => {
+    console.log(course);
     return;
 };
 describe("User can see a list of plans and be able to edit and delete them", () => {
