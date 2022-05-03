@@ -7,7 +7,8 @@ import { RequiredCourses } from "./RequiredCourses";
 import styled from "styled-components";
 
 const Table = styled.div`
-    border: 1px solid;
+    border: 1px solid #bfbfbf;
+    border-radius: 0.3rem;
 `;
 
 export const Planner = ({

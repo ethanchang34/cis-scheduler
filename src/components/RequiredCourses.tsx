@@ -36,6 +36,10 @@ export const RequiredCourses = () => {
 
     return (
         <div>
+            <div style={{ textAlign: "center" }}>
+                <u>Requirements</u>
+            </div>
+            <u>Courses:</u>
             <div
                 style={{
                     display: "flex",
@@ -43,16 +47,35 @@ export const RequiredCourses = () => {
                     textAlign: "left"
                 }}
             >
-                {reqs.courses.map((course: string) => (
-                    <div key={course}>{course}</div>
-                ))}
+                {reqs.courses.join(", ")}
             </div>
-
-            <div>tech: {reqs.tech}</div>
-            <div>creative: {reqs.creative}</div>
-            <div>history: {reqs.history}</div>
-            <div>social: {reqs.social}</div>
-            <div>math: {reqs.math}</div>
+            <br></br>
+            <u>Breadth credits:</u>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    textAlign: "left"
+                }}
+            >
+                <div>
+                    tech: {reqs.tech}
+                    {","}&nbsp;
+                </div>
+                <div>
+                    creative: {reqs.creative}
+                    {","}&nbsp;
+                </div>
+                <div>
+                    history: {reqs.history}
+                    {","}&nbsp;
+                </div>
+                <div>
+                    social: {reqs.social}
+                    {","}&nbsp;
+                </div>
+                <div>math: {reqs.math}</div>
+            </div>
         </div>
     );
 };
