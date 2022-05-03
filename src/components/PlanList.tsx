@@ -10,6 +10,8 @@ import csvToJson from "csvtojson";
 import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
+import { Requirement } from "../interfaces/Requirement";
+import { ReqCoursePlan } from "./ReqCoursePlan";
 
 const Expand = styled.span`
     &:hover {
@@ -24,7 +26,8 @@ export const PlanList = ({
     modifiedCourses,
     coursePool,
     addToPool,
-    removeFromPool
+    removeFromPool,
+    reqs
 }: {
     plans: Plan[];
     setPlans: (newPlans: Plan[]) => void;
@@ -32,6 +35,7 @@ export const PlanList = ({
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
+    reqs: Requirement;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
@@ -229,6 +233,7 @@ export const PlanList = ({
                                         coursePool={coursePool}
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
+                                        reqs={reqs}
                                     ></PlanView>
                                     <div
                                         style={{
@@ -282,6 +287,7 @@ export const PlanList = ({
                                         coursePool={coursePool}
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
+                                        reqs={reqs}
                                     ></PlanView>
                                     <div
                                         style={{

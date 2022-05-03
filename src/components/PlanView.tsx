@@ -6,6 +6,8 @@ import { Course } from "../interfaces/Course";
 import { Semester } from "../interfaces/Semester";
 import { PlanEdit } from "./PlanEdit";
 import { YearList } from "./YearList";
+import { Requirement } from "../interfaces/Requirement";
+import { ReqCoursePlan } from "./ReqCoursePlan";
 
 export const PlanView = ({
     plan,
@@ -15,7 +17,8 @@ export const PlanView = ({
     selected,
     coursePool,
     addToPool,
-    removeFromPool
+    removeFromPool,
+    reqs
 }: {
     plan: Plan;
     deletePlan: (id: number) => void;
@@ -25,6 +28,7 @@ export const PlanView = ({
     coursePool: Course[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
+    reqs: Requirement;
 }) => {
     const [editing, setEditing] = useState<boolean>(false);
 
@@ -87,49 +91,57 @@ export const PlanView = ({
         });
     }
 
-    return editing ? (
-        <PlanEdit
-            changeEditing={changeEditing}
-            plan={plan}
-            editPlan={editPlan}
-            deletePlan={deletePlan}
-        ></PlanEdit>
-    ) : selected === true ? (
+    return (
         <div>
-            <h1>{plan.title}</h1>
-            <i>Description: {plan.description}</i>
-            <span>
-                <YearList
-                    years={plan.years}
-                    deleteYear={deleteYear}
-                    editYear={editYear}
-                    modifiedCourses={modifiedCourses}
-                    coursePool={coursePool}
-                    addToPool={addToPool}
-                    removeFromPool={removeFromPool}
-                ></YearList>
-                <Button className="m-1 mx-auto d-block" onClick={addYear}>
-                    + Add Year
-                </Button>
-                <Button
-                    className="btn-danger m-1 mx-auto d-block"
-                    onClick={clearSemsInPlan}
-                >
-                    Clear all semesters
-                </Button>
-            </span>
-        </div>
-    ) : (
-        <div>
-            <h1>{plan.title}</h1>
-            <i className="d-block">Description: {plan.description}</i>
-            <Button
-                className="float-right mt-2"
-                size="sm"
-                onClick={changeEditing}
-            >
-                Edit
-            </Button>
+            {editing ? (
+                <PlanEdit
+                    changeEditing={changeEditing}
+                    plan={plan}
+                    editPlan={editPlan}
+                    deletePlan={deletePlan}
+                ></PlanEdit>
+            ) : selected === true ? (
+                <div>
+                    <h1>{plan.title}</h1>
+                    <i>Description: {plan.description}</i>
+                    <span>
+                        <YearList
+                            years={plan.years}
+                            deleteYear={deleteYear}
+                            editYear={editYear}
+                            modifiedCourses={modifiedCourses}
+                            coursePool={coursePool}
+                            addToPool={addToPool}
+                            removeFromPool={removeFromPool}
+                        ></YearList>
+                        <Button
+                            className="m-1 mx-auto d-block"
+                            onClick={addYear}
+                        >
+                            + Add Year
+                        </Button>
+                        <Button
+                            className="btn-danger m-1 mx-auto d-block"
+                            onClick={clearSemsInPlan}
+                        >
+                            Clear all semesters
+                        </Button>
+                    </span>
+                </div>
+            ) : (
+                <div>
+                    <h1>{plan.title}</h1>
+                    <i className="d-block">Description: {plan.description}</i>
+                    <Button
+                        className="float-right mt-2"
+                        size="sm"
+                        onClick={changeEditing}
+                    >
+                        Edit
+                    </Button>
+                </div>
+            )}
+            <ReqCoursePlan plan={plan} reqs={reqs}></ReqCoursePlan>
         </div>
     );
 };
