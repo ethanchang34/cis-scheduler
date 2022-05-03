@@ -1,5 +1,5 @@
 import React from "react";
-import { Requirement } from "../interfaces/Requirement";
+import { Requirement } from "../../interfaces/Requirement";
 
 export const ReqCoursePlanner = ({ reqs }: { reqs: Requirement }) => {
     return (

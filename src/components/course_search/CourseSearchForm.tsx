@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import { SearchParam } from "../interfaces/SearchParam";
+import { SearchParam } from "../../interfaces/SearchParam";
 
 export const CourseSearchForm = ({
     searchParam,

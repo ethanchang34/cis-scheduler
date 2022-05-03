@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { Year } from "../interfaces/Year";
-import { Course } from "../interfaces/Course";
+import { Year } from "../../../interfaces/Year";
+import { Course } from "../../../interfaces/Course";
 import { YearView } from "./YearView";
 
 export const YearList = ({

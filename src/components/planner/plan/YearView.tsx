@@ -1,8 +1,8 @@
 import React from "react";
 import { Button /*, Form*/ } from "react-bootstrap";
-import { Year } from "../interfaces/Year";
-import { Semester } from "../interfaces/Semester";
-import { Course } from "../interfaces/Course";
+import { Year } from "../../../interfaces/Year";
+import { Semester } from "../../../interfaces/Semester";
+import { Course } from "../../../interfaces/Course";
 import { SemesterList } from "./SemesterList";
 
 export const YearView = ({

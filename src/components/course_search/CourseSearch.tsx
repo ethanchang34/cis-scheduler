@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Course } from "../interfaces/Course";
-import { SearchParam } from "../interfaces/SearchParam";
+import { Course } from "../../interfaces/Course";
+import { SearchParam } from "../../interfaces/SearchParam";
 import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
-import { ViewCourseModal } from "./ViewCourseModal";
-import { SectionContent } from "../App";
-import { downloadBlob } from "../App";
-import csvToJson from "csvtojson";
+import { ViewCourseModal } from "../course_modal/ViewCourseModal";
+import { SectionContent } from "../../App";
 import { Button, Form } from "react-bootstrap";
+import { downloadCourses, uploadCourse } from "../../data/ParseDataFunctions";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -213,112 +212,6 @@ export const CourseSearch = ({
         setDisplayedCourses(stringDisplayed);
     };
 
-    const uploadCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // Might have removed the file, need to check that the files exist
-        if (event.target.files && event.target.files.length) {
-            // Get the first filename
-            const filename = event.target.files[0];
-            // Create a reader
-            const reader = new FileReader();
-            // Create lambda callback to handle when we read the file
-            reader.onload = (loadEvent) => {
-                // Target might be null, so provide default error value
-                let newContent =
-                    loadEvent.target?.result || "Data was not loaded";
-                // FileReader provides string or ArrayBuffer, force it to be string
-                newContent = newContent.toString();
-
-                csvToJson()
-                    .fromString(newContent)
-                    .then((csvRow) => {
-                        if (csvRow[0]["code"]) {
-                            // This is a course object
-                            console.log("This is a course object");
-                            const importedModifiedCourses: Record<
-                                string,
-                                Course
-                            > = {};
-                            csvRow.forEach((csvCourse) => {
-                                const newCode = csvCourse["code"];
-                                const insertingCourse: Course = {
-                                    code: csvCourse["code"],
-                                    subjectArea: csvCourse["subjectArea"],
-                                    number: csvCourse["number"],
-                                    name: csvCourse["name"],
-                                    descr: csvCourse["descr"],
-                                    tech: csvCourse["tech"] === "true",
-                                    breadth: csvCourse["breadth"],
-                                    preReq: csvCourse["preReq"],
-                                    restrict: csvCourse["restrict"],
-                                    semsOffered: csvCourse["semsOffered"]
-                                        .split(",")
-                                        .map((s: string) => parseInt(s)),
-                                    credits: parseInt(csvCourse["credits"])
-                                };
-                                importedModifiedCourses[newCode] =
-                                    insertingCourse;
-                            });
-                            localStorage.removeItem(
-                                "CISC275-4-modifiedCourses"
-                            );
-                            localStorage.setItem(
-                                "CISC275-4-modifiedCourses",
-                                JSON.stringify(importedModifiedCourses)
-                            );
-                            setModifiedCourses({
-                                ...modifiedCourses,
-                                ...importedModifiedCourses
-                            });
-                        } else {
-                            console.log("This is invalid data format");
-                        }
-                    });
-            };
-            // Actually read the file
-            reader.readAsText(filename);
-        }
-    };
-
-    const downloadCourses = () => {
-        const saved = localStorage.getItem("CISC275-4-modifiedCourses");
-        let csv = "";
-        if (saved) {
-            const testCourse: Course = {
-                code: "",
-                subjectArea: "",
-                number: "",
-                name: "",
-                descr: "",
-                tech: false,
-                breadth: "",
-                preReq: "",
-                restrict: "",
-                semsOffered: [],
-                credits: 0
-            };
-            const changedCourses: Record<string, Course> = JSON.parse(saved);
-            csv = [
-                Object.keys(testCourse)
-                    .map((val) => val.toString())
-                    .join(","),
-                Object.values(changedCourses)
-                    .map((course: Course): string =>
-                        Object.values(course)
-                            .map((val: string | number[] | boolean): string => {
-                                return (
-                                    '"' +
-                                    val.toString().replaceAll('"', '""') +
-                                    '"'
-                                );
-                            })
-                            .join(",")
-                    )
-                    .join("\r\n")
-            ].join("\r\n");
-        }
-        downloadBlob(csv, "CoursesExport.csv", "text/csv;charset=utf-8;");
-    };
-
     return (
         <CourseSection>
             <SectionContent>
@@ -352,7 +245,16 @@ export const CourseSearch = ({
                 </Button>
                 <Form.Group controlId="exampleForm">
                     <Form.Label>Upload a course file</Form.Label>
-                    <Form.Control type="file" onChange={uploadCourse} />
+                    <Form.Control
+                        type="file"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            uploadCourse(
+                                modifiedCourses,
+                                setModifiedCourses,
+                                e
+                            );
+                        }}
+                    />
                 </Form.Group>
             </SectionContent>
             <ViewCourseModal

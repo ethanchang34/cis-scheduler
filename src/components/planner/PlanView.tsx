@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { Plan } from "../interfaces/Plan";
-import { Year } from "../interfaces/Year";
-import { Course } from "../interfaces/Course";
-import { Semester } from "../interfaces/Semester";
-import { PlanEdit } from "./PlanEdit";
-import { YearList } from "./YearList";
-import { Requirement } from "../interfaces/Requirement";
-import { ReqCoursePlan } from "./ReqCoursePlan";
+import { Plan } from "../../interfaces/Plan";
+import { Year } from "../../interfaces/Year";
+import { Course } from "../../interfaces/Course";
+import { Semester } from "../../interfaces/Semester";
+import { PlanEdit } from "./plan/PlanEdit";
+import { YearList } from "./plan/YearList";
+import { Requirement } from "../../interfaces/Requirement";
+import { ReqCoursePlan } from "./plan/ReqCoursePlan";
 
 export const PlanView = ({
     plan,
