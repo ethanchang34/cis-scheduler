@@ -117,22 +117,41 @@ export const SemesterView = ({
     }
 
     return (
-        <div>
+        <div
+            style={{
+                flex: "1",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between"
+            }}
+        >
             {selected === false ? (
-                <div>
-                    <h4 className="d-inline float-left">
-                        {numToSemester[idx]}
-                    </h4>
-                    <i style={{ float: "right" }}>
-                        Semester Credits: {semesterCreds(semester.courses)}
-                    </i>
-                    <CourseList
-                        courses={semester.courses}
-                        deleteCourse={deleteCourse}
-                        modifiedCourses={modifiedCourses}
-                        semSelected={selected}
-                        addToPool={addToPool}
-                    ></CourseList>
+                <>
+                    <div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                marginBottom: ".5rem"
+                            }}
+                        >
+                            <h4 className="d-inline">{numToSemester[idx]}</h4>
+                            <div
+                                style={{ cursor: "pointer" }}
+                                onClick={() => deleteSemester(semester.id)}
+                            >
+                                ❌
+                            </div>
+                        </div>
+
+                        <CourseList
+                            courses={semester.courses}
+                            deleteCourse={deleteCourse}
+                            modifiedCourses={modifiedCourses}
+                            semSelected={selected}
+                            addToPool={addToPool}
+                        ></CourseList>
+                    </div>
                     {/*<Form.Group controlId="addCourse" className="mt-2">
                         <Form.Label className="d-block">Add Course</Form.Label>
                         <Form.Control
@@ -166,21 +185,20 @@ export const SemesterView = ({
                     >
                         Clear Courses
                         </Button>*/}
-                    <Button
-                        className="btn-danger m-1 mt-4"
-                        onClick={() => deleteSemester(semester.id)}
-                    >
-                        - Delete Semester
-                    </Button>
-                </div>
-            ) : (
-                <div>
-                    <h4 className="d-inline float-left">
-                        {numToSemester[semester.id]}
-                    </h4>
-                    <i style={{ float: "right" }}>
+                    <i style={{ marginLeft: "auto" }}>
                         Semester Credits: {semesterCreds(semester.courses)}
                     </i>
+                </>
+            ) : (
+                <div>
+                    <div style={{ marginBottom: ".5rem" }}>
+                        <h4 className="d-inline float-left">
+                            {numToSemester[semester.id]}
+                        </h4>
+                        <i style={{ float: "right" }}>
+                            Semester Credits: {semesterCreds(semester.courses)}
+                        </i>
+                    </div>
                     <CourseList
                         courses={semester.courses}
                         deleteCourse={deleteCourse}
