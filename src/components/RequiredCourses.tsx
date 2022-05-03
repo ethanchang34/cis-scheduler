@@ -59,22 +59,22 @@ export const RequiredCourses = () => {
                 }}
             >
                 <div>
-                    tech: {reqs.tech}
+                    Tech: {reqs.tech}
                     {","}&nbsp;
                 </div>
                 <div>
-                    creative: {reqs.creative}
+                    Creative: {reqs.creative}
                     {","}&nbsp;
                 </div>
                 <div>
-                    history: {reqs.history}
+                    History: {reqs.history}
                     {","}&nbsp;
                 </div>
                 <div>
-                    social: {reqs.social}
+                    Social: {reqs.social}
                     {","}&nbsp;
                 </div>
-                <div>math: {reqs.math}</div>
+                <div>Math: {reqs.math}</div>
             </div>
         </div>
     );
