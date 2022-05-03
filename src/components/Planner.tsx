@@ -1,6 +1,5 @@
 import "../App.css";
 import React from "react";
-import { Plan } from "../interfaces/Plan";
 import { Course } from "../interfaces/Course";
 import { PlanList } from "./PlanList";
 import { RequiredCourses } from "./RequiredCourses";
@@ -12,15 +11,11 @@ const Table = styled.div`
 `;
 
 export const Planner = ({
-    plans,
-    setPlans,
     modifiedCourses,
     coursePool,
     addToPool,
     removeFromPool
 }: {
-    plans: Plan[];
-    setPlans: (newPlans: Plan[]) => void;
     modifiedCourses: Record<string, Course>;
     coursePool: string[];
     addToPool: (course: Course) => boolean;
@@ -29,8 +24,6 @@ export const Planner = ({
     return (
         <div>
             <PlanList
-                plans={plans}
-                setPlans={setPlans}
                 modifiedCourses={modifiedCourses}
                 coursePool={coursePool}
                 addToPool={addToPool}

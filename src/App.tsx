@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/CourseSearch";
 import { NavBar } from "./components/NavBar";
-import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/Planner";
-import { DefaultPlans, Catalog } from "./data/TestData";
+import { Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
@@ -125,19 +124,7 @@ function App(): JSX.Element {
             return originalCourses;
         }
     });
-    const [plans, setPlans] = useState<Plan[]>(() => {
-        const saved = localStorage.getItem("CISC275-4-plans");
-        if (saved) {
-            return JSON.parse(saved);
-        } else {
-            return DefaultPlans;
-        }
-    });
     const [coursePool, setCoursePool] = useState<string[]>([]);
-
-    useEffect(() => {
-        localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
-    }, [plans]);
 
     const resetCourses = () => {
         localStorage.removeItem("CISC275-4-modifiedCourses");
@@ -185,8 +172,6 @@ function App(): JSX.Element {
                             path="planner"
                             element={
                                 <Planner
-                                    plans={plans}
-                                    setPlans={setPlans}
                                     modifiedCourses={modifiedCourses}
                                     coursePool={coursePool}
                                     addToPool={addToPool}

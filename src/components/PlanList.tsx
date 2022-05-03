@@ -10,6 +10,7 @@ import csvToJson from "csvtojson";
 import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
+import { DefaultPlans } from "../data/TestData";
 
 const Expand = styled.span`
     &:hover {
@@ -19,15 +20,11 @@ const Expand = styled.span`
 `;
 
 export const PlanList = ({
-    plans,
-    setPlans,
     modifiedCourses,
     coursePool,
     addToPool,
     removeFromPool
 }: {
-    plans: Plan[];
-    setPlans: (newPlans: Plan[]) => void;
     coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
@@ -41,6 +38,19 @@ export const PlanList = ({
             return null;
         }
     });
+
+    const [plans, setPlans] = useState<Plan[]>(() => {
+        const saved = localStorage.getItem("CISC275-4-plans");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return DefaultPlans;
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
+    }, [plans]);
 
     useEffect(() => {
         localStorage.setItem(
