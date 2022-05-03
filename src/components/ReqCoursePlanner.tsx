@@ -5,9 +5,9 @@ export const ReqCoursePlanner = ({ reqs }: { reqs: Requirement }) => {
     return (
         <div>
             <div style={{ textAlign: "center" }}>
-                <u>Requirements</u>
+                <h3>Requirements</h3>
             </div>
-            <u>Courses:</u>
+            <h4>Courses:</h4>
             <div
                 style={{
                     display: "flex",
@@ -18,31 +18,22 @@ export const ReqCoursePlanner = ({ reqs }: { reqs: Requirement }) => {
                 {reqs.courses.join(", ")}
             </div>
             <br></br>
-            <u>Breadth credits:</u>
+            <h4>Breadth credits:</h4>
             <div
                 style={{
-                    display: "flex",
-                    flexDirection: "row",
+                    // display: "flex",
+                    // flexDirection: "row",
                     textAlign: "left"
                 }}
             >
+                <div>Technical Elective Credits: {reqs.tech}</div>
+                <div>Creative Arts and Humanities Credits: {reqs.creative}</div>
+                <div>History and Cultural Change Credits: {reqs.history}</div>
+                <div>Social and Behavioral Sciences Credits: {reqs.social}</div>
                 <div>
-                    Tech: {reqs.tech}
-                    {","}&nbsp;
+                    Mathematics, Natural Sciences and Technology Credits:{" "}
+                    {reqs.math}
                 </div>
-                <div>
-                    Creative: {reqs.creative}
-                    {","}&nbsp;
-                </div>
-                <div>
-                    History: {reqs.history}
-                    {","}&nbsp;
-                </div>
-                <div>
-                    Social: {reqs.social}
-                    {","}&nbsp;
-                </div>
-                <div>Math: {reqs.math}</div>
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ export const SemesterList = ({
     deleteSemester: (id: number) => void;
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
-    coursePool: Course[];
+    coursePool: string[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
 }) => {
@@ -43,7 +43,7 @@ export const SemesterList = ({
                                 className="border m-2 p-3 text-white"
                                 style={{
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 15
+                                    borderRadius: 8
                                 }}
                             >
                                 <div
@@ -106,7 +106,7 @@ export const SemesterList = ({
                                 className="border m-2 p-3 text-white"
                                 style={{
                                     backgroundColor: "var(--primary-color)",
-                                    borderRadius: 15
+                                    borderRadius: 8
                                 }}
                             >
                                 <div
@@ -175,7 +175,7 @@ export const SemesterList = ({
                                     className="border m-2 p-3 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
-                                        borderRadius: 15
+                                        borderRadius: 8
                                     }}
                                 >
                                     <div

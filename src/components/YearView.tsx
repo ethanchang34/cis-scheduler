@@ -20,7 +20,7 @@ export const YearView = ({
     deleteYear: (id: number) => void;
     editYear: (id: number, newYear: Year) => void;
     modifiedCourses: Record<string, Course>;
-    coursePool: Course[];
+    coursePool: string[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
 }) => {

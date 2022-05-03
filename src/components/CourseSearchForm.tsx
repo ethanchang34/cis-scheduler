@@ -50,10 +50,12 @@ export const CourseSearchForm = ({
                 <Form.Control
                     value={searchParam.subjectArea}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setSearchParam({
-                            ...searchParam,
-                            subjectArea: e.target.value.toUpperCase()
-                        });
+                        if (e.target.value[e.target.value.length - 1] !== " ") {
+                            setSearchParam({
+                                ...searchParam,
+                                subjectArea: e.target.value.toUpperCase()
+                            });
+                        }
                     }}
                     onKeyPress={(e) => {
                         if (e.key === "Enter") {

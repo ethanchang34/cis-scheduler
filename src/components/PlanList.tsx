@@ -11,7 +11,8 @@ import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
 import { Requirement } from "../interfaces/Requirement";
-import { ReqCoursePlan } from "./ReqCoursePlan";
+import { DefaultPlans } from "../data/TestData";
+import { ReqCoursePlanner } from "./ReqCoursePlanner";
 
 const Expand = styled.span`
     &:hover {
@@ -21,17 +22,13 @@ const Expand = styled.span`
 `;
 
 export const PlanList = ({
-    plans,
-    setPlans,
     modifiedCourses,
     coursePool,
     addToPool,
     removeFromPool,
     reqs
 }: {
-    plans: Plan[];
-    setPlans: (newPlans: Plan[]) => void;
-    coursePool: Course[];
+    coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
@@ -45,6 +42,19 @@ export const PlanList = ({
             return null;
         }
     });
+
+    const [plans, setPlans] = useState<Plan[]>(() => {
+        const saved = localStorage.getItem("CISC275-4-plans");
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return DefaultPlans;
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
+    }, [plans]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -221,8 +231,11 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="bg-light border m-2 p-2"
-                                    style={{ borderRadius: "0.3rem" }}
+                                    className="p-3 text-white"
+                                    style={{
+                                        backgroundColor: "var(--primary-color)",
+                                        borderRadius: 8
+                                    }}
                                 >
                                     <PlanView
                                         plan={plan}
@@ -257,20 +270,28 @@ export const PlanList = ({
                                 </div>
                             ))}
                         </Stack>
-                        <Button className="m-2" onClick={addPlan}>
+                        <Button
+                            style={{ marginTop: ".5rem", marginRight: "1rem" }}
+                            onClick={addPlan}
+                        >
                             Add Plan
                         </Button>
                         <Button
+                            style={{ marginTop: ".5rem" }}
                             onClick={() => {
                                 downloadPlans();
                             }}
                         >
                             Download Plans
                         </Button>
-                        <Form.Group controlId="exampleForm">
+                        <Form.Group
+                            style={{ marginBottom: "1rem" }}
+                            controlId="exampleForm"
+                        >
                             <Form.Label>Upload a plans file</Form.Label>
                             <Form.Control type="file" onChange={uploadPlans} />
                         </Form.Group>
+                        <ReqCoursePlanner reqs={reqs}></ReqCoursePlanner>
                     </div>
                 )}
                 <Stack gap={3}>
@@ -278,6 +299,17 @@ export const PlanList = ({
                         <div key={plan.id}>
                             {plan.id === selectedID && (
                                 <div className="m-2 p-2">
+                                    <span
+                                        style={{
+                                            fontSize: "40px",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            changeSelectedID(plan.id)
+                                        }
+                                    >
+                                        🠔
+                                    </span>
                                     <PlanView
                                         plan={plan}
                                         deletePlan={deletePlan}
@@ -289,25 +321,6 @@ export const PlanList = ({
                                         removeFromPool={removeFromPool}
                                         reqs={reqs}
                                     ></PlanView>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center"
-                                        }}
-                                    >
-                                        <Expand
-                                            style={{
-                                                fontSize: "12px",
-                                                fontStyle: "italic",
-                                                cursor: "pointer"
-                                            }}
-                                            onClick={() =>
-                                                changeSelectedID(plan.id)
-                                            }
-                                        >
-                                            Click to minimize
-                                        </Expand>
-                                    </div>
                                 </div>
                             )}
                         </div>

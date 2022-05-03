@@ -21,7 +21,7 @@ export const SemesterView = ({
     editSemester: (id: number, newSemester: Semester) => void;
     modifiedCourses: Record<string, Course>;
     selected: boolean;
-    coursePool: Course[];
+    coursePool: string[];
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
 }) => {
@@ -197,7 +197,14 @@ export const SemesterView = ({
                             value={courseInput}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
-                            ) => setCourseInput(event.target.value)}
+                            ) =>
+                                setCourseInput(event.target.value.toUpperCase())
+                            }
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSubmit();
+                                }
+                            }}
                             style={{ display: "inline", width: "80%" }}
                         ></Form.Control>
                         <Button
@@ -229,9 +236,12 @@ export const SemesterView = ({
                             style={{ display: "inline", width: "80%" }}
                         >
                             <option value="">Select a class</option>
-                            {coursePool.map((course: Course) => (
-                                <option key={course.code} value={course.code}>
-                                    {course.code}
+                            {coursePool.map((course: string) => (
+                                <option
+                                    key={modifiedCourses[course].code}
+                                    value={modifiedCourses[course].code}
+                                >
+                                    {modifiedCourses[course].code}
                                 </option>
                             ))}
                         </Form.Select>

@@ -1,4 +1,4 @@
-import React /*{ useState }*/ from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Course } from "../interfaces/Course";
@@ -12,12 +12,24 @@ const FlexDiv = styled.div`
 export const CourseModalContent = ({
     course,
     handleTech,
-    flipEditing
+    flipEditing,
+    addToPool
 }: {
     course: Course;
     handleTech: () => void;
     flipEditing: () => void;
+    addToPool: (course: Course) => boolean;
 }) => {
+    const [poolAddMsg, setPoolAddMsg] = useState<string>("");
+
+    function addPoolHandler() {
+        if (addToPool(course) === true) {
+            setPoolAddMsg("Course added");
+        } else {
+            setPoolAddMsg("Course already added");
+        }
+    }
+
     let semsOffered = "";
 
     if (course.semsOffered.length === 0) {
@@ -75,6 +87,8 @@ export const CourseModalContent = ({
                 </FlexDiv>
             </Modal.Body>
             <Modal.Footer>
+                <span>{poolAddMsg}</span>
+                <Button onClick={addPoolHandler}>Add to Pool</Button>
                 <Button onClick={flipEditing}>Edit</Button>
             </Modal.Footer>
         </>
