@@ -10,8 +10,9 @@ import csvToJson from "csvtojson";
 import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
 import styled from "styled-components";
+import { Requirement } from "../interfaces/Requirement";
 import { DefaultPlans } from "../data/TestData";
-import { RequiredCourses } from "./RequiredCourses";
+import { ReqCoursePlanner } from "./ReqCoursePlanner";
 
 const Expand = styled.span`
     &:hover {
@@ -24,12 +25,14 @@ export const PlanList = ({
     modifiedCourses,
     coursePool,
     addToPool,
-    removeFromPool
+    removeFromPool,
+    reqs
 }: {
     coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
+    reqs: Requirement;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
@@ -243,6 +246,7 @@ export const PlanList = ({
                                         coursePool={coursePool}
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
+                                        reqs={reqs}
                                     ></PlanView>
                                     <div
                                         style={{
@@ -287,7 +291,7 @@ export const PlanList = ({
                             <Form.Label>Upload a plans file</Form.Label>
                             <Form.Control type="file" onChange={uploadPlans} />
                         </Form.Group>
-                        <RequiredCourses></RequiredCourses>
+                        <ReqCoursePlanner reqs={reqs}></ReqCoursePlanner>
                     </div>
                 )}
                 <Stack gap={3}>
@@ -315,6 +319,7 @@ export const PlanList = ({
                                         coursePool={coursePool}
                                         addToPool={addToPool}
                                         removeFromPool={removeFromPool}
+                                        reqs={reqs}
                                     ></PlanView>
                                 </div>
                             )}

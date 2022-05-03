@@ -27,8 +27,8 @@ img {
     cursor: pointer;
 }
 
-@media only screen and (min-width: 768px) {
-    /* For desktop users phones: */
+@media only screen and (min-width: 769px) {
+    /* For desktop users: */
     section {
         padding: 2rem 20%;
         margin: 0 auto;
