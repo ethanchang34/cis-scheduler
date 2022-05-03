@@ -9,6 +9,14 @@ import { SectionContent } from "../App";
 import csvToJson from "csvtojson";
 import { Semester } from "../interfaces/Semester";
 import { downloadBlob } from "../App";
+import styled from "styled-components";
+
+const Expand = styled.span`
+    &:hover {
+        filter: brightness(300%);
+        transition: 250ms;
+    }
+`;
 
 export const PlanList = ({
     plans,
@@ -209,7 +217,6 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    // className="bg-light border m-2 p-2"
                                     className="border m-2 p-3 text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
@@ -232,7 +239,7 @@ export const PlanList = ({
                                             justifyContent: "center"
                                         }}
                                     >
-                                        <span
+                                        <Expand
                                             style={{
                                                 fontSize: "12px",
                                                 fontStyle: "italic",
@@ -243,7 +250,7 @@ export const PlanList = ({
                                             }
                                         >
                                             Click to expand
-                                        </span>
+                                        </Expand>
                                     </div>
                                 </div>
                             ))}
