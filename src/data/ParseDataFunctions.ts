@@ -3,7 +3,7 @@ import { Course } from "../interfaces/Course";
 import { Plan } from "../interfaces/Plan";
 import { Semester } from "../interfaces/Semester";
 import { Year } from "../interfaces/Year";
-import { GetTokenSilentlyOptions, useAuth0, User } from "@auth0/auth0-react";
+import { GetTokenSilentlyOptions, User } from "@auth0/auth0-react";
 import { GetTokenSilentlyVerboseResponse } from "@auth0/auth0-spa-js";
 
 // interface ActiveCourse {
@@ -106,7 +106,7 @@ export const getUserMetadata = async (
             });
 
             const { user_metadata } = await metadataResponse.json();
-            setUserMetadata(user_metadata["CISC275-4-plans"]);
+            setUserMetadata(user_metadata);
         } catch (e) {
             if (typeof e === "string") {
                 console.log(e.toUpperCase()); // works, `e` narrowed to string
@@ -120,7 +120,6 @@ export const getUserMetadata = async (
 //updating metadata?
 export const updateMetadata = async (
     userProgress: string,
-    setUserMetadata: React.Dispatch<React.SetStateAction<string | null>>,
     user: User | undefined,
     isAuthenticated: boolean,
     getAccessTokenSilently: {

@@ -23,13 +23,15 @@ export const PlanList = ({
     coursePool,
     addToPool,
     removeFromPool,
-    reqs
+    reqs,
+    updateUserMetadataPlans
 }: {
     coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
     reqs: Requirement;
+    updateUserMetadataPlans: (plans: Plan[]) => void;
 }) => {
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
@@ -51,6 +53,7 @@ export const PlanList = ({
 
     useEffect(() => {
         localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
+        updateUserMetadataPlans(plans);
     }, [plans]);
 
     useEffect(() => {

@@ -10,9 +10,12 @@ import { Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
-import { getUserMetadata } from "./data/ParseDataFunctions";
+import {
+    getUserMetadata,
+    UserData,
+    updateMetadata
+} from "./data/ParseDataFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
-import { UserData } from "./data/ParseDataFunctions";
 
 export const SectionContent = styled.div`
     max-width: 900px;
@@ -38,12 +41,25 @@ function App(): JSX.Element {
     useEffect(() => {
         console.log(userMetadata);
         if (user && isAuthenticated && userMetadata) {
-            localStorage.setItem(
-                "CISC275-4-plans",
+            const stringifiedPlans = JSON.stringify(
                 userMetadata["CISC275-4-plans"]
             );
+            localStorage.setItem("CISC275-4-plans", stringifiedPlans);
         }
     }, [userMetadata]);
+
+    const updateUserMetadataPlans = (plans: Plan[]) => {
+        const newMetaData = {
+            user_metadata: { "CISC275-4-plans": plans }
+        };
+        const stringified = JSON.stringify(newMetaData);
+        updateMetadata(
+            stringified,
+            user,
+            isAuthenticated,
+            getAccessTokenSilently
+        );
+    };
 
     const [modifiedCourses, setModifiedCourses] = useState<
         Record<string, Course>
@@ -116,6 +132,9 @@ function App(): JSX.Element {
                                     coursePool={coursePool}
                                     addToPool={addToPool}
                                     removeFromPool={removeFromPool}
+                                    updateUserMetadataPlans={
+                                        updateUserMetadataPlans
+                                    }
                                 />
                             }
                         />

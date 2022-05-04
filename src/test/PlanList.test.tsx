@@ -4,6 +4,7 @@ import { PlanList } from "../components/planner/PlanList";
 import { originalCourses } from "../App";
 import { Course } from "../interfaces/Course";
 import { DefaultRequirement } from "../data/TestData";
+import { Plan } from "../interfaces/Plan";
 
 const coursePool: string[] = [];
 const addToPool = (course: Course) => {
@@ -12,6 +13,10 @@ const addToPool = (course: Course) => {
 };
 const removeFromPool = (course: Course) => {
     console.log(course);
+    return;
+};
+
+const updateUserMetadataPlans = (plans: Plan[]) => {
     return;
 };
 describe("User can see a list of plans and be able to edit and delete them", () => {
@@ -24,6 +29,7 @@ describe("User can see a list of plans and be able to edit and delete them", () 
                 addToPool={addToPool}
                 removeFromPool={removeFromPool}
                 reqs={DefaultRequirement}
+                updateUserMetadataPlans={updateUserMetadataPlans}
             ></PlanList>
         );
     });
@@ -70,6 +76,7 @@ describe("User can see a list of requirements", () => {
                 addToPool={addToPool}
                 removeFromPool={removeFromPool}
                 reqs={DefaultRequirement}
+                updateUserMetadataPlans={updateUserMetadataPlans}
             />
         );
     });
