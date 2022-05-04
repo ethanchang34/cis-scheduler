@@ -3,6 +3,8 @@ import { Course } from "../interfaces/Course";
 import { Plan } from "../interfaces/Plan";
 import { Semester } from "../interfaces/Semester";
 import { Year } from "../interfaces/Year";
+import { GetTokenSilentlyOptions, useAuth0, User } from "@auth0/auth0-react";
+import { GetTokenSilentlyVerboseResponse } from "@auth0/auth0-spa-js";
 
 // interface ActiveCourse {
 //     code: string;
@@ -66,6 +68,99 @@ import { Year } from "../interfaces/Year";
 //         );
 //     }
 // );
+
+export interface UserData {
+    "CISC275-4-plans": string;
+}
+
+export const getUserMetadata = async (
+    setUserMetadata: React.Dispatch<React.SetStateAction<UserData | null>>,
+    user: User | undefined,
+    isAuthenticated: boolean,
+    getAccessTokenSilently: {
+        (
+            options: GetTokenSilentlyOptions & {
+                detailedResponse: true;
+            }
+        ): Promise<GetTokenSilentlyVerboseResponse>;
+        (options?: GetTokenSilentlyOptions | undefined): Promise<string>;
+        (options: GetTokenSilentlyOptions): Promise<string>;
+    }
+    //getAccessTokenSilently: (options?: GetTokenSilentlyOptions | undefined) => Promise<string>
+) => {
+    const domain = "dev--0t6-2tu.us.auth0.com";
+
+    if (user && isAuthenticated) {
+        try {
+            const accessToken = await getAccessTokenSilently({
+                audience: `https://${domain}/api/v2/`,
+                scope: "read:current_user update:current_user_metadata"
+            });
+
+            const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+
+            const metadataResponse = await fetch(userDetailsByIdUrl, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            const { user_metadata } = await metadataResponse.json();
+            setUserMetadata(user_metadata["CISC275-4-plans"]);
+        } catch (e) {
+            if (typeof e === "string") {
+                console.log(e.toUpperCase()); // works, `e` narrowed to string
+            } else if (e instanceof Error) {
+                console.log(e.message); // works, `e` narrowed to Error
+            }
+        }
+    }
+};
+
+//updating metadata?
+export const updateMetadata = async (
+    userProgress: string,
+    setUserMetadata: React.Dispatch<React.SetStateAction<string | null>>,
+    user: User | undefined,
+    isAuthenticated: boolean,
+    getAccessTokenSilently: {
+        (
+            options: GetTokenSilentlyOptions & {
+                detailedResponse: true;
+            }
+        ): Promise<GetTokenSilentlyVerboseResponse>;
+        (options?: GetTokenSilentlyOptions | undefined): Promise<string>;
+        (options: GetTokenSilentlyOptions): Promise<string>;
+    }
+) => {
+    const domain = "dev--0t6-2tu.us.auth0.com";
+
+    if (user && isAuthenticated) {
+        try {
+            const accessToken = await getAccessTokenSilently({
+                audience: `https://${domain}/api/v2/`,
+                scope: "read:current_user update:current_user_metadata"
+            });
+
+            const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+
+            await fetch(userDetailsByIdUrl, {
+                method: "PATCH",
+                body: userProgress,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "content-type": "application/json"
+                }
+            });
+        } catch (e) {
+            if (typeof e === "string") {
+                console.log(e.toUpperCase()); // works, `e` narrowed to string
+            } else if (e instanceof Error) {
+                console.log(e.message); // works, `e` narrowed to Error
+            }
+        }
+    }
+};
 
 export const uploadPlans = (
     plans: Plan[],

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { LandingPage } from "./components/LandingPage";
 import { CourseSearch } from "./components/course_search/CourseSearch";
 import { NavBar } from "./components/NavBar";
+import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/planner/Planner";
 import { Catalog } from "./data/TestData";
 import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
+import { getUserMetadata } from "./data/ParseDataFunctions";
+import { useAuth0 } from "@auth0/auth0-react";
+import { UserData } from "./data/ParseDataFunctions";
 
 export const SectionContent = styled.div`
     max-width: 900px;
@@ -18,6 +22,29 @@ export const SectionContent = styled.div`
 export const originalCourses: Record<string, Course> = Catalog;
 
 function App(): JSX.Element {
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const [userMetadata, setUserMetadata] = useState<UserData | null>(null);
+
+    useEffect(() => {
+        getUserMetadata(
+            setUserMetadata,
+            user,
+            isAuthenticated,
+            getAccessTokenSilently
+        );
+        console.log("logged in");
+    }, [getAccessTokenSilently, user?.sub]);
+
+    useEffect(() => {
+        console.log(userMetadata);
+        if (user && isAuthenticated && userMetadata) {
+            localStorage.setItem(
+                "CISC275-4-plans",
+                userMetadata["CISC275-4-plans"]
+            );
+        }
+    }, [userMetadata]);
+
     const [modifiedCourses, setModifiedCourses] = useState<
         Record<string, Course>
     >(() => {
