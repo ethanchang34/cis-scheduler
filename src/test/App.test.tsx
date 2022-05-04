@@ -127,7 +127,7 @@ describe("Students can override course's info, but also reset a course back to i
     });
 });
 
-describe("Students can save their current degree plan and laod plans between sessions.", () => {
+describe("Students can save their current degree plan and load plans between sessions.", () => {
     beforeEach(() => {
         Object.defineProperty(window, "localStorage", {
             value: {
@@ -151,6 +151,8 @@ describe("Students can save their current degree plan and laod plans between ses
     test("User can navigate to the plans and select the default plan", () => {
         screen.getByRole("button", { name: "Get Started!" }).click();
         expect(screen.queryByText("Default Plan")).toBeInTheDocument();
-        console.log(screen.getAllByTestId("chevron").length);
+        const chevron = screen.getByTestId("chevron");
+        chevron.click();
+        expect(screen.queryByText(/Year 1/i)).toBeInTheDocument();
     });
 });

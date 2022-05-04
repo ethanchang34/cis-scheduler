@@ -4,6 +4,7 @@ import { Semester } from "../../../interfaces/Semester";
 import { Course } from "../../../interfaces/Course";
 import { SemesterView } from "./SemesterView";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import { Expand } from "../PlanList";
 
 export const SemesterList = ({
     semesters,
@@ -65,19 +66,22 @@ export const SemesterList = ({
                                     addToPool={addToPool}
                                     removeFromPool={removeFromPool}
                                 ></SemesterView>
-                                <ChevronDownIcon
-                                    style={{
-                                        display: "block",
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
-                                        width: "2rem",
-                                        cursor: "pointer"
-                                    }}
+                                <Expand
                                     data-testid="chevron"
                                     onClick={() =>
                                         changeSelectedID(semester.id)
                                     }
-                                ></ChevronDownIcon>
+                                >
+                                    <ChevronDownIcon
+                                        style={{
+                                            display: "block",
+                                            marginLeft: "auto",
+                                            marginRight: "auto",
+                                            width: "2rem",
+                                            cursor: "pointer"
+                                        }}
+                                    ></ChevronDownIcon>
+                                </Expand>
                             </Col>
                         ) : idx % 2 === 0 ? (
                             <Col
@@ -129,19 +133,22 @@ export const SemesterList = ({
                                     addToPool={addToPool}
                                     removeFromPool={removeFromPool}
                                 ></SemesterView>
-                                <ChevronDownIcon
-                                    style={{
-                                        display: "block",
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
-                                        width: "2rem",
-                                        cursor: "pointer"
-                                    }}
+                                <Expand
                                     data-testid="chevron"
                                     onClick={() =>
                                         changeSelectedID(semester.id)
                                     }
-                                ></ChevronDownIcon>
+                                >
+                                    <ChevronDownIcon
+                                        style={{
+                                            display: "block",
+                                            marginLeft: "auto",
+                                            marginRight: "auto",
+                                            width: "2rem",
+                                            cursor: "pointer"
+                                        }}
+                                    ></ChevronDownIcon>
+                                </Expand>
                             </Col>
                         ) : idx % 2 === 1 ? (
                             <Col
@@ -190,16 +197,19 @@ export const SemesterList = ({
                                             justifyContent: "center"
                                         }}
                                     >
-                                        <ChevronUpIcon
-                                            style={{
-                                                width: "2rem",
-                                                cursor: "pointer"
-                                            }}
+                                        <Expand
                                             onClick={() =>
                                                 changeSelectedID(semester.id)
                                             }
                                             data-testid="chevron"
-                                        ></ChevronUpIcon>
+                                        >
+                                            <ChevronUpIcon
+                                                style={{
+                                                    width: "2rem",
+                                                    cursor: "pointer"
+                                                }}
+                                            ></ChevronUpIcon>
+                                        </Expand>
                                     </div>
                                     <SemesterView
                                         semester={semester}

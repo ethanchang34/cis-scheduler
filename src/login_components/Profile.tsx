@@ -28,7 +28,6 @@ const Profile = () => {
                         <ChevronDownIcon
                             className="chevron-down"
                             aria-hidden="true"
-                            data-testid="chevron"
                         />
                     </Menu.Button>
                     <Transition
