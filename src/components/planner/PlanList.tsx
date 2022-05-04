@@ -31,6 +31,26 @@ export const PlanList = ({
     removeFromPool: (course: Course) => void;
     reqs: Requirement;
 }) => {
+    const concentrations: string[] = [
+        "Undecided/Custom",
+        "Artificial Intelligence and Robotics",
+        "Bioinformatics",
+        "Cybersecurity",
+        "Data Science",
+        "High Performance Computing",
+        "Systems and Networks",
+        "Theory and Computation"
+    ];
+
+    const [concentration, setConcentration] =
+        useState<string>("Undecided/Custom");
+
+    const updateConcentration = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setConcentration(event.target.value);
+    };
+
     const [selectedID, setSelectedID] = useState<number | null>(() => {
         const saved = localStorage.getItem("CISC275-4-selectedID");
         if (saved) {
@@ -169,6 +189,26 @@ export const PlanList = ({
                                     uploadPlans(plans, setPlans, e);
                                 }}
                             />
+                        </Form.Group>
+                        <Form.Group
+                            className="mt-2 mb-4"
+                            controlId="changeConcentration"
+                        >
+                            <Form.Label
+                                style={{ fontSize: "32px", fontStyle: "bold" }}
+                            >
+                                Set Concentration
+                            </Form.Label>
+                            <Form.Select
+                                value={concentration}
+                                onChange={updateConcentration}
+                            >
+                                {concentrations.map((conc: string) => (
+                                    <option key={conc} value={conc}>
+                                        {conc}
+                                    </option>
+                                ))}
+                            </Form.Select>
                         </Form.Group>
                         <ReqCoursePlanner reqs={reqs}></ReqCoursePlanner>
                     </div>
