@@ -83,7 +83,8 @@ export const PlanView = ({
                     semesters: year.semesters.map(
                         (semester: Semester): Semester => ({
                             ...semester,
-                            active: false
+                            active: false,
+                            courses: []
                         })
                     )
                 })
