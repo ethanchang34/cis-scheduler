@@ -1,8 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Course } from "../interfaces/Course";
-// import { ViewCourseModal } from "../components/ViewCourseModal";
-import App from "../App";
+import { ViewCourseModal } from "../components/course_modal/ViewCourseModal";
 
 const testCourses: Record<string, Course> = {
     "CISC 101": {
@@ -106,26 +105,30 @@ const testCourses: Record<string, Course> = {
 
 const course = testCourses["CISC 210"];
 
-// const handleClose = () => {
-//     return;
-// };
+const handleClose = () => {
+    return;
+};
 
-// const editCourse = () => {
-//     return;
-// };
+const editCourse = () => {
+    return;
+};
+
+const addToPool = () => {
+    return false;
+};
 
 describe("Students can establish that a course meets another course's prerequisite.", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            // <ViewCourseModal
-            //     show={true}
-            //     handleClose={handleClose}
-            //     code="CISC 210"
-            //     editCourse={editCourse}
-            //     modifiedCourses={testCourses}
-            // />
-            <App></App>
+            <ViewCourseModal
+                show={true}
+                handleClose={handleClose}
+                code="CISC 210"
+                editCourse={editCourse}
+                modifiedCourses={testCourses}
+                addToPool={addToPool}
+            />
         );
     });
 
