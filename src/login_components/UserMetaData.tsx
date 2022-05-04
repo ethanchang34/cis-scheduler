@@ -26,7 +26,6 @@ export const UserMetaData = () => {
                     });
 
                     const { user_metadata } = await metadataResponse.json();
-                    console.log(user_metadata);
                     setUserMetadata(user_metadata["CISC275-4-plans"]);
                 } catch (e) {
                     if (typeof e === "string") {
