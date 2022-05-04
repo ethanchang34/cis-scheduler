@@ -49,7 +49,7 @@ export const YearView = ({
             semesters: year.semesters.map(
                 (semester: Semester): Semester =>
                     id === semester.id
-                        ? { ...semester, active: false }
+                        ? { ...semester, active: false, courses: [] }
                         : semester
             )
         });
@@ -71,7 +71,8 @@ export const YearView = ({
             semesters: year.semesters.map(
                 (semester: Semester): Semester => ({
                     ...semester,
-                    active: false
+                    active: false,
+                    courses: []
                 })
             )
         });
