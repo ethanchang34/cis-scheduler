@@ -5,6 +5,7 @@ import { Semester } from "../interfaces/Semester";
 import { Year } from "../interfaces/Year";
 import { GetTokenSilentlyOptions, User } from "@auth0/auth0-react";
 import { GetTokenSilentlyVerboseResponse } from "@auth0/auth0-spa-js";
+import { UserData } from "../interfaces/UserData";
 
 // interface ActiveCourse {
 //     code: string;
@@ -68,10 +69,6 @@ import { GetTokenSilentlyVerboseResponse } from "@auth0/auth0-spa-js";
 //         );
 //     }
 // );
-
-export interface UserData {
-    "CISC275-4-plans": string;
-}
 
 export const getUserMetadata = async (
     setUserMetadata: React.Dispatch<React.SetStateAction<UserData | null>>,

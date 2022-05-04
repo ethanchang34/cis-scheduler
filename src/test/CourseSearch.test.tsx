@@ -117,6 +117,11 @@ const addToPool = (course: Course): boolean => {
     return true;
 };
 
+const updateUserMetadataCatalog = (newCourse: Record<string, Course>) => {
+    console.log(newCourse);
+    return;
+};
+
 describe("Course search page has a input text bar and displays all matching courses in data.  ", () => {
     beforeEach(() => {
         localStorage.clear();
@@ -126,6 +131,7 @@ describe("Course search page has a input text bar and displays all matching cour
                 setModifiedCourses={setModifiedCourses}
                 addToPool={addToPool}
                 resetCourses={resetCourses}
+                updateUserMetadataCatalog={updateUserMetadataCatalog}
             />
         );
     });

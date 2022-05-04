@@ -20,12 +20,14 @@ export const CourseSearch = ({
     modifiedCourses,
     resetCourses,
     setModifiedCourses,
-    addToPool
+    addToPool,
+    updateUserMetadataCatalog
 }: {
     modifiedCourses: Record<string, Course>;
     resetCourses: () => void;
     setModifiedCourses: (newCourses: Record<string, Course>) => void;
     addToPool: (course: Course) => boolean;
+    updateUserMetadataCatalog: (newCourses: Record<string, Course>) => void;
 }) => {
     const [searchParam, setSearchParam] = useState<SearchParam>(() => {
         const saved = localStorage.getItem("CISC275-4-searchParam");
@@ -94,6 +96,7 @@ export const CourseSearch = ({
         if (saved) {
             const localModified: Record<string, Course> = JSON.parse(saved);
             localModified[newCourse.code] = newCourse;
+            updateUserMetadataCatalog(localModified);
             localStorage.setItem(
                 "CISC275-4-modifiedCourses",
                 JSON.stringify(localModified)
@@ -101,6 +104,7 @@ export const CourseSearch = ({
         } else {
             const newLocalModified: Record<string, Course> = {};
             newLocalModified[newCourse.code] = newCourse;
+            updateUserMetadataCatalog(newLocalModified);
             localStorage.setItem(
                 "CISC275-4-modifiedCourses",
                 JSON.stringify(newLocalModified)

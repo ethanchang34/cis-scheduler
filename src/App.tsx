@@ -7,14 +7,11 @@ import { Plan } from "./interfaces/Plan";
 import { Course } from "./interfaces/Course";
 import { Planner } from "./components/planner/Planner";
 import { Catalog } from "./data/TestData";
+import { UserData } from "./interfaces/UserData";
 import { Route, Routes, useLocation } from "react-router-dom";
 //import ProtectedRoute from "./login_components/ProtectedRoute";
 import styled from "styled-components";
-import {
-    getUserMetadata,
-    UserData,
-    updateMetadata
-} from "./data/ParseDataFunctions";
+import { getUserMetadata, updateMetadata } from "./data/ParseDataFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const SectionContent = styled.div`
@@ -36,6 +33,7 @@ function App(): JSX.Element {
             getAccessTokenSilently
         );
         console.log("logged in");
+        localStorage.clear();
     }, [getAccessTokenSilently, user?.sub]);
 
     useEffect(() => {
@@ -45,6 +43,22 @@ function App(): JSX.Element {
                 userMetadata["CISC275-4-plans"]
             );
             localStorage.setItem("CISC275-4-plans", stringifiedPlans);
+            const stringifiedCourses = JSON.stringify(
+                userMetadata["CISC275-4-modifiedCourses"]
+            );
+            localStorage.setItem(
+                "CISC275-4-modifiedCourses",
+                stringifiedCourses
+            );
+            if (userMetadata["CISC275-4-modifiedCourses"]) {
+                const newModifiedCourses = { ...originalCourses };
+                Object.values(
+                    userMetadata["CISC275-4-modifiedCourses"]
+                ).forEach(
+                    (val: Course) => (newModifiedCourses[val.code] = val)
+                );
+                setModifiedCourses(newModifiedCourses);
+            }
         }
     }, [userMetadata]);
 
@@ -80,9 +94,24 @@ function App(): JSX.Element {
             return originalCourses;
         }
     });
+
+    const updateUserMetadataCatalog = (newCourses: Record<string, Course>) => {
+        const newMetaData = {
+            user_metadata: { "CISC275-4-modifiedCourses": newCourses }
+        };
+        const stringified = JSON.stringify(newMetaData);
+        updateMetadata(
+            stringified,
+            user,
+            isAuthenticated,
+            getAccessTokenSilently
+        );
+    };
+
     const [coursePool, setCoursePool] = useState<string[]>([]);
 
     const resetCourses = () => {
+        updateUserMetadataCatalog({});
         localStorage.removeItem("CISC275-4-modifiedCourses");
         setModifiedCourses(originalCourses);
     };
@@ -121,6 +150,9 @@ function App(): JSX.Element {
                                     resetCourses={resetCourses}
                                     setModifiedCourses={setModifiedCourses}
                                     addToPool={addToPool}
+                                    updateUserMetadataCatalog={
+                                        updateUserMetadataCatalog
+                                    }
                                 />
                             }
                         />

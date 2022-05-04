@@ -17,6 +17,7 @@ const removeFromPool = (course: Course) => {
 };
 
 const updateUserMetadataPlans = (plans: Plan[]) => {
+    console.log(plans);
     return;
 };
 describe("User can see a list of plans and be able to edit and delete them", () => {
