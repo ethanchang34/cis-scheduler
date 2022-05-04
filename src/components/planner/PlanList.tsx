@@ -11,7 +11,7 @@ import { ReqCoursePlanner } from "./ReqCoursePlanner";
 import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-const Expand = styled.span`
+export const Expand = styled.span`
     &:hover {
         filter: brightness(300%);
         transition: 250ms;
@@ -123,6 +123,7 @@ export const PlanList = ({
                                         }}
                                     >
                                         <Expand
+                                            data-testid="chevron"
                                             onClick={() =>
                                                 changeSelectedID(plan.id)
                                             }

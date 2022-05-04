@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 
 describe("Swappable windows to Planner, Course Search, Plans Component.", () => {
     beforeEach(() => {
-        window.localStorage.clear();
         render(
             <MemoryRouter initialEntries={["/"]}>
                 <App />
@@ -125,5 +124,35 @@ describe("Students can override course's info, but also reset a course back to i
         expect(
             screen.queryByText(/CISC 101 Test Title/i)
         ).not.toBeInTheDocument();
+    });
+});
+
+describe("Students can save their current degree plan and load plans between sessions.", () => {
+    beforeEach(() => {
+        Object.defineProperty(window, "localStorage", {
+            value: {
+                getItem: jest.fn(() => null),
+                setItem: jest.fn(() => null)
+            },
+            writable: true
+        });
+        render(
+            <MemoryRouter initialEntries={["/"]}>
+                <App />
+            </MemoryRouter>
+        );
+    });
+
+    test("App starts on the Home Page", () => {
+        const linkElement = screen.getByText(/Home/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test("User can navigate to the plans and select the default plan", () => {
+        screen.getByRole("button", { name: "Get Started!" }).click();
+        expect(screen.queryByText("Default Plan")).toBeInTheDocument();
+        const chevron = screen.getByTestId("chevron");
+        chevron.click();
+        expect(screen.queryByText(/Year 1/i)).toBeInTheDocument();
     });
 });
