@@ -18,8 +18,10 @@ const FixedRequirements = styled.div`
         border: 1px solid var(--tertiary-color);
         display: block;
         position: fixed;
-        top: 25vh;
+        top: 12vh;
         right: 0;
+        max-height: 84vh;
+        overflow-y: auto;
         padding: 1rem;
         margin-right: 0.75rem;
     }

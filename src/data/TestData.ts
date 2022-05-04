@@ -91,7 +91,7 @@ export const DefaultRequirement = {
         "MATH 241",
         "MATH 242"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -115,7 +115,6 @@ export const AIandRoboticsRequirement = {
         "CISC 361",
         "CISC 436",
         "CISC 489",
-        "LING 202",
         "CISC 442",
         "CISC 481",
         "CISC 483",
@@ -125,12 +124,13 @@ export const AIandRoboticsRequirement = {
         "EGGG 101",
         "ENGL 110",
         "ENGL 410",
+        "LING 202",
         "MATH 205",
         "MATH 210",
         "MATH 241",
         "MATH 242"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -176,7 +176,7 @@ export const BioinformaticsRequirement = {
         "MATH 242",
         "MATH 349"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -215,7 +215,7 @@ export const CybersecurityRequirement = {
         "MATH 241",
         "MATH 242"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -254,7 +254,7 @@ export const DataScienceRequirement = {
         "MATH 349",
         "MATH 350"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -294,7 +294,7 @@ export const HPComputingRequirement = {
         "MATH 351",
         "MATH 428"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -333,7 +333,7 @@ export const SystemsNetworksRequirement = {
         "MATH 241",
         "MATH 242"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
@@ -373,7 +373,7 @@ export const TheoryComputationRequirement = {
         "MATH 426",
         "MATH 535"
     ],
-    tech: 6,
+    tech: 12,
     creative: 3,
     history: 3,
     social: 3,
