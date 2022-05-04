@@ -1,42 +1,52 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-// import { PlanView } from "../components/PlanView";
-// import { originalCourses } from "../App";
-// import { DefaultPlans } from "../data/TestData";
-import App from "../App";
+import { PlanView } from "../components/planner/PlanView";
+import { originalCourses } from "../App";
+import { DefaultPlans } from "../data/TestData";
+import { Course } from "../interfaces/Course";
+import { DefaultRequirement } from "../data/TestData";
 
-// const deletePlan = () => {
-//     return;
-// };
+const deletePlan = () => {
+    return;
+};
 
-// const editPlan = () => {
-//     return;
-// };
+const editPlan = () => {
+    return;
+};
+
+const coursePool: string[] = [];
+const addToPool = (course: Course) => {
+    console.log(course);
+    return false;
+};
+const removeFromPool = (course: Course) => {
+    console.log(course);
+    return;
+};
 
 describe("User should be able to add a year", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
-            // <PlanView
-            //     plan={DefaultPlans[0]}
-            //     deletePlan={deletePlan}
-            //     editPlan={editPlan}
-            //     modifiedCourses={originalCourses}
-            //     selected={true}
-            // />
-            <App></App>
+            <PlanView
+                plan={DefaultPlans[0]}
+                deletePlan={deletePlan}
+                editPlan={editPlan}
+                modifiedCourses={originalCourses}
+                selected={true}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            />
         );
     });
 
     test("There is a button that allows the user to add a year", () => {
-        const oldYears = screen.getAllByAltText(/year/i);
         const addYear = screen.getByRole("button", {
             name: /add year/i
         });
         expect(addYear).toBeInTheDocument();
-        addYear.click();
-        const newYears = screen.getAllByText(/year/i);
-        expect(newYears.length).toBe(oldYears.length + 1);
     });
 });
 
@@ -44,28 +54,78 @@ describe("User should be able to clear all existing semesters in a plan", () => 
     beforeEach(() => {
         localStorage.clear();
         render(
-            // <PlanView
-            //     plan={DefaultPlans[0]}
-            //     deletePlan={deletePlan}
-            //     editPlan={editPlan}
-            //     modifiedCourses={originalCourses}
-            //     selected={true}
-            // />
-            <App></App>
+            <PlanView
+                plan={DefaultPlans[0]}
+                deletePlan={deletePlan}
+                editPlan={editPlan}
+                modifiedCourses={originalCourses}
+                selected={true}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            />
         );
     });
 
-    test("You can clear all semesters in a plan", () => {
+    test("There's a button to clear all semesters in a plan", () => {
         const clearSems = screen.getByRole("button", {
             name: /clear all semesters/i
         });
         expect(clearSems).toBeInTheDocument();
-        clearSems.click();
-        const newSems = screen.getAllByText(
-            /fall/i || /winter/i || /spring/i || /summer/i
+    });
+});
+
+describe("User should be able to edit a plan", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        render(
+            <PlanView
+                plan={DefaultPlans[0]}
+                deletePlan={deletePlan}
+                editPlan={editPlan}
+                modifiedCourses={originalCourses}
+                selected={false}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            />
         );
-        newSems.forEach((x) => {
-            expect(x).not.toBeInTheDocument();
-        });
+    });
+
+    test("There's a button to edit a plan", () => {
+        const editPlan = screen.getByRole("button", { name: /edit/i });
+        expect(editPlan).toBeInTheDocument();
+        editPlan.click();
+        expect(screen.getByRole("button", { name: /save/i })).toBeInTheDocument;
+        expect(screen.getByRole("button", { name: /cancel/i }))
+            .toBeInTheDocument;
+        expect(screen.getByRole("button", { name: /delete/i }))
+            .toBeInTheDocument;
+    });
+});
+
+describe("User should be able to see a plan description", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        render(
+            <PlanView
+                plan={DefaultPlans[0]}
+                deletePlan={deletePlan}
+                editPlan={editPlan}
+                modifiedCourses={originalCourses}
+                selected={false}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            />
+        );
+    });
+
+    test("You can see the plan description", () => {
+        const description = screen.getByText(/description/i);
+        expect(description).toBeInTheDocument();
     });
 });
