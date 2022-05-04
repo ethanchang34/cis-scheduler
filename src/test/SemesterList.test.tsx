@@ -74,8 +74,16 @@ describe("Users should be able to view a list of semesters", () => {
         addSemButtons[0].click();
     });
 
-    test("Clicking the chevron on an active semester expands it", () => {
+    test("Clicking the chevron on an active semester expands it, then clicking again minimizes it", () => {
         const semChevrons = screen.getAllByTestId("chevron");
-        expect(semChevrons.length === 1);
+        expect(semChevrons.length === 2);
+        semChevrons[0].click();
+        const poolButtons = screen.getAllByRole("button", {
+            name: "Move to Pool"
+        });
+        expect(poolButtons.length === 4);
+        const expandedChevron = screen.getByTestId("chevron");
+        expandedChevron.click();
+        expect(poolButtons.length === 0);
     });
 });
