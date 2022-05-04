@@ -61,7 +61,7 @@ describe("User can see several different courses and information about the cours
     });
 });
 
-describe("When the semester is not selected, the courses do not show titles or info", () => {
+describe("When the semester is not selected, the courses show titles, but not info", () => {
     beforeEach(() => {
         localStorage.clear();
         render(
@@ -75,11 +75,17 @@ describe("When the semester is not selected, the courses do not show titles or i
         );
     });
 
-    test("There are four different courses visible missing their titles", () => {
-        const eggg101 = screen.getByText("EGGG 101");
-        const cisc108 = screen.getByText("CISC 108");
-        const math241 = screen.getByText("MATH 241");
-        const engl110 = screen.getByText("ENGL 110");
+    test("There are four different courses visible with titles", () => {
+        const eggg101 = screen.getByText(
+            "EGGG 101 Introduction to Engineering"
+        );
+        const cisc108 = screen.getByText(
+            "CISC 108 Introduction to Computer Science I"
+        );
+        const math241 = screen.getByText(
+            "MATH 241 Analytic Geometry and Calculus A"
+        );
+        const engl110 = screen.getByText("ENGL 110 Seminar in Composition");
         expect(eggg101).toBeInTheDocument();
         expect(cisc108).toBeInTheDocument();
         expect(math241).toBeInTheDocument();
