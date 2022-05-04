@@ -73,6 +73,7 @@ export const SemesterList = ({
                                         width: "2rem",
                                         cursor: "pointer"
                                     }}
+                                    data-testid="chevron"
                                     onClick={() =>
                                         changeSelectedID(semester.id)
                                     }
@@ -136,6 +137,7 @@ export const SemesterList = ({
                                         width: "2rem",
                                         cursor: "pointer"
                                     }}
+                                    data-testid="chevron"
                                     onClick={() =>
                                         changeSelectedID(semester.id)
                                     }
@@ -196,6 +198,7 @@ export const SemesterList = ({
                                             onClick={() =>
                                                 changeSelectedID(semester.id)
                                             }
+                                            data-testid="chevron"
                                         ></ChevronUpIcon>
                                     </div>
                                     <SemesterView

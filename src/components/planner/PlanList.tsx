@@ -127,15 +127,18 @@ export const PlanList = ({
                                                 changeSelectedID(plan.id)
                                             }
                                         >
-                                            <ChevronDownIcon
-                                                style={{
-                                                    display: "block",
-                                                    marginLeft: "auto",
-                                                    marginRight: "auto",
-                                                    width: "2rem",
-                                                    cursor: "pointer"
-                                                }}
-                                            ></ChevronDownIcon>
+                                            <div role="button">
+                                                <ChevronDownIcon
+                                                    style={{
+                                                        display: "block",
+                                                        marginLeft: "auto",
+                                                        marginRight: "auto",
+                                                        width: "2rem",
+                                                        cursor: "pointer"
+                                                    }}
+                                                    data-testid="chevron"
+                                                ></ChevronDownIcon>
+                                            </div>
                                         </Expand>
                                     </div>
                                 </div>
