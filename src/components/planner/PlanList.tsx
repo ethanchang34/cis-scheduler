@@ -9,8 +9,13 @@ import { Requirement } from "../../interfaces/Requirement";
 import {
     AIandRoboticsRequirement,
     BioinformaticsRequirement,
+    CybersecurityRequirement,
+    DataScienceRequirement,
     DefaultPlans,
-    DefaultRequirement
+    DefaultRequirement,
+    HPComputingRequirement,
+    SystemsNetworksRequirement,
+    TheoryComputationRequirement
 } from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
 import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
@@ -64,6 +69,16 @@ export const PlanList = ({
             setReqs(AIandRoboticsRequirement);
         } else if (event.target.value === "Bioinformatics") {
             setReqs(BioinformaticsRequirement);
+        } else if (event.target.value === "Cybersecurity") {
+            setReqs(CybersecurityRequirement);
+        } else if (event.target.value === "Data Science") {
+            setReqs(DataScienceRequirement);
+        } else if (event.target.value === "High Performance Computing") {
+            setReqs(HPComputingRequirement);
+        } else if (event.target.value === "Systems and Networks") {
+            setReqs(SystemsNetworksRequirement);
+        } else if (event.target.value === "Theory and Computation") {
+            setReqs(TheoryComputationRequirement);
         }
     };
 
