@@ -129,13 +129,7 @@ describe("Students can override course's info, but also reset a course back to i
 
 describe("Students can save their current degree plan and load plans between sessions.", () => {
     beforeEach(() => {
-        Object.defineProperty(window, "localStorage", {
-            value: {
-                getItem: jest.fn(() => null),
-                setItem: jest.fn(() => null)
-            },
-            writable: true
-        });
+        window.localStorage.clear();
         render(
             <MemoryRouter initialEntries={["/"]}>
                 <App />
@@ -144,15 +138,56 @@ describe("Students can save their current degree plan and load plans between ses
     });
 
     test("App starts on the Home Page", () => {
-        const linkElement = screen.getByText(/Home/i);
+        const linkElement = screen.getByText(/UD CISC/i);
         expect(linkElement).toBeInTheDocument();
     });
 
-    test("User can navigate to the plans and select the default plan", () => {
+    test("User can navigate to the plans and select the default plan, delete a year, and then navigate to course search and back with changes remaining.", () => {
         screen.getByRole("button", { name: "Get Started!" }).click();
         expect(screen.queryByText("Default Plan")).toBeInTheDocument();
         const chevron = screen.getByTestId("chevron");
         chevron.click();
         expect(screen.queryByText(/Year 1/i)).toBeInTheDocument();
+        expect(
+            screen.queryByText(/EGGG 101 Introduction/i)
+        ).toBeInTheDocument();
+        screen.getAllByRole("button", { name: "Delete Year" })[0].click();
+        expect(
+            screen.queryByText(/EGGG 101 Introduction/i)
+        ).not.toBeInTheDocument();
+        screen.getByRole("button", { name: "Search Courses" }).click();
+        expect(
+            screen.queryByText(/EGGG 101 Introduction/i)
+        ).not.toBeInTheDocument();
+        screen.getByRole("button", { name: "Back" }).click();
+        expect(
+            screen.queryByText(/EGGG 101 Introduction/i)
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByText(/CISC 220 Data Structures/i)
+        ).toBeInTheDocument();
+    });
+
+    test("User can navigate to a plan and refresh, maintaining their selected plan", () => {
+        screen.getByRole("button", { name: "Get Started!" }).click();
+        expect(screen.queryByText("Default Plan")).toBeInTheDocument();
+        const chevron = screen.getByTestId("chevron");
+        chevron.click();
+        expect(screen.queryByText("🠔")).toBeInTheDocument();
+        screen.getByRole("button", { name: "Search Courses" }).click();
+        screen.getByRole("button", { name: "Back" }).click();
+        expect(screen.queryByText("🠔")).toBeInTheDocument();
+    });
+
+    test("User can navigate to the course search page and type in a code that stays upon refresh..", () => {
+        screen.getByRole("button", { name: "Search Courses" }).click();
+        const codeInput = screen.getByLabelText("Course Number:");
+        userEvent.type(codeInput, "101");
+        const searchButton = screen.getByText("Search");
+        searchButton.click();
+        expect(screen.getByText(/ANFS 101/i)).toBeInTheDocument();
+        screen.getByRole("button", { name: "Back" }).click();
+        screen.getByRole("button", { name: "Search Courses" }).click();
+        expect(screen.getByText(/ANFS 101/i)).toBeInTheDocument();
     });
 });
