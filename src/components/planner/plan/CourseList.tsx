@@ -41,7 +41,11 @@ export const CourseList = ({
             ) : (
                 <ul>
                     {courses.map((course: string) => (
-                        <li key={course}>{modifiedCourses[course].code}</li>
+                        <li key={course}>
+                            {modifiedCourses[course].code +
+                                " " +
+                                modifiedCourses[course].name}
+                        </li>
                     ))}
                 </ul>
             )}
