@@ -6,7 +6,12 @@ import { PlanView } from "./PlanView";
 import { SectionContent } from "../../App";
 import styled from "styled-components";
 import { Requirement } from "../../interfaces/Requirement";
-import { DefaultPlans } from "../../data/TestData";
+import {
+    AIandRoboticsRequirement,
+    BioinformaticsRequirement,
+    DefaultPlans,
+    DefaultRequirement
+} from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
 import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
 import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -23,13 +28,15 @@ export const PlanList = ({
     coursePool,
     addToPool,
     removeFromPool,
-    reqs
+    reqs,
+    setReqs
 }: {
     coursePool: string[];
     modifiedCourses: Record<string, Course>;
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
     reqs: Requirement;
+    setReqs: (newReqs: Requirement) => void;
 }) => {
     const concentrations: string[] = [
         "Undecided/Custom",
@@ -49,6 +56,15 @@ export const PlanList = ({
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
         setConcentration(event.target.value);
+        if (event.target.value === "Undecided/Custom") {
+            setReqs(DefaultRequirement);
+        } else if (
+            event.target.value === "Artificial Intelligence and Robotics"
+        ) {
+            setReqs(AIandRoboticsRequirement);
+        } else if (event.target.value === "Bioinformatics") {
+            setReqs(BioinformaticsRequirement);
+        }
     };
 
     const [selectedID, setSelectedID] = useState<number | null>(() => {
