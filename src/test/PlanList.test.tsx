@@ -35,7 +35,6 @@ describe("User can see a list of plans and be able to edit and delete them", () 
         expect(screen.getByText(/New Plan/i)).toBeInTheDocument();
     });
 
-    //add userInputEvent to this test
     test("There is a button, which allows the user to edit or delete a plan", () => {
         const edit = screen.getByRole("button", { name: /edit/i });
         expect(edit).toBeInTheDocument();
@@ -51,12 +50,39 @@ describe("User can see a list of plans and be able to edit and delete them", () 
     test("You can see the title of a plan", () => {
         const titleElement = screen.getByRole("heading", {
             name: /Default plan/i
-        }); //or Title: Default Plan?
+        });
         expect(titleElement).toBeInTheDocument();
     });
 
     test("You can seee the plan description", () => {
         const descElement = screen.getByText(/Description/i);
         expect(descElement).toBeInTheDocument();
+    });
+});
+
+describe("User can see a list of requirements", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        render(
+            <PlanList
+                modifiedCourses={originalCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+            />
+        );
+    });
+
+    test("You can see a Requirement header", () => {
+        expect(screen.getByText(/requirements/i)).toBeInTheDocument();
+    });
+
+    test("You can see course requirements listed out", () => {
+        DefaultRequirement.courses.forEach((course: string) => {
+            expect(
+                screen.getByText(course, { exact: false })
+            ).toBeInTheDocument();
+        });
     });
 });
