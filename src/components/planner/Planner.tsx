@@ -3,6 +3,7 @@ import { Course } from "../../interfaces/Course";
 import { PlanList } from "./PlanList";
 import { Requirement } from "../../interfaces/Requirement";
 import { DefaultRequirement } from "../../data/TestData";
+import { UserMetaData } from "../../login_components/UserMetaData";
 
 export const Planner = ({
     modifiedCourses,
@@ -33,7 +34,10 @@ export const Planner = ({
                 addToPool={addToPool}
                 removeFromPool={removeFromPool}
                 reqs={reqs}
-            ></PlanList>
+            />
+            <div style={{ textAlign: "center", marginBottom: "10vh" }}>
+                <UserMetaData />
+            </div>
         </div>
     );
 };
