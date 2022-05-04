@@ -9,6 +9,7 @@ import { Requirement } from "../../interfaces/Requirement";
 import { DefaultPlans } from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
 import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const Expand = styled.span`
     &:hover {
@@ -96,10 +97,12 @@ export const PlanList = ({
                             {plans.map((plan: Plan) => (
                                 <div
                                     key={plan.id}
-                                    className="p-3 text-white"
+                                    className="text-white"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
-                                        borderRadius: 8
+                                        borderRadius: 8,
+                                        padding: "1rem",
+                                        paddingBottom: "0"
                                     }}
                                 >
                                     <PlanView
@@ -120,16 +123,19 @@ export const PlanList = ({
                                         }}
                                     >
                                         <Expand
-                                            style={{
-                                                fontSize: "12px",
-                                                fontStyle: "italic",
-                                                cursor: "pointer"
-                                            }}
                                             onClick={() =>
                                                 changeSelectedID(plan.id)
                                             }
                                         >
-                                            Click to expand
+                                            <ChevronDownIcon
+                                                style={{
+                                                    display: "block",
+                                                    marginLeft: "auto",
+                                                    marginRight: "auto",
+                                                    width: "2rem",
+                                                    cursor: "pointer"
+                                                }}
+                                            ></ChevronDownIcon>
                                         </Expand>
                                     </div>
                                 </div>
