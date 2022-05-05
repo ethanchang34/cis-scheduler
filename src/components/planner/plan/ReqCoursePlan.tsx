@@ -18,18 +18,20 @@ const FixedRequirements = styled.div`
         border: 1px solid var(--tertiary-color);
         display: block;
         position: fixed;
+        max-height: 84vh;
+        overflow-y: auto;
         top: 12vh;
         right: 0;
         max-height: 84vh;
         overflow-y: auto;
         padding: 1rem;
-        margin-right: 0.75rem;
+        margin-right: 1rem;
     }
 
     @media only screen and (min-width: 1530px) {
         left: 50%;
         right: auto;
-        transform: translate(590px, 0);
+        transform: translate(568px, 0);
     }
 `;
 
@@ -45,9 +47,18 @@ const CoursesListDiv = styled.div`
         flex-direction: row;
         flex-wrap: wrap;
         gap: 0.5rem;
+        text-align: center;
     }
 `;
 
+const ReqListing = styled.p`
+    display: block;
+    padding: 0 0.5rem;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    width: fit-content;
+`;
 export const ReqCoursePlan = ({
     plan,
     reqs,
@@ -63,11 +74,12 @@ export const ReqCoursePlan = ({
     let historyCredits = 0;
     let socialCredits = 0;
     let mathCredits = 0;
-    // let capstone = false;
+    const capstone = [0, 0, 0, 0];
 
-    const normalStyle = { padding: "0 .5rem", backgroundColor: "lightpink" };
+    const normalStyle = {
+        backgroundColor: "lightpink"
+    };
     const completedStyle = {
-        padding: "0 .5rem",
         backgroundColor: "lightgreen"
     };
 
@@ -76,6 +88,15 @@ export const ReqCoursePlan = ({
             sem.courses.forEach((course: string) => {
                 userCourses = [...userCourses, course];
                 const myCourse = modifiedCourses[course];
+                if (myCourse.code === "CISC 498") {
+                    capstone[0] = 1;
+                } else if (myCourse.code === "CISC 499") {
+                    capstone[1] = 1;
+                } else if (myCourse.code === "UNIV 401") {
+                    capstone[2] = 1;
+                } else if (myCourse.code === "UNIV 402") {
+                    capstone[3] = 1;
+                }
                 if (myCourse.tech) {
                     techCredits += myCourse.credits;
                 }
@@ -109,7 +130,7 @@ export const ReqCoursePlan = ({
             <h5>Requirements</h5>
             <CoursesListDiv>
                 {reqs.courses.map((req: string) => (
-                    <div
+                    <ReqListing
                         key={req}
                         style={
                             userCourses.includes(req)
@@ -118,18 +139,28 @@ export const ReqCoursePlan = ({
                         }
                     >
                         {req}
-                    </div>
+                    </ReqListing>
                 ))}
             </CoursesListDiv>
             <CoursesListDiv>
-                <div
+                <ReqListing
+                    style={
+                        (capstone[0] && capstone[1]) ||
+                        (capstone[2] && capstone[3])
+                            ? completedStyle
+                            : normalStyle
+                    }
+                >
+                    Capstone
+                </ReqListing>
+                <ReqListing
                     style={
                         techCredits >= reqs.tech ? completedStyle : normalStyle
                     }
                 >
                     T: {techCredits + "/" + reqs.tech}
-                </div>
-                <div
+                </ReqListing>
+                <ReqListing
                     style={
                         creativeCredits >= reqs.creative
                             ? completedStyle
@@ -137,8 +168,8 @@ export const ReqCoursePlan = ({
                     }
                 >
                     C: {creativeCredits + "/" + reqs.creative}
-                </div>
-                <div
+                </ReqListing>
+                <ReqListing
                     style={
                         socialCredits >= reqs.social
                             ? completedStyle
@@ -146,8 +177,8 @@ export const ReqCoursePlan = ({
                     }
                 >
                     S: {socialCredits + "/" + reqs.social}
-                </div>
-                <div
+                </ReqListing>
+                <ReqListing
                     style={
                         historyCredits >= reqs.history
                             ? completedStyle
@@ -155,14 +186,14 @@ export const ReqCoursePlan = ({
                     }
                 >
                     H: {historyCredits + "/" + reqs.history}
-                </div>
-                <div
+                </ReqListing>
+                <ReqListing
                     style={
                         mathCredits >= reqs.math ? completedStyle : normalStyle
                     }
                 >
                     M: {mathCredits + "/" + reqs.math}
-                </div>
+                </ReqListing>
             </CoursesListDiv>
 
             <MobileHeader></MobileHeader>

@@ -18,7 +18,7 @@ export const Planner = ({
     removeFromPool: (course: Course) => void;
     updateUserMetadataPlans: (plans: Plan[]) => void;
 }) => {
-    const [reqs /* , setReqs */] = useState<Requirement>(DefaultRequirement);
+    const [reqs, setReqs] = useState<Requirement>(DefaultRequirement);
 
     /* function addReq(req: string) {
         setReqs([...reqs, req]);
@@ -37,7 +37,8 @@ export const Planner = ({
                 removeFromPool={removeFromPool}
                 reqs={reqs}
                 updateUserMetadataPlans={updateUserMetadataPlans}
-            />
+                setReqs={setReqs}
+            ></PlanList>
         </div>
     );
 };
