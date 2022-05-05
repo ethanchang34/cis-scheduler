@@ -34,7 +34,7 @@ export const PlanList = ({
     addToPool,
     removeFromPool,
     reqs,
-    updateUserMetadataPlans
+    updateUserMetadataPlans,
     setReqs
 }: {
     coursePool: string[];

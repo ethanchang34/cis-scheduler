@@ -19,6 +19,7 @@ const removeFromPool = (course: Course) => {
 
 const updateUserMetadataPlans = (plans: Plan[]) => {
     console.log(plans);
+};
 
 const setReqs = (req: Requirement) => {
     console.log(req);
