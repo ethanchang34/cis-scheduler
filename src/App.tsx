@@ -110,7 +110,22 @@ function App(): JSX.Element {
         );
     };
 
-    const [coursePool, setCoursePool] = useState<string[]>([]);
+    const [coursePool, setCoursePool] = useState<string[]>(() => {
+        const saved = localStorage.getItem("CISC275-4-coursePool");
+        if (saved) {
+            const newCoursePool = JSON.parse(saved);
+            return newCoursePool;
+        } else {
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem(
+            "CISC275-4-coursePool",
+            JSON.stringify(coursePool)
+        );
+    }, [coursePool]);
 
     const resetCourses = () => {
         updateUserMetadataCatalog({});
