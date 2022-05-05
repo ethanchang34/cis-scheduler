@@ -33,7 +33,9 @@ function App(): JSX.Element {
             getAccessTokenSilently
         );
         console.log("logged in");
-        localStorage.clear();
+        if (user && isAuthenticated) {
+            localStorage.clear();
+        }
     }, [getAccessTokenSilently, user?.sub]);
 
     useEffect(() => {
