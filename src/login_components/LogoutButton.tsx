@@ -8,7 +8,10 @@ export const LogoutButton = () => {
 
     return (
         <NavLink
-            onClick={() => logout({ returnTo: uri.AUTH0_REDIRECT_URI })}
+            onClick={() => {
+                logout({ returnTo: uri.AUTH0_REDIRECT_URI });
+                localStorage.clear();
+            }}
             className="logout-button"
             style={{ color: "red" }}
         >

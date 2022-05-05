@@ -22,6 +22,8 @@ const FixedRequirements = styled.div`
         overflow-y: auto;
         top: 12vh;
         right: 0;
+        max-height: 84vh;
+        overflow-y: auto;
         padding: 1rem;
         margin-right: 1rem;
     }

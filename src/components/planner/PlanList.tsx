@@ -34,6 +34,7 @@ export const PlanList = ({
     addToPool,
     removeFromPool,
     reqs,
+    updateUserMetadataPlans
     setReqs
 }: {
     coursePool: string[];
@@ -41,6 +42,7 @@ export const PlanList = ({
     addToPool: (course: Course) => boolean;
     removeFromPool: (course: Course) => void;
     reqs: Requirement;
+    updateUserMetadataPlans: (plans: Plan[]) => void;
     setReqs: (newReqs: Requirement) => void;
 }) => {
     const concentrations: string[] = [
@@ -102,6 +104,7 @@ export const PlanList = ({
 
     useEffect(() => {
         localStorage.setItem("CISC275-4-plans", JSON.stringify(plans));
+        updateUserMetadataPlans(plans);
     }, [plans]);
 
     useEffect(() => {
