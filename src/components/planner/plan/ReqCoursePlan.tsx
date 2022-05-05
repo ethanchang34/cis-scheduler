@@ -63,6 +63,7 @@ export const ReqCoursePlan = ({
     let historyCredits = 0;
     let socialCredits = 0;
     let mathCredits = 0;
+    let capstone = false;
 
     const normalStyle = { color: "black" };
     const completedStyle = {
