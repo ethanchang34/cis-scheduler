@@ -18,8 +18,10 @@ const FixedRequirements = styled.div`
         border: 1px solid var(--tertiary-color);
         display: block;
         position: fixed;
-        top: 25vh;
+        top: 12vh;
         right: 0;
+        max-height: 84vh;
+        overflow-y: auto;
         padding: 1rem;
         margin-right: 0.75rem;
     }
@@ -61,49 +63,50 @@ export const ReqCoursePlan = ({
     let historyCredits = 0;
     let socialCredits = 0;
     let mathCredits = 0;
+    // let capstone = false;
 
-    const normalStyle = { color: "black" };
+    const normalStyle = { padding: "0 .5rem", backgroundColor: "lightpink" };
     const completedStyle = {
-        color: "green",
-        textDecorationLine: "line-through"
+        padding: "0 .5rem",
+        backgroundColor: "lightgreen"
     };
+
+    plan.years.forEach((year: Year) =>
+        year.semesters.forEach((sem: Semester) =>
+            sem.courses.forEach((course: string) => {
+                userCourses = [...userCourses, course];
+                const myCourse = modifiedCourses[course];
+                if (myCourse.tech) {
+                    techCredits += myCourse.credits;
+                }
+                if (
+                    myCourse.subjectArea !== "CISC" &&
+                    !reqs.courses.includes(myCourse.code)
+                ) {
+                    if (myCourse.breadth === "Creative Arts and Humanities") {
+                        creativeCredits += myCourse.credits;
+                    } else if (
+                        myCourse.breadth === "History and Cultural Change"
+                    ) {
+                        historyCredits += myCourse.credits;
+                    } else if (
+                        myCourse.breadth === "Social and Behavioral Sciences"
+                    ) {
+                        socialCredits += myCourse.credits;
+                    } else if (
+                        myCourse.breadth ===
+                        "Mathematics, Natural Sciences and Technology"
+                    ) {
+                        mathCredits += myCourse.credits;
+                    }
+                }
+            })
+        )
+    );
+
     return (
         <FixedRequirements>
             <h5>Requirements</h5>
-            {plan.years.forEach((year: Year) =>
-                year.semesters.forEach((sem: Semester) =>
-                    sem.courses.forEach((course: string) => {
-                        userCourses = [...userCourses, course];
-                        const myCourse = modifiedCourses[course];
-                        if (myCourse.tech) {
-                            techCredits += myCourse.credits;
-                        }
-                        if (myCourse.subjectArea !== "CISC") {
-                            if (
-                                myCourse.breadth ===
-                                "Creative Arts and Humanities"
-                            ) {
-                                creativeCredits += myCourse.credits;
-                            } else if (
-                                myCourse.breadth ===
-                                "History and Cultural Change"
-                            ) {
-                                historyCredits += myCourse.credits;
-                            } else if (
-                                myCourse.breadth ===
-                                "Social and Behavioral Sciences"
-                            ) {
-                                socialCredits += myCourse.credits;
-                            } else if (
-                                myCourse.breadth ===
-                                "Mathematics, Natural Sciences and Technology"
-                            ) {
-                                mathCredits += myCourse.credits;
-                            }
-                        }
-                    })
-                )
-            )}
             <CoursesListDiv>
                 {reqs.courses.map((req: string) => (
                     <div
