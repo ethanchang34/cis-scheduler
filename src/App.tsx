@@ -41,25 +41,28 @@ function App(): JSX.Element {
     useEffect(() => {
         console.log(userMetadata);
         if (user && isAuthenticated && userMetadata) {
-            const stringifiedPlans = JSON.stringify(
-                userMetadata["CISC275-4-plans"]
-            );
-            localStorage.setItem("CISC275-4-plans", stringifiedPlans);
-            const stringifiedCourses = JSON.stringify(
-                userMetadata["CISC275-4-modifiedCourses"]
-            );
-            localStorage.setItem(
-                "CISC275-4-modifiedCourses",
-                stringifiedCourses
-            );
+            if (userMetadata["CISC275-4-plans"]) {
+                console.log("useeffect on metaData was run");
+                const stringifiedPlans = JSON.stringify(
+                    userMetadata["CISC275-4-plans"]
+                );
+                localStorage.setItem("CISC275-4-plans", stringifiedPlans);
+            }
             if (userMetadata["CISC275-4-modifiedCourses"]) {
+                const stringifiedCourses = JSON.stringify(
+                    userMetadata["CISC275-4-modifiedCourses"]
+                );
+                localStorage.setItem(
+                    "CISC275-4-modifiedCourses",
+                    stringifiedCourses
+                );
                 const newModifiedCourses = { ...originalCourses };
                 Object.values(
                     userMetadata["CISC275-4-modifiedCourses"]
                 ).forEach(
                     (val: Course) => (newModifiedCourses[val.code] = val)
                 );
-                setModifiedCourses(newModifiedCourses);
+                setModifiedCourses({ ...newModifiedCourses });
             }
         }
     }, [userMetadata]);
