@@ -321,6 +321,8 @@ export const uploadCourse = (
                                 name: csvCourse["name"],
                                 descr: csvCourse["descr"],
                                 tech: csvCourse["tech"] === "true",
+                                multicultural:
+                                    csvCourse["multicultural"] === "true",
                                 breadth: csvCourse["breadth"],
                                 preReq: csvCourse["preReq"],
                                 restrict: csvCourse["restrict"],
@@ -361,6 +363,7 @@ export const downloadCourses = () => {
             name: "",
             descr: "",
             tech: false,
+            multicultural: false,
             breadth: "",
             preReq: "",
             restrict: "",
@@ -391,7 +394,11 @@ export const downloadCourses = () => {
 /** Download contents as a file
  * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
  */
-const downloadBlob = (csv: string, filename: string, contentType: string) => {
+export const downloadBlob = (
+    csv: string,
+    filename: string,
+    contentType: string
+) => {
     if (!csv) {
         console.log("No saved content");
         return;

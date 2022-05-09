@@ -5,6 +5,7 @@ export interface Course {
     name: string;
     descr: string;
     tech: boolean;
+    multicultural: boolean;
     breadth: string;
     preReq: string;
     restrict: string;

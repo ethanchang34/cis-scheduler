@@ -158,7 +158,7 @@ export const ReqCoursePlan = ({
                         techCredits >= reqs.tech ? completedStyle : normalStyle
                     }
                 >
-                    T: {techCredits + "/" + reqs.tech}
+                    Tech: {techCredits + "/" + reqs.tech}
                 </ReqListing>
                 <ReqListing
                     style={
@@ -167,7 +167,7 @@ export const ReqCoursePlan = ({
                             : normalStyle
                     }
                 >
-                    C: {creativeCredits + "/" + reqs.creative}
+                    Creative: {creativeCredits + "/" + reqs.creative}
                 </ReqListing>
                 <ReqListing
                     style={
@@ -176,7 +176,7 @@ export const ReqCoursePlan = ({
                             : normalStyle
                     }
                 >
-                    S: {socialCredits + "/" + reqs.social}
+                    Social: {socialCredits + "/" + reqs.social}
                 </ReqListing>
                 <ReqListing
                     style={
@@ -185,14 +185,14 @@ export const ReqCoursePlan = ({
                             : normalStyle
                     }
                 >
-                    H: {historyCredits + "/" + reqs.history}
+                    History: {historyCredits + "/" + reqs.history}
                 </ReqListing>
                 <ReqListing
                     style={
                         mathCredits >= reqs.math ? completedStyle : normalStyle
                     }
                 >
-                    M: {mathCredits + "/" + reqs.math}
+                    Math: {mathCredits + "/" + reqs.math}
                 </ReqListing>
             </CoursesListDiv>
 
