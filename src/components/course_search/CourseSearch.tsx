@@ -6,8 +6,7 @@ import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
 import { ViewCourseModal } from "../course_modal/ViewCourseModal";
 import { SectionContent } from "../../App";
-import { Button, Form } from "react-bootstrap";
-import { downloadCourses, uploadCourse } from "../../data/ParseDataFunctions";
+import { UploadDownloadCourses } from "./UploadDownloadCourses";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -205,7 +204,17 @@ export const CourseSearch = ({
     };
 
     const filterMulticultural = (tempDisplayed: Course[]): Course[] => {
-        return [];
+        if (searchParam.multicultural) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.multicultural
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No multicultural breadths found.");
+                setDisplayedCourses([]);
+                return [];
+            }
+        }
+        return tempDisplayed;
     };
 
     const filterTech = (tempDisplayed: Course[]): Course[] => {
@@ -239,6 +248,9 @@ export const CourseSearch = ({
         tempDisplayed = filterBreadth(tempDisplayed);
         if (!tempDisplayed) return;
 
+        tempDisplayed = filterMulticultural(tempDisplayed);
+        if (!tempDisplayed) return;
+
         tempDisplayed = filterTech(tempDisplayed);
         if (!tempDisplayed) return;
 
@@ -251,59 +263,37 @@ export const CourseSearch = ({
     };
 
     return (
-        <CourseSection>
-            <SectionContent>
-                <CourseSearchForm
-                    searchParam={searchParam}
-                    setSearchParam={setSearchParam}
-                    handleSearch={handleSearch}
-                ></CourseSearchForm>
-                <CourseListDisplay
-                    displayedCourses={displayedCourses}
-                    error={error}
+        <div>
+            <CourseSection>
+                <SectionContent>
+                    <CourseSearchForm
+                        searchParam={searchParam}
+                        setSearchParam={setSearchParam}
+                        handleSearch={handleSearch}
+                    ></CourseSearchForm>
+                    <CourseListDisplay
+                        displayedCourses={displayedCourses}
+                        error={error}
+                        modifiedCourses={modifiedCourses}
+                        handleShowModal={handleShowModal}
+                        page={page}
+                        setPage={setPage}
+                    ></CourseListDisplay>
+                    <UploadDownloadCourses
+                        modifiedCourses={modifiedCourses}
+                        setModifiedCourses={setModifiedCourses}
+                        resetCourses={resetCourses}
+                    ></UploadDownloadCourses>
+                </SectionContent>
+                <ViewCourseModal
+                    show={showCourseModal}
+                    handleClose={handleCloseModal}
+                    code={codeModalView}
+                    editCourse={editCourse}
                     modifiedCourses={modifiedCourses}
-                    handleShowModal={handleShowModal}
-                    page={page}
-                    setPage={setPage}
-                ></CourseListDisplay>
-                <Button
-                    onClick={() => {
-                        downloadCourses();
-                    }}
-                    style={{ marginRight: "1rem" }}
-                >
-                    Download Courses
-                </Button>
-                <Button
-                    className="btn-danger"
-                    onClick={() => {
-                        resetCourses();
-                    }}
-                >
-                    Reset Course Changes
-                </Button>
-                <Form.Group controlId="exampleForm">
-                    <Form.Label>Upload a course file</Form.Label>
-                    <Form.Control
-                        type="file"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            uploadCourse(
-                                modifiedCourses,
-                                setModifiedCourses,
-                                e
-                            );
-                        }}
-                    />
-                </Form.Group>
-            </SectionContent>
-            <ViewCourseModal
-                show={showCourseModal}
-                handleClose={handleCloseModal}
-                code={codeModalView}
-                editCourse={editCourse}
-                modifiedCourses={modifiedCourses}
-                addToPool={addToPool}
-            ></ViewCourseModal>
-        </CourseSection>
+                    addToPool={addToPool}
+                ></ViewCourseModal>
+            </CourseSection>
+        </div>
     );
 };

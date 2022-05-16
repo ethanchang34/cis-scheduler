@@ -321,15 +321,15 @@ export const uploadCourse = (
                                 name: csvCourse["name"],
                                 descr: csvCourse["descr"],
                                 tech: csvCourse["tech"] === "true",
-                                multicultural:
-                                    csvCourse["multicultural"] === "true",
                                 breadth: csvCourse["breadth"],
                                 preReq: csvCourse["preReq"],
                                 restrict: csvCourse["restrict"],
                                 semsOffered: csvCourse["semsOffered"]
                                     .split(",")
                                     .map((s: string) => parseInt(s)),
-                                credits: parseInt(csvCourse["credits"])
+                                credits: parseInt(csvCourse["credits"]),
+                                multicultural:
+                                    csvCourse["multicultural"] === "true"
                             };
                             importedModifiedCourses[newCode] = insertingCourse;
                         });
