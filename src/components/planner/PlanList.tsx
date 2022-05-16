@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { Plan } from "../../interfaces/Plan";
 import { Course } from "../../interfaces/Course";
 import { PlanView } from "./PlanView";
@@ -18,8 +18,8 @@ import {
     TheoryComputationRequirement
 } from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
-import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { UploadDownloadPlans } from "./UploadDownloadPlans";
 
 export const Expand = styled.span`
     &:hover {
@@ -45,17 +45,6 @@ export const PlanList = ({
     updateUserMetadataPlans: (plans: Plan[]) => void;
     setReqs: (newReqs: Requirement) => void;
 }) => {
-    const concentrations: string[] = [
-        "Undecided/Custom",
-        "Artificial Intelligence and Robotics",
-        "Bioinformatics",
-        "Cybersecurity",
-        "Data Science",
-        "High Performance Computing",
-        "Systems and Networks",
-        "Theory and Computation"
-    ];
-
     const [concentration, setConcentration] =
         useState<string>("Undecided/Custom");
 
@@ -122,16 +111,6 @@ export const PlanList = ({
         }
     };
 
-    const addPlan = () => {
-        const newPlan: Plan = {
-            id: plans.length === 0 ? 0 : plans[plans.length - 1].id + 1,
-            title: "New Plan",
-            description: "Add description",
-            years: []
-        };
-        setPlans([...plans, newPlan]);
-    };
-
     const editPlan = (id: number, newPlan: Plan) => {
         setPlans(
             plans.map((plan: Plan): Plan => (plan.id === id ? newPlan : plan))
@@ -196,55 +175,15 @@ export const PlanList = ({
                                 </div>
                             ))}
                         </Stack>
-                        <Button
-                            style={{ marginTop: ".5rem", marginRight: "1rem" }}
-                            onClick={addPlan}
-                        >
-                            Add Plan
-                        </Button>
-                        <Button
-                            style={{ marginTop: ".5rem" }}
-                            onClick={() => {
-                                downloadPlans(plans);
-                            }}
-                        >
-                            Download Plans
-                        </Button>
-                        <Form.Group
-                            style={{ marginBottom: "1rem" }}
-                            controlId="exampleForm"
-                        >
-                            <Form.Label>Upload a plans file</Form.Label>
-                            <Form.Control
-                                type="file"
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                    uploadPlans(plans, setPlans, e);
-                                }}
-                            />
-                        </Form.Group>
-                        <Form.Group
-                            className="mt-2 mb-4"
-                            controlId="changeConcentration"
-                        >
-                            <Form.Label
-                                style={{ fontSize: "32px", fontStyle: "bold" }}
-                            >
-                                Set Concentration
-                            </Form.Label>
-                            <Form.Select
-                                value={concentration}
-                                onChange={updateConcentration}
-                            >
-                                {concentrations.map((conc: string) => (
-                                    <option key={conc} value={conc}>
-                                        {conc}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-                        <ReqCoursePlanner reqs={reqs}></ReqCoursePlanner>
+                        <UploadDownloadPlans
+                            plans={plans}
+                            setPlans={setPlans}
+                        ></UploadDownloadPlans>
+                        <ReqCoursePlanner
+                            concentration={concentration}
+                            updateConcentration={updateConcentration}
+                            reqs={reqs}
+                        ></ReqCoursePlanner>
                     </div>
                 )}
                 <Stack gap={3}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Course } from "../../interfaces/Course";
 import { CourseModalContent } from "../course_modal/CourseModalContent";
-import { EditModalContent } from "../course_modal/EditModalContent";
+import { EditModalContent } from "./modal_edit_components/EditModalContent";
 
 export const ViewCourseModal = ({
     show,

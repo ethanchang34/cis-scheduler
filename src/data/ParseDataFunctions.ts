@@ -159,7 +159,6 @@ export const updateMetadata = async (
 };
 
 export const uploadPlans = (
-    plans: Plan[],
     setPlans: React.Dispatch<React.SetStateAction<Plan[]>>,
     event: React.ChangeEvent<HTMLInputElement>
 ) => {
@@ -181,7 +180,6 @@ export const uploadPlans = (
                 .then((csvRow) => {
                     if (csvRow[0]["title"]) {
                         // This is a plans object
-                        console.log(csvRow);
                         localStorage.removeItem("CISC275-4-selectedID");
                         setPlans(
                             csvRow.map((csvPlan, idNum): Plan => {
