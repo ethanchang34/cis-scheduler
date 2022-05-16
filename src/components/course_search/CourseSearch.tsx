@@ -204,6 +204,10 @@ export const CourseSearch = ({
         return tempDisplayed;
     };
 
+    const filterMulticultural = (tempDisplayed: Course[]): Course[] => {
+        return [];
+    };
+
     const filterTech = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.tech) {
             tempDisplayed = tempDisplayed.filter(
