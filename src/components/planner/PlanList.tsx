@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Form, Stack } from "react-bootstrap";
 import { Plan } from "../../interfaces/Plan";
 import { Course } from "../../interfaces/Course";
 import { PlanView } from "./PlanView";
@@ -18,8 +18,8 @@ import {
     TheoryComputationRequirement
 } from "../../data/TestData";
 import { ReqCoursePlanner } from "./ReqCoursePlanner";
-import { uploadPlans, downloadPlans } from "../../data/ParseDataFunctions";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { UploadDownloadPlans } from "./UploadDownloadPlans";
 
 export const Expand = styled.span`
     &:hover {
@@ -122,16 +122,6 @@ export const PlanList = ({
         }
     };
 
-    const addPlan = () => {
-        const newPlan: Plan = {
-            id: plans.length === 0 ? 0 : plans[plans.length - 1].id + 1,
-            title: "New Plan",
-            description: "Add description",
-            years: []
-        };
-        setPlans([...plans, newPlan]);
-    };
-
     const editPlan = (id: number, newPlan: Plan) => {
         setPlans(
             plans.map((plan: Plan): Plan => (plan.id === id ? newPlan : plan))
@@ -196,34 +186,10 @@ export const PlanList = ({
                                 </div>
                             ))}
                         </Stack>
-                        <Button
-                            style={{ marginTop: ".5rem", marginRight: "1rem" }}
-                            onClick={addPlan}
-                        >
-                            Add Plan
-                        </Button>
-                        <Button
-                            style={{ marginTop: ".5rem" }}
-                            onClick={() => {
-                                downloadPlans(plans);
-                            }}
-                        >
-                            Download Plans
-                        </Button>
-                        <Form.Group
-                            style={{ marginBottom: "1rem" }}
-                            controlId="exampleForm"
-                        >
-                            <Form.Label>Upload a plans file</Form.Label>
-                            <Form.Control
-                                type="file"
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                    uploadPlans(plans, setPlans, e);
-                                }}
-                            />
-                        </Form.Group>
+                        <UploadDownloadPlans
+                            plans={plans}
+                            setPlans={setPlans}
+                        ></UploadDownloadPlans>
                         <Form.Group
                             className="mt-2 mb-4"
                             controlId="changeConcentration"
