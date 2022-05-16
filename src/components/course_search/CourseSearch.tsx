@@ -114,11 +114,7 @@ export const CourseSearch = ({
         setModifiedCourses(newModifiedCourses);
     };
 
-    const handleSearch = () => {
-        setPage(1);
-        setError("No courses found.");
-        let tempDisplayed: Course[] = Object.values(modifiedCourses);
-
+    const filterSubjectArea = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.subjectArea) {
             tempDisplayed = tempDisplayed.filter(
                 (course: Course) =>
@@ -127,10 +123,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("Department not found.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterCourseNum = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.courseNum) {
             tempDisplayed = tempDisplayed.filter((course: Course) => {
                 const inputSize = searchParam.courseNum.length;
@@ -148,10 +147,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No matching class numbers with department.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterSemesters = (tempDisplayed: Course[]): Course[] => {
         if (
             searchParam.semesters.length !== 0 &&
             searchParam.semesters.length !== 4
@@ -182,10 +184,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No classes exist during selected semesters.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterBreadth = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.breadth.length !== 0) {
             tempDisplayed = tempDisplayed.filter((course: Course) =>
                 searchParam.breadth.includes(course.breadth)
@@ -193,21 +198,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No courses match selected breadth requirements.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
-        if (searchParam.multicultural) {
-            tempDisplayed = tempDisplayed.filter(
-                (course: Course) => course.multicultural
-            );
-            if (tempDisplayed.length === 0) {
-                setError("No multicultural breadths found.");
-                setDisplayedCourses([]);
-                return;
-            }
-        }
-
+    const filterTech = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.tech) {
             tempDisplayed = tempDisplayed.filter(
                 (course: Course) => course.tech
@@ -215,9 +212,31 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No technical electives found.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
+
+    const handleSearch = () => {
+        setPage(1);
+        setError("No courses found.");
+        let tempDisplayed: Course[] = Object.values(modifiedCourses);
+
+        tempDisplayed = filterSubjectArea(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterCourseNum(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterSemesters(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterBreadth(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterTech(tempDisplayed);
+        if (!tempDisplayed) return;
 
         const stringDisplayed: string[] = tempDisplayed.map(
             (c: Course): string => {
