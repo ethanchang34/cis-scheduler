@@ -16,7 +16,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [1, 2],
         subjectArea: "CISC",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "CISC 103": {
@@ -30,7 +31,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "Open to non-majors.",
         semsOffered: [0, 2],
         subjectArea: "CISC",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "CISC 210": {
@@ -44,7 +46,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [0, 2],
         subjectArea: "CISC",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "AFRA 204": {
@@ -58,7 +61,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [],
         subjectArea: "AFRA",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "AFRA 107": {
@@ -72,7 +76,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [],
         subjectArea: "AFRA",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "AFRA 206": {
@@ -86,7 +91,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [2],
         subjectArea: "AFRA",
-        tech: false
+        tech: false,
+        multicultural: false
     },
 
     "AFRA 222": {
@@ -100,7 +106,8 @@ export const testCourses: Record<string, Course> = {
         restrict: "",
         semsOffered: [1, 3],
         subjectArea: "AFRA",
-        tech: false
+        tech: false,
+        multicultural: false
     }
 };
 

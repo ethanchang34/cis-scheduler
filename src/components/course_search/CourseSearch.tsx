@@ -6,8 +6,7 @@ import { CourseSearchForm } from "./CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
 import { ViewCourseModal } from "../course_modal/ViewCourseModal";
 import { SectionContent } from "../../App";
-import { Button, Form } from "react-bootstrap";
-import { downloadCourses, uploadCourse } from "../../data/ParseDataFunctions";
+import { UploadDownloadCourses } from "./UploadDownloadCourses";
 
 const CourseSection = styled.section`
     background-color: var(--primary-color);
@@ -114,11 +113,7 @@ export const CourseSearch = ({
         setModifiedCourses(newModifiedCourses);
     };
 
-    const handleSearch = () => {
-        setPage(1);
-        setError("No courses found.");
-        let tempDisplayed: Course[] = Object.values(modifiedCourses);
-
+    const filterSubjectArea = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.subjectArea) {
             tempDisplayed = tempDisplayed.filter(
                 (course: Course) =>
@@ -127,10 +122,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("Department not found.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterCourseNum = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.courseNum) {
             tempDisplayed = tempDisplayed.filter((course: Course) => {
                 const inputSize = searchParam.courseNum.length;
@@ -148,10 +146,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No matching class numbers with department.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterSemesters = (tempDisplayed: Course[]): Course[] => {
         if (
             searchParam.semesters.length !== 0 &&
             searchParam.semesters.length !== 4
@@ -182,10 +183,13 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No classes exist during selected semesters.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterBreadth = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.breadth.length !== 0) {
             tempDisplayed = tempDisplayed.filter((course: Course) =>
                 searchParam.breadth.includes(course.breadth)
@@ -193,10 +197,27 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No courses match selected breadth requirements.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
 
+    const filterMulticultural = (tempDisplayed: Course[]): Course[] => {
+        if (searchParam.multicultural) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.multicultural
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No multicultural breadths found.");
+                setDisplayedCourses([]);
+                return [];
+            }
+        }
+        return tempDisplayed;
+    };
+
+    const filterTech = (tempDisplayed: Course[]): Course[] => {
         if (searchParam.tech) {
             tempDisplayed = tempDisplayed.filter(
                 (course: Course) => course.tech
@@ -204,9 +225,34 @@ export const CourseSearch = ({
             if (tempDisplayed.length === 0) {
                 setError("No technical electives found.");
                 setDisplayedCourses([]);
-                return;
+                return [];
             }
         }
+        return tempDisplayed;
+    };
+
+    const handleSearch = () => {
+        setPage(1);
+        setError("No courses found.");
+        let tempDisplayed: Course[] = Object.values(modifiedCourses);
+
+        tempDisplayed = filterSubjectArea(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterCourseNum(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterSemesters(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterBreadth(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterMulticultural(tempDisplayed);
+        if (!tempDisplayed) return;
+
+        tempDisplayed = filterTech(tempDisplayed);
+        if (!tempDisplayed) return;
 
         const stringDisplayed: string[] = tempDisplayed.map(
             (c: Course): string => {
@@ -217,59 +263,37 @@ export const CourseSearch = ({
     };
 
     return (
-        <CourseSection>
-            <SectionContent>
-                <CourseSearchForm
-                    searchParam={searchParam}
-                    setSearchParam={setSearchParam}
-                    handleSearch={handleSearch}
-                ></CourseSearchForm>
-                <CourseListDisplay
-                    displayedCourses={displayedCourses}
-                    error={error}
+        <div>
+            <CourseSection>
+                <SectionContent>
+                    <CourseSearchForm
+                        searchParam={searchParam}
+                        setSearchParam={setSearchParam}
+                        handleSearch={handleSearch}
+                    ></CourseSearchForm>
+                    <CourseListDisplay
+                        displayedCourses={displayedCourses}
+                        error={error}
+                        modifiedCourses={modifiedCourses}
+                        handleShowModal={handleShowModal}
+                        page={page}
+                        setPage={setPage}
+                    ></CourseListDisplay>
+                    <UploadDownloadCourses
+                        modifiedCourses={modifiedCourses}
+                        setModifiedCourses={setModifiedCourses}
+                        resetCourses={resetCourses}
+                    ></UploadDownloadCourses>
+                </SectionContent>
+                <ViewCourseModal
+                    show={showCourseModal}
+                    handleClose={handleCloseModal}
+                    code={codeModalView}
+                    editCourse={editCourse}
                     modifiedCourses={modifiedCourses}
-                    handleShowModal={handleShowModal}
-                    page={page}
-                    setPage={setPage}
-                ></CourseListDisplay>
-                <Button
-                    onClick={() => {
-                        downloadCourses();
-                    }}
-                    style={{ marginRight: "1rem" }}
-                >
-                    Download Courses
-                </Button>
-                <Button
-                    className="btn-danger"
-                    onClick={() => {
-                        resetCourses();
-                    }}
-                >
-                    Reset Course Changes
-                </Button>
-                <Form.Group controlId="exampleForm">
-                    <Form.Label>Upload a course file</Form.Label>
-                    <Form.Control
-                        type="file"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            uploadCourse(
-                                modifiedCourses,
-                                setModifiedCourses,
-                                e
-                            );
-                        }}
-                    />
-                </Form.Group>
-            </SectionContent>
-            <ViewCourseModal
-                show={showCourseModal}
-                handleClose={handleCloseModal}
-                code={codeModalView}
-                editCourse={editCourse}
-                modifiedCourses={modifiedCourses}
-                addToPool={addToPool}
-            ></ViewCourseModal>
-        </CourseSection>
+                    addToPool={addToPool}
+                ></ViewCourseModal>
+            </CourseSection>
+        </div>
     );
 };

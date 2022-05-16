@@ -4,4 +4,5 @@ export interface SearchParam {
     semesters: string[];
     breadth: string[];
     tech: boolean;
+    multicultural: boolean;
 }
