@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Course } from "../../interfaces/Course";
 import { SearchParam } from "../../interfaces/SearchParam";
-import { CourseSearchForm } from "./CourseSearchForm";
+import { CourseSearchForm } from "./form_components/CourseSearchForm";
 import { CourseListDisplay } from "./CourseListDisplay";
 import { ViewCourseModal } from "../course_modal/ViewCourseModal";
 import { SectionContent } from "../../App";
