@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { Plan } from "../../interfaces/Plan";
 import { Course } from "../../interfaces/Course";
 import { PlanView } from "./PlanView";
@@ -45,17 +45,6 @@ export const PlanList = ({
     updateUserMetadataPlans: (plans: Plan[]) => void;
     setReqs: (newReqs: Requirement) => void;
 }) => {
-    const concentrations: string[] = [
-        "Undecided/Custom",
-        "Artificial Intelligence and Robotics",
-        "Bioinformatics",
-        "Cybersecurity",
-        "Data Science",
-        "High Performance Computing",
-        "Systems and Networks",
-        "Theory and Computation"
-    ];
-
     const [concentration, setConcentration] =
         useState<string>("Undecided/Custom");
 
@@ -190,27 +179,11 @@ export const PlanList = ({
                             plans={plans}
                             setPlans={setPlans}
                         ></UploadDownloadPlans>
-                        <Form.Group
-                            className="mt-2 mb-4"
-                            controlId="changeConcentration"
-                        >
-                            <Form.Label
-                                style={{ fontSize: "32px", fontStyle: "bold" }}
-                            >
-                                Set Concentration
-                            </Form.Label>
-                            <Form.Select
-                                value={concentration}
-                                onChange={updateConcentration}
-                            >
-                                {concentrations.map((conc: string) => (
-                                    <option key={conc} value={conc}>
-                                        {conc}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-                        <ReqCoursePlanner reqs={reqs}></ReqCoursePlanner>
+                        <ReqCoursePlanner
+                            concentration={concentration}
+                            updateConcentration={updateConcentration}
+                            reqs={reqs}
+                        ></ReqCoursePlanner>
                     </div>
                 )}
                 <Stack gap={3}>
