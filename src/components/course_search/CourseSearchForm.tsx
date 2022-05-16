@@ -171,20 +171,6 @@ export const CourseSearchForm = ({
                     )}
                     onChange={updateBreadth}
                 />
-                <Form.Check
-                    type="checkbox"
-                    id="multicultural-check"
-                    label="Multicultural"
-                    name="multicultural-check"
-                    value="multicultural-check"
-                    checked={searchParam.multicultural}
-                    onChange={() => {
-                        setSearchParam({
-                            ...searchParam,
-                            multicultural: !searchParam.multicultural
-                        });
-                    }}
-                />
             </div>
             <Form.Group
                 controlId="tech-search-form"
@@ -216,6 +202,40 @@ export const CourseSearchForm = ({
                         setSearchParam({
                             ...searchParam,
                             tech: !searchParam.tech
+                        });
+                    }}
+                />
+            </Form.Group>
+            <Form.Group
+                controlId="multi-search-form"
+                style={{ display: "flex", alignItems: "center" }}
+            >
+                <Form.Label
+                    style={{
+                        marginBottom: ".2rem",
+                        marginRight: ".5rem",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        setSearchParam({
+                            ...searchParam,
+                            multicultural: !searchParam.multicultural
+                        });
+                    }}
+                >
+                    Multicultural Breadth:
+                </Form.Label>
+                <Form.Check
+                    type="checkbox"
+                    id="multi-search-check"
+                    name="multi-search-check"
+                    data-testid="multi-search-check"
+                    value="multi-search-check"
+                    checked={searchParam.multicultural}
+                    onChange={() => {
+                        setSearchParam({
+                            ...searchParam,
+                            multicultural: !searchParam.multicultural
                         });
                     }}
                 />
