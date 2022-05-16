@@ -89,6 +89,7 @@ export const ReqCoursePlan = ({
             sem.courses.forEach((course: string) => {
                 userCourses = [...userCourses, course];
                 const myCourse = modifiedCourses[course];
+                // Capstone check
                 if (myCourse.code === "CISC 498") {
                     capstone[0] = 1;
                 } else if (myCourse.code === "CISC 499") {
@@ -98,14 +99,18 @@ export const ReqCoursePlan = ({
                 } else if (myCourse.code === "UNIV 402") {
                     capstone[3] = 1;
                 }
+
                 if (myCourse.tech) {
+                    // Technical Check
                     techCredits += myCourse.credits;
                 }
+
                 if (myCourse.multicultural) {
+                    // Multicultural Check
                     multicultural += myCourse.credits;
                 }
                 if (
-                    myCourse.subjectArea !== "CISC" &&
+                    myCourse.subjectArea !== "CISC" && // Different university breadth checks.
                     !reqs.courses.includes(myCourse.code)
                 ) {
                     if (myCourse.breadth === "Creative Arts and Humanities") {
