@@ -25,6 +25,7 @@ const setReqs = (req: Requirement) => {
     console.log(req);
     return;
 };
+
 describe("User can see a list of plans and be able to edit and delete them", () => {
     beforeEach(() => {
         localStorage.clear();
@@ -99,5 +100,93 @@ describe("User can see a list of requirements", () => {
                 screen.getByText(course, { exact: false })
             ).toBeInTheDocument();
         });
+    });
+});
+
+describe("User can add or delete a year", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        render(
+            <PlanList
+                modifiedCourses={originalCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+                updateUserMetadataPlans={updateUserMetadataPlans}
+                setReqs={setReqs}
+            />
+        );
+        screen.getByTestId("chevron").click();
+    });
+
+    test("There is a button that allows the user to add a year", () => {
+        const addYear = screen.getByRole("button", {
+            name: /add year/i
+        });
+        expect(addYear).toBeInTheDocument();
+        addYear.click();
+        expect(screen.getByText("Year 5")).toBeInTheDocument();
+    });
+
+    test("There is a button that allows the user to delete a year", () => {
+        const deleteYear = screen.getAllByRole("button", {
+            name: /delete year/i
+        });
+        expect(deleteYear.length).toBe(4);
+        deleteYear[0].click();
+        expect(screen.getByText("Year 1")).not.toBeInTheDocument;
+    });
+});
+
+describe("User can add/delete/edit semesters", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        render(
+            <PlanList
+                modifiedCourses={originalCourses}
+                coursePool={coursePool}
+                addToPool={addToPool}
+                removeFromPool={removeFromPool}
+                reqs={DefaultRequirement}
+                updateUserMetadataPlans={updateUserMetadataPlans}
+                setReqs={setReqs}
+            />
+        );
+        screen.getByTestId("chevron").click();
+    });
+
+    test("User can clear all semesters in a plan", () => {
+        const clearSems = screen.getByRole("button", {
+            name: /clear all semesters/i
+        });
+        expect(clearSems).toBeInTheDocument();
+        clearSems.click();
+        const sems = screen.queryAllByText(
+            /fall/i || /spring/i || /winter/i || /summer/i
+        );
+        expect(sems.length).toBe(0);
+    });
+
+    test("User can add a winter or summer semester", () => {
+        const addSemButtons = screen.getAllByRole("button", {
+            name: "+ Add Semester"
+        });
+        addSemButtons[0].click();
+        addSemButtons[1].click();
+        expect(screen.getByText(/winter/i)).toBeInTheDocument();
+        expect(screen.getByText(/summer/i)).toBeInTheDocument();
+    });
+
+    test("User can delete a semester", () => {
+        const oldSemNum = screen.getAllByText(
+            /fall/i || /spring/i || /winter/i || /summer/i
+        );
+        const deleteSem = screen.getAllByText("❌");
+        deleteSem[0].click();
+        const newSemNum = screen.getAllByText(
+            /fall/i || /spring/i || /winter/i || /summer/i
+        );
+        expect(newSemNum.length).toBe(oldSemNum.length - 1);
     });
 });
