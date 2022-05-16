@@ -171,6 +171,20 @@ export const CourseSearchForm = ({
                     )}
                     onChange={updateBreadth}
                 />
+                <Form.Check
+                    type="checkbox"
+                    id="multicultural-check"
+                    label="Multicultural"
+                    name="multicultural-check"
+                    value="multicultural-check"
+                    checked={searchParam.multicultural}
+                    onChange={() => {
+                        setSearchParam({
+                            ...searchParam,
+                            multicultural: !searchParam.multicultural
+                        });
+                    }}
+                />
             </div>
             <Form.Group
                 controlId="tech-search-form"

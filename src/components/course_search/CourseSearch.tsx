@@ -197,6 +197,17 @@ export const CourseSearch = ({
             }
         }
 
+        if (searchParam.multicultural) {
+            tempDisplayed = tempDisplayed.filter(
+                (course: Course) => course.multicultural
+            );
+            if (tempDisplayed.length === 0) {
+                setError("No multicultural breadths found.");
+                setDisplayedCourses([]);
+                return;
+            }
+        }
+
         if (searchParam.tech) {
             tempDisplayed = tempDisplayed.filter(
                 (course: Course) => course.tech

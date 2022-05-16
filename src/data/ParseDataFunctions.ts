@@ -363,12 +363,12 @@ export const downloadCourses = () => {
             name: "",
             descr: "",
             tech: false,
-            multicultural: false,
             breadth: "",
             preReq: "",
             restrict: "",
             semsOffered: [],
-            credits: 0
+            credits: 0,
+            multicultural: false
         };
         const changedCourses: Record<string, Course> = JSON.parse(saved);
         csv = [

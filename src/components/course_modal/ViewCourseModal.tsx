@@ -31,6 +31,10 @@ export const ViewCourseModal = ({
         editCourse({ ...course, tech: !course.tech });
     };
 
+    const handleMulticultural = () => {
+        editCourse({ ...course, multicultural: !course.multicultural });
+    };
+
     return (
         <div>
             <Modal
@@ -46,6 +50,7 @@ export const ViewCourseModal = ({
                     <CourseModalContent
                         course={course}
                         handleTech={handleTech}
+                        handleMulticultural={handleMulticultural}
                         flipEditing={flipEditing}
                         addToPool={addToPool}
                     ></CourseModalContent>

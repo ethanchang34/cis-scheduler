@@ -12,11 +12,13 @@ const FlexDiv = styled.div`
 export const CourseModalContent = ({
     course,
     handleTech,
+    handleMulticultural,
     flipEditing,
     addToPool
 }: {
     course: Course;
     handleTech: () => void;
+    handleMulticultural: () => void;
     flipEditing: () => void;
     addToPool: (course: Course) => boolean;
 }) => {
@@ -83,6 +85,18 @@ export const CourseModalContent = ({
                         value="tech-check"
                         checked={course.tech}
                         onChange={handleTech}
+                    />
+                </FlexDiv>
+                <FlexDiv>
+                    <b>Multicultural: </b>
+                    <Form.Check
+                        type="checkbox"
+                        id="multi-check"
+                        name="multi-check"
+                        data-testid="multi-check"
+                        value="multi-check"
+                        checked={course.multicultural}
+                        onChange={handleMulticultural}
                     />
                 </FlexDiv>
             </Modal.Body>

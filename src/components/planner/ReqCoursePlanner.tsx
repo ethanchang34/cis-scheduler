@@ -28,6 +28,7 @@ export const ReqCoursePlanner = ({ reqs }: { reqs: Requirement }) => {
                 }}
             >
                 <div>Technical Elective Credits: {reqs.tech}</div>
+                <div>Multicultural Credits: {reqs.multicultural}</div>
                 <div>Creative Arts and Humanities Credits: {reqs.creative}</div>
                 <div>History and Cultural Change Credits: {reqs.history}</div>
                 <div>Social and Behavioral Sciences Credits: {reqs.social}</div>

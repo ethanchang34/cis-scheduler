@@ -70,6 +70,7 @@ export const ReqCoursePlan = ({
 }) => {
     let userCourses: string[] = [];
     let techCredits = 0;
+    let multicultural = 0;
     let creativeCredits = 0;
     let historyCredits = 0;
     let socialCredits = 0;
@@ -99,6 +100,9 @@ export const ReqCoursePlan = ({
                 }
                 if (myCourse.tech) {
                     techCredits += myCourse.credits;
+                }
+                if (myCourse.multicultural) {
+                    multicultural += myCourse.credits;
                 }
                 if (
                     myCourse.subjectArea !== "CISC" &&
@@ -158,7 +162,16 @@ export const ReqCoursePlan = ({
                         techCredits >= reqs.tech ? completedStyle : normalStyle
                     }
                 >
-                    Tech: {techCredits + "/" + reqs.tech}
+                    Technical: {techCredits + "/" + reqs.tech}
+                </ReqListing>
+                <ReqListing
+                    style={
+                        multicultural >= reqs.multicultural
+                            ? completedStyle
+                            : normalStyle
+                    }
+                >
+                    Multi-C: {multicultural + "/" + reqs.multicultural}
                 </ReqListing>
                 <ReqListing
                     style={
