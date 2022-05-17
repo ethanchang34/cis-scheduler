@@ -1,3 +1,6 @@
+// README: This component is large only because it must define a large function and lots of state.
+// The function has already been decomposed to lots of smaller functions, and there is maximal component decomposition as well.
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Course } from "../../interfaces/Course";
