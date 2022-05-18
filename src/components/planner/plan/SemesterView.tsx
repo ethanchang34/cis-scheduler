@@ -71,8 +71,8 @@ export const SemesterView = ({
     } */
     //might be used later when we want the functionality of storing courses in some sidebar (refer to user stories)
 
-    function courseExist(): boolean {
-        if (modifiedCourses[courseInput] !== undefined) {
+    function courseExist(courseText: string): boolean {
+        if (modifiedCourses[courseText] !== undefined) {
             //course exists in catalog
             return true;
         } else {
@@ -81,8 +81,8 @@ export const SemesterView = ({
         }
     }
 
-    function courseRepeat(): boolean {
-        if (semester.courses.includes(courseInput)) {
+    function courseRepeat(courseText: string): boolean {
+        if (semester.courses.includes(courseText)) {
             //course already exists in the semester
             setErrorMsg("Course is already in the semester");
             return true;
@@ -92,14 +92,20 @@ export const SemesterView = ({
     }
 
     function handleSubmit() {
-        if (courseExist() && !courseRepeat()) {
-            addCourse(courseInput);
+        const parsedCourseText = courseInput.toUpperCase().replace(/\s+/g, "");
+        const courseText = [
+            parsedCourseText.slice(0, 4),
+            parsedCourseText.slice(4)
+        ].join(" ");
+
+        if (courseExist(courseText) && !courseRepeat(courseText)) {
+            addCourse(courseText);
             setErrorMsg("");
         }
     }
 
     function handlePoolSubmit() {
-        if (courseExist() && !courseRepeat()) {
+        if (courseExist(courseInput) && !courseRepeat(courseInput)) {
             addCourse(courseInput);
             removeFromPool(modifiedCourses[courseInput]);
             setErrorMsg("");
