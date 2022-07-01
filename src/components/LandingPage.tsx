@@ -31,7 +31,7 @@ export const LandingPage = () => {
                 <SubTitle>
                     by
                     <br />
-                    Aidan Tran, Ethan Chang, Colin Stetler
+                    Ethan Chang, Aidan Tran, Colin Stetler
                 </SubTitle>
             </Hero>
             <section style={{ backgroundColor: "var(--secondary-color)" }}>
@@ -52,7 +52,7 @@ export const LandingPage = () => {
                             Get Started!
                         </Button>
                     </Link>
-                    <h2>Freshman?</h2>
+                    <h2>Tips</h2>
                     <ul>
                         <li>
                             Click &quot;Get Started&quot; to begin editing your
@@ -61,29 +61,33 @@ export const LandingPage = () => {
                         <li>
                             Click &quot;Search Courses&quot; to look for
                             courses!
+                        </li>
+                    </ul>
+                    <h2>Freshman?</h2>
+                    <ul>
+                        <li>Plan out your four years of college</li>
+                        <li>
+                            Pay attention to the total credits per semester to
+                            ensure proper workload
                         </li>
                     </ul>
                     <h2>Sophomore?</h2>
                     <ul>
                         <li>
-                            Click &quot;Get Started&quot; to begin editing your
-                            plan!
-                        </li>
-                        <li>
-                            Click &quot;Search Courses&quot; to look for
-                            courses!
+                            Look at different concentrations and their
+                            respective graduation requirements
                         </li>
                     </ul>
                     <h2>Junior?</h2>
                     <ul>
                         <li>
-                            Click &quot;Get Started&quot; to begin editing your
-                            plan!
+                            Decide on a concentration and check to make sure you
+                            will take the correct courses to graduate
                         </li>
-                        <li>
-                            Click &quot;Search Courses&quot; to look for
-                            courses!
-                        </li>
+                    </ul>
+                    <h2>Senior?</h2>
+                    <ul>
+                        <li>Stay on track to graduate</li>
                     </ul>
                 </SectionContent>
             </section>
