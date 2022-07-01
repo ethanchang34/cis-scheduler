@@ -87,7 +87,7 @@ export const LandingPage = () => {
                     </ul>
                     <h2>Senior?</h2>
                     <ul>
-                        <li>Stay on track to graduate</li>
+                        <li>Stay on track to graduate!</li>
                     </ul>
                 </SectionContent>
             </section>
