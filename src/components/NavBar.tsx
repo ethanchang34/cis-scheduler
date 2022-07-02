@@ -36,7 +36,7 @@ const NavText = styled.h2`
 
 const PageTitles: Record<string, string> = {
     "/": "Home",
-    // "/cis-scheduler-team-4/": "Home",
+    // "/cis-scheduler/": "Home",
     "/planner": "Plans",
     "/course-search": "Course Search"
 };

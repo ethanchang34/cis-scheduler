@@ -1,6 +1,6 @@
 {
     "name": "react-typescript-starter",
-    "homepage": "/cis-scheduler-team-4",
+    "homepage": "/cis-scheduler",
     "version": "0.1.0",
     "private": true,
     "type": "module",

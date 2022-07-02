@@ -11,7 +11,7 @@ import * as uri from "./uri";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter basename="/cis-scheduler-team-4">
+        <BrowserRouter basename="/cis-scheduler">
             <Auth0Provider
                 domain="dev--0t6-2tu.us.auth0.com"
                 clientId="sI0gFY8VJTI1guaDRmSsadvUKZNr4K37"
